@@ -336,11 +336,9 @@
 
         async function loadWebsiteTours() {
             let activeTable = 'tours';
-            let res = await supabaseClient.from(activeTable).select('*');
-            
-            if (res.error && res.error.message.includes('does not exist')) {
-                activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*');
+            let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
+// ... a few lines down ...
+res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             }
 
             if (res.error) return console.error("Database Error:", res.error.message);
@@ -364,7 +362,7 @@
 
                 const cardHTML = `
                     <div class="card">
-                        <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="${tLink}" title="${tName}" loading="lazy"></iframe>
                         <div class="card-body">
                             <h3>${tName}</h3>
                             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>

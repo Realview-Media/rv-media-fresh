@@ -26,6 +26,7 @@
         .btn-edit:hover { background: rgba(197, 160, 89, 0.1); }
         .btn-delete { background: transparent; border: 1px solid #333; color: #ff5f5f; padding: 6px 12px; cursor: pointer; font-size: 11px; border-radius: 2px; transition: 0.3s; }
         .btn-delete:hover { border-color: #ff5f5f; background: rgba(255, 95, 95, 0.1); }
+        .order-badge { background: #222; color: var(--gold); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
             <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">F&B & Commercial Spaces</h3>
             <table>
                 <thead>
-                    <tr><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:25%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
+                    <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
                 </thead>
                 <tbody id="fnb-list"></tbody>
             </table>
@@ -55,7 +56,7 @@
             <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">Hotels & Residences</h3>
             <table>
                 <thead>
-                    <tr><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:25%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
+                    <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
                 </thead>
                 <tbody id="hospitality-list"></tbody>
             </table>
@@ -72,6 +73,7 @@
     <div id="addModal" class="modal">
         <div class="modal-content">
             <h2>New Virtual Tour</h2>
+            <input type="number" id="addOrder" placeholder="Display Order (e.g. 1)">
             <input type="text" id="addName" placeholder="Project Name (e.g. La Villa)">
             <input type="text" id="addDesc" placeholder="English Description">
             <input type="text" id="addDescVI" placeholder="Vietnamese Description">
@@ -90,6 +92,7 @@
         <div class="modal-content">
             <h2>Edit Virtual Tour</h2>
             <input type="hidden" id="editId">
+            <input type="number" id="editOrder" placeholder="Display Order (e.g. 1)">
             <input type="text" id="editName" placeholder="Project Name">
             <input type="text" id="editDesc" placeholder="English Description">
             <input type="text" id="editDescVI" placeholder="Vietnamese Description">
@@ -115,10 +118,7 @@
             }
         }
 
-        function logout() {
-            sessionStorage.removeItem('rv_logged_in');
-            window.location.reload();
-        }
+        function logout() { sessionStorage.removeItem('rv_logged_in'); window.location.reload(); }
 
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
@@ -128,11 +128,12 @@
         let activeTable = 'tours'; 
 
         async function fetchTours() {
-            let res = await supabaseClient.from('tours').select('*').order('id', { ascending: true });
+            // Sort by Display_Order ascending (1, 2, 3...)
+            let res = await supabaseClient.from('tours').select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             
             if (res.error && res.error.message.includes('does not exist')) {
                 activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*').order('id', { ascending: true });
+                res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             }
 
             if (res.error) { alert("SUPABASE ERROR:\n\n" + res.error.message); return; }
@@ -148,13 +149,14 @@
             let hasUncat = false;
 
             if (currentTours.length === 0) {
-                fnbList.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
-                hospList.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
+                fnbList.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
+                hospList.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
                 uncatCard.style.display = 'none';
                 return;
             }
 
             currentTours.forEach(t => {
+                const tOrder = t.Display_Order || t.display_order || '0';
                 const tName = t.Name || t.name;
                 const tDesc = t.Description || t.description || "<i style='opacity:0.5'>None</i>";
                 const tDescVI = t.Description_VI || t.description_vi || "<i style='opacity:0.5'>None</i>";
@@ -165,6 +167,7 @@
 
                 const rowHTML = `
                     <tr>
+                        <td><span class="order-badge">${tOrder}</span></td>
                         <td style="color:white; font-weight:600;">${tName}</td>
                         <td style="color:#888; font-size:12px;">${tDesc}</td>
                         <td style="color:#888; font-size:12px;">${tDescVI}</td>
@@ -187,6 +190,7 @@
         }
 
         async function saveNewTour() {
+            const Display_Order = document.getElementById('addOrder').value;
             const Name = document.getElementById('addName').value;
             const Description = document.getElementById('addDesc').value;
             const Description_VI = document.getElementById('addDescVI').value;
@@ -195,10 +199,11 @@
 
             if (!Name || !Category || !Link) { alert("Please fill Name, Category, and Link."); return; }
 
-            const { error } = await supabaseClient.from(activeTable).insert([{ Name, Description, Description_VI, Category, Link }]);
+            const { error } = await supabaseClient.from(activeTable).insert([{ Display_Order, Name, Description, Description_VI, Category, Link }]);
             
             if (error) alert("Upload failed: " + error.message);
             else {
+                document.getElementById('addOrder').value = '';
                 document.getElementById('addName').value = '';
                 document.getElementById('addDesc').value = '';
                 document.getElementById('addDescVI').value = '';
@@ -213,6 +218,7 @@
             if (!tourToEdit) return;
 
             document.getElementById('editId').value = tourToEdit.ID || tourToEdit.id;
+            document.getElementById('editOrder').value = tourToEdit.Display_Order || tourToEdit.display_order || '';
             document.getElementById('editName').value = tourToEdit.Name || tourToEdit.name;
             document.getElementById('editDesc').value = tourToEdit.Description || tourToEdit.description || '';
             document.getElementById('editDescVI').value = tourToEdit.Description_VI || tourToEdit.description_vi || '';
@@ -226,6 +232,7 @@
 
         async function updateTour() {
             const id = document.getElementById('editId').value;
+            const Display_Order = document.getElementById('editOrder').value;
             const Name = document.getElementById('editName').value;
             const Description = document.getElementById('editDesc').value;
             const Description_VI = document.getElementById('editDescVI').value;
@@ -233,16 +240,14 @@
             const Link = document.getElementById('editLink').value;
 
             const { error } = await supabaseClient.from(activeTable)
-                .update({ Name, Description, Description_VI, Category, Link })
+                .update({ Display_Order, Name, Description, Description_VI, Category, Link })
                 .eq('ID', id);
 
             if (error) {
-                const retry = await supabaseClient.from(activeTable).update({ Name, Description, Description_VI, Category, Link }).eq('id', id);
+                const retry = await supabaseClient.from(activeTable).update({ Display_Order, Name, Description, Description_VI, Category, Link }).eq('id', id);
                 if (retry.error) alert("Update failed: " + retry.error.message);
                 else { closeEditModal(); fetchTours(); }
-            } else {
-                closeEditModal(); fetchTours();
-            }
+            } else { closeEditModal(); fetchTours(); }
         }
 
         async function deleteTour(id) {
@@ -252,9 +257,7 @@
                     const retry = await supabaseClient.from(activeTable).delete().eq('id', String(id));
                     if (retry.error) alert("Delete failed: " + retry.error.message);
                     else fetchTours();
-                } else {
-                    fetchTours();
-                }
+                } else { fetchTours(); }
             }
         }
 

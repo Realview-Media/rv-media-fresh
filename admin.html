@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RV Media Admin | Manage Tours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; }
+        .sidebar { width: 240px; height: 100vh; background: var(--card); border-right: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; position: fixed; }
+        .main { margin-left: 280px; padding: 60px; width: 100%; }
+        h1 { font-family: 'Merriweather', serif; color: white; }
+        .btn-add { background: var(--gold); color: black; padding: 12px 24px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; float: right; }
+        .tour-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.02); border-radius: 8px; margin-top: 20px; }
+        .tour-table th { text-align: left; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 12px; text-transform: uppercase; }
+        .tour-table td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .badge { background: #222; color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(197, 160, 89, 0.3); }
+        .action-btn { background: transparent; border: 1px solid #333; color: var(--gold); padding: 5px 10px; cursor: pointer; font-size: 12px; margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>RV MEDIA</h1>
+        <p style="font-size: 12px; opacity: 0.5;">ADMIN PANEL</p>
+        <nav style="margin-top: 40px;">
+            <div style="color: var(--gold); font-weight: 600; margin-bottom: 20px;">Manage Tours</div>
+            <div style="opacity: 0.6;">Settings</div>
+        </nav>
+    </div>
+    <div class="main">
+        <button class="btn-add" onclick="alert('Connect database to add tours!')">+ ADD NEW TOUR</button>
+        <h2>Current Virtual Tours</h2>
+        <table class="tour-table">
+            <thead>
+                <tr><th>Project Name</th><th>Category</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: white; font-weight: 600;">Mai House Saigon</td>
+                    <td><span class="badge">Hospitality</span></td>
+                    <td><span style="color: #50c878;">● Live</span></td>
+                    <td><button class="action-btn">Edit</button><button class="action-btn" style="color: #ff5f5f;">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

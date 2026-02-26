@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Media | Admin Portal</title>
+    <title>RV Media | Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; --border: rgba(255, 255, 255, 0.08); }
@@ -11,32 +11,36 @@
         .sidebar { width: 260px; background: var(--card); border-right: 1px solid var(--border); padding: 50px 25px; position: fixed; height: 100vh; }
         .sidebar h1 { font-family: 'Merriweather', serif; color: white; margin: 0; font-size: 1.6rem; }
         .main { margin-left: 260px; padding: 60px; width: calc(100% - 260px); }
-        .btn-add { background: var(--gold); color: black; padding: 14px 28px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .btn-add { background: var(--gold); color: black; padding: 14px 28px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: 0.3s; }
+        .btn-add:hover { background: #e0b462; box-shadow: 0 0 20px rgba(197, 160, 89, 0.3); }
         .data-card { background: rgba(15, 15, 15, 0.7); border: 1px solid var(--border); padding: 35px; border-radius: 8px; margin-top: 30px; }
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding-bottom: 20px; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; color: #666; }
+        th { text-align: left; padding-bottom: 20px; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; color: #666; letter-spacing: 1px; }
         td { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal-content { background: #0f0f0f; border: 1px solid var(--gold); padding: 45px; width: 450px; border-radius: 4px; text-align: center; }
-        .modal-content input, .modal-content select { width: 100%; padding: 14px; margin-bottom: 18px; background: #050505; border: 1px solid #222; color: white; border-radius: 2px; }
+        .modal-content h2 { color: white; font-family: 'Merriweather', serif; margin-bottom: 30px; }
+        .modal-content input, .modal-content select { width: 100%; padding: 14px; margin-bottom: 18px; background: #050505; border: 1px solid #222; color: white; border-radius: 2px; box-sizing: border-box; }
+        .btn-delete { background: transparent; border: 1px solid #333; color: #ff5f5f; padding: 6px 12px; cursor: pointer; font-size: 11px; border-radius: 2px; transition: 0.3s; }
+        .btn-delete:hover { border-color: #ff5f5f; background: rgba(255, 95, 95, 0.1); }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <h1>RV MEDIA</h1>
-        <p style="font-size:10px; opacity:0.5; text-transform:uppercase; margin-top:10px;">Admin Dashboard</p>
+        <p style="font-size:10px; opacity:0.5; text-transform:uppercase; margin-top:10px; letter-spacing: 1px;">Admin Mission Control</p>
     </div>
 
     <main class="main">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color:white; font-family:Merriweather; font-size:2rem;">Manage Tours</h2>
+            <h2 style="color:white; font-family:Merriweather; font-size:2rem; margin:0;">Active Portfolio</h2>
             <button class="btn-add" onclick="openModal()">+ Add New Tour</button>
         </div>
 
         <div class="data-card">
             <table>
                 <thead>
-                    <tr><th>Project Name</th><th>Category</th><th>Actions</th></tr>
+                    <tr><th>Project Name</th><th>Category</th><th style="text-align:right;">Management</th></tr>
                 </thead>
                 <tbody id="tour-list">
                     </tbody>
@@ -46,66 +50,97 @@
 
     <div id="tourModal" class="modal">
         <div class="modal-content">
-            <h2 style="color:white; font-family:Merriweather; margin-bottom:30px;">Add New Virtual Tour</h2>
+            <h2>New Virtual Tour</h2>
             <input type="text" id="tName" placeholder="Project Name (e.g. La Villa)">
             <select id="tCat">
-                <option value="" disabled selected>Select Section</option>
+                <option value="" disabled selected>Target Section</option>
                 <option value="fnb">F&B & Commercial</option>
                 <option value="hospitality">Hotels & Residences</option>
             </select>
-            <input type="text" id="tLink" placeholder="Iframe / 360 Link">
-            <button class="btn-add" onclick="saveTour()" style="width:100%;">Save to Portfolio</button>
-            <button onclick="closeModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer;">Cancel</button>
+            <input type="text" id="tLink" placeholder="Iframe / 360 URL">
+            <button class="btn-add" onclick="saveTour()" style="width:100%;">Upload to Database</button>
+            <button onclick="closeModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer; font-size: 12px;">Dismiss</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Security
-        const access = prompt("Admin Password:");
-        if (access !== "RV2026") { window.location.href = "index.html"; }
+        // Security Prompt
+        const access = prompt("Admin Password Required:");
+        if (access !== "RV2026") { 
+            alert("Access Denied.");
+            window.location.href = "index.html"; 
+        }
 
-        // LIVE SUPABASE KEYS
+        // Live Connection
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Fetch using exact column names
+        // Fetch Function (Corrected Typo)
         async function fetchTours() {
-            const { data: tours, error } = await supabaseClient.from('tours').select('*');
-            if (error) return console.error(error);
+            const { data, error } = await supabaseClient.from('tours').select('*');
+            
+            if (error) {
+                console.error("Connection Error:", error.message);
+                return;
+            }
+
             const list = document.getElementById('tour-list');
+            
+            if (!data || data.length === 0) {
+                list.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:40px; opacity:0.3;">Database empty. Use the button above to add tours.</td></tr>';
+                return;
+            }
+
+            // Capitalized casing to match Supabase
             list.innerHTML = data.map(t => `
                 <tr>
                     <td style="color:white; font-weight:600;">${t.Name}</td>
-                    <td><span style="color:var(--gold); text-transform:uppercase; font-size:11px;">${t.Category}</span></td>
-                    <td><button onclick="deleteTour(${t.ID})" style="background:transparent; border:1px solid #333; color:#ff5f5f; padding:5px 10px; cursor:pointer; border-radius:2px;">Delete</button></td>
+                    <td><span style="color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:1px;">${t.Category}</span></td>
+                    <td style="text-align:right;">
+                        <button class="btn-delete" onclick="deleteTour('${t.ID}')">Remove</button>
+                    </td>
                 </tr>
             `).join('');
         }
 
+        // Save Function
         async function saveTour() {
             const Name = document.getElementById('tName').value;
             const Category = document.getElementById('tCat').value;
             const Link = document.getElementById('tLink').value;
-            
-            // Insert into exact column names
+
+            if (!Name || !Category || !Link) {
+                alert("Please fill all fields.");
+                return;
+            }
+
             const { error } = await supabaseClient.from('tours').insert([{ Name, Category, Link }]);
             
-            if (error) alert("Save failed: " + error.message);
-            else { closeModal(); fetchTours(); }
+            if (error) {
+                alert("Upload failed: " + error.message);
+            } else {
+                document.getElementById('tName').value = '';
+                document.getElementById('tLink').value = '';
+                closeModal();
+                fetchTours();
+            }
         }
 
+        // Delete Function
         async function deleteTour(id) {
-            if (confirm("Remove this tour permanently?")) {
+            if (confirm("Permanently remove this tour from the website?")) {
                 const { error } = await supabaseClient.from('tours').delete().eq('ID', id);
-                if (error) alert("Delete failed: " + error.message);
+                if (error) alert("Action failed: " + error.message);
                 else fetchTours();
             }
         }
 
         function openModal() { document.getElementById('tourModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('tourModal').style.display = 'none'; }
+
+        // Initial Load
         window.onload = fetchTours;
     </script>
 </body>

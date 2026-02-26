@@ -326,17 +326,28 @@
         updateZaloLinks();
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function loadWebsiteTours() {
-            // Using "Virtual Tours" exact table name from your screenshot
-            const { data, error } = await supabaseClient.from('Virtual Tours').select('*');
-            if (error) return console.error("Database Error:", error);
+            // Auto-detect table name just like the Admin page
+            let activeTable = 'tours';
+            let res = await supabaseClient.from(activeTable).select('*');
+            
+            if (res.error && res.error.message.includes('does not exist')) {
+                activeTable = 'Virtual Tours';
+                res = await supabaseClient.from(activeTable).select('*');
+            }
 
+            if (res.error) {
+                console.error("Database Error:", res.error.message);
+                return;
+            }
+
+            const data = res.data || [];
             const fnbContainer = document.getElementById('fnb-container');
             const hospitalityContainer = document.getElementById('hospitality-container');
 
@@ -344,19 +355,26 @@
             hospitalityContainer.innerHTML = '';
 
             data.forEach(tour => {
+                // Auto-detect column casing (Name vs name)
+                const tName = tour.Name || tour.name;
+                const tLink = tour.Link || tour.link;
+                const tCat = tour.Category || tour.category;
+                
+                // Safe category check (ignores accidental spaces or capital letters)
+                const safeCategory = (tCat || "").toLowerCase().trim();
+
                 const cardHTML = `
                     <div class="card">
-                        <iframe src="${tour.Link}" title="${tour.Name}" loading="lazy"></iframe>
+                        <iframe src="${tLink}" title="${tName}" loading="lazy"></iframe>
                         <div class="card-body">
-                            <h3>${tour.Name}</h3>
-                            <p>Virtual Tour</p>
+                            <h3>${tName}</h3>
+                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">Virtual Tour</p>
                         </div>
-                    </div>
-                `;
-
-                if (tour.Category === 'fnb') {
+                    </div>`;
+                
+                if (safeCategory === 'fnb') {
                     fnbContainer.innerHTML += cardHTML;
-                } else if (tour.Category === 'hospitality') {
+                } else if (safeCategory === 'hospitality') {
                     hospitalityContainer.innerHTML += cardHTML;
                 }
             });

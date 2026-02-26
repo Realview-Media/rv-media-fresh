@@ -336,9 +336,11 @@
 
         async function loadWebsiteTours() {
             let activeTable = 'tours';
-            let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-// ... a few lines down ...
-res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
+            let res = await supabaseClient.from(activeTable).select('*');
+            
+            if (res.error && res.error.message.includes('does not exist')) {
+                activeTable = 'Virtual Tours';
+                res = await supabaseClient.from(activeTable).select('*');
             }
 
             if (res.error) return console.error("Database Error:", res.error.message);

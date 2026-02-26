@@ -3,88 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Media Admin | Dashboard</title>
+    <title>RV Media | Admin Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; }
-        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; }
-        .sidebar { width: 240px; height: 100vh; background: var(--card); border-right: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; position: fixed; }
-        .main { margin-left: 280px; padding: 60px; width: calc(100% - 280px); }
-        h1 { font-family: 'Merriweather', serif; color: white; margin: 0; }
-        .btn-add { background: var(--gold); color: black; padding: 12px 24px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; float: right; transition: 0.3s; text-transform: uppercase; }
-        .btn-add:hover { filter: brightness(1.2); }
-        .tour-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.02); border-radius: 8px; margin-top: 40px; }
-        .tour-table th { text-align: left; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        .tour-table td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
-        .badge { background: #222; color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(197, 160, 89, 0.3); }
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-box { background: #111; border: 1px solid var(--gold); padding: 40px; width: 400px; border-radius: 4px; text-align: center; }
-        .modal-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: #050505; border: 1px solid #333; color: white; box-sizing: border-box; }
-        .btn-action { background: transparent; border: 1px solid #333; color: var(--gold); padding: 6px 12px; cursor: pointer; font-size: 12px; margin-right: 5px; }
+        :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; --border: rgba(255, 255, 255, 0.08); }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; min-height: 100vh; background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 30px 30px; }
+        
+        /* Sidebar matches your branding */
+        .sidebar { width: 260px; background: var(--card); border-right: 1px solid var(--border); padding: 50px 25px; position: fixed; height: 100vh; }
+        .sidebar h1 { font-family: 'Merriweather', serif; color: white; margin: 0; font-size: 1.6rem; letter-spacing: -1px; }
+        .sidebar p { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; margin-top: 8px; }
+        
+        .nav-group { margin-top: 60px; }
+        .nav-label { font-size: 9px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+        .nav-item { color: var(--text); text-decoration: none; display: block; margin-bottom: 20px; font-size: 14px; transition: 0.3s; opacity: 0.7; }
+        .nav-item:hover, .nav-item.active { color: var(--gold); opacity: 1; font-weight: 600; }
+
+        /* Main Area */
+        .main { margin-left: 260px; padding: 60px; width: calc(100% - 260px); }
+        .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+        .header-row h2 { font-family: 'Merriweather', serif; color: white; margin: 0; font-size: 2.2rem; }
+        
+        .btn-add { background: var(--gold); color: black; padding: 14px 28px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        
+        /* Table frames the current site tours */
+        .data-card { background: rgba(15, 15, 15, 0.7); border: 1px solid var(--border); padding: 35px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 0 0 20px 0; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; color: #666; letter-spacing: 1px; }
+        td { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
+        .badge { background: #1a1a1a; color: var(--gold); padding: 5px 12px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(197, 160, 89, 0.2); }
+        .btn-action { background: transparent; border: 1px solid #333; color: var(--gold); padding: 6px 14px; cursor: pointer; font-size: 11px; margin-right: 8px; border-radius: 2px; }
+
+        /* Pop-up Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        .modal-content { background: #0f0f0f; border: 1px solid var(--gold); padding: 45px; width: 450px; border-radius: 4px; text-align: center; }
+        .modal-content input, .modal-content select { width: 100%; padding: 14px; margin-bottom: 18px; background: #050505; border: 1px solid #222; color: white; border-radius: 2px; }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <h1>RV MEDIA</h1>
-        <p style="font-size: 12px; opacity: 0.5; margin-top: 10px;">ADMIN DASHBOARD</p>
-        <nav style="margin-top: 50px;">
-            <a href="#" style="color: var(--gold); text-decoration: none; display: block; margin-bottom: 20px; font-weight: 600;">F&B Portfolio</a>
-            <a href="#" style="color: var(--text); text-decoration: none; display: block; margin-bottom: 20px; opacity: 0.7;">Hospitality</a>
-            <a href="#" style="color: var(--text); text-decoration: none; display: block; opacity: 0.7;">Landmarks</a>
-        </nav>
+        <p>Admin Dashboard</p>
+        <div class="nav-group">
+            <span class="nav-label">Live Sections</span>
+            <a href="#" class="nav-item active">F&B & Commercial</a>
+            <a href="#" class="nav-item">Hotels & Residences</a>
+            <a href="#" class="nav-item">Settings</a>
+        </div>
     </div>
 
-    <div class="main">
-        <button class="btn-add" onclick="openAddModal()">+ ADD NEW TOUR</button>
-        <h2 style="color: white; font-family: 'Merriweather', serif;">Active Virtual Tours</h2>
-        <p style="font-size: 0.85rem; margin-top: 5px;">Manage locations, pagination, and quick filters.</p>
-        
-        <table class="tour-table">
-            <thead>
-                <tr><th>Project Name</th><th>Description</th><th>Category</th><th>Actions</th></tr>
-            </thead>
-            <tbody id="tour-list">
-                <tr>
-                    <td style="color: white; font-weight: 600;">AEX Cocktail Bar</td>
-                    <td style="color: #888;">Modern interior design.</td>
-                    <td><span class="badge">Cocktail Bar</span></td>
-                    <td>
-                        <button class="btn-action">EDIT</button>
-                        <button class="btn-action" style="color: #ff5f5f; border-color: rgba(255,95,95,0.3);">DELETE</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <main class="main">
+        <div class="header-row">
+            <div>
+                <h2>F&B & Commercial</h2>
+                <p style="margin-top:8px;">Manage the dining and business locations visible on your portfolio.</p>
+            </div>
+            <button class="btn-add" onclick="openModal()">+ Add New Tour</button>
+        </div>
 
-    <div id="addModal" class="modal-overlay">
-        <div class="modal-box">
-            <h2 style="color:white; font-family:Merriweather; margin-bottom:20px;">Add New Tour</h2>
-            <input type="text" id="tourName" placeholder="Project Name">
-            <input type="text" id="tourDesc" placeholder="Description (English)">
-            <input type="text" id="tourCategory" placeholder="Category (e.g., F&B)">
-            <input type="text" id="tourLink" placeholder="360° Iframe Link">
-            <button onclick="saveTour()" class="btn-add" style="float:none; width:100%;">SAVE TO WEBSITE</button>
-            <button onclick="closeAddModal()" style="background:transparent; color:gray; border:none; margin-top:15px; cursor:pointer;">Cancel</button>
+        <div class="data-card">
+            <table>
+                <thead>
+                    <tr><th>Project Name</th><th>Location Type</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="tour-list">
+                    <tr>
+                        <td style="color:white; font-weight:600;">La Villa French Restaurant</td>
+                        <td><span class="badge">Restaurant</span></td>
+                        <td style="color:#50c878; font-size:12px;">● Online</td>
+                        <td><button class="btn-action">Edit</button><button class="btn-action" style="color:#ff5f5f; border-color:rgba(255,95,95,0.2);">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td style="color:white; font-weight:600;">Aqua Clinic</td>
+                        <td><span class="badge">Medical</span></td>
+                        <td style="color:#50c878; font-size:12px;">● Online</td>
+                        <td><button class="btn-action">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td style="color:white; font-weight:600;">AEX Cocktail Bar</td>
+                        <td><span class="badge">Bar / Lounge</span></td>
+                        <td style="color:#50c878; font-size:12px;">● Online</td>
+                        <td><button class="btn-action">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="tourModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:white; font-family:Merriweather; margin-bottom:30px;">Add New Virtual Tour</h2>
+            <input type="text" id="tName" placeholder="Project Name (e.g. Mai House)">
+            <select id="tCat">
+                <option value="" disabled selected>Select Site Section</option>
+                <option value="fnb">F&B & Commercial</option>
+                <option value="hospitality">Hotels & Residences</option>
+            </select>
+            <input type="text" id="tLink" placeholder="Google Maps / Iframe Link">
+            <button class="btn-add" style="width:100%; margin-top:10px;">Save to Portfolio</button>
+            <button onclick="closeModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer; font-size:12px;">Cancel / Close</button>
         </div>
     </div>
 
     <script>
-        // 1. Password Protection
-        const pass = prompt("Admin Password:");
-        if (pass !== "RV2026") { 
-            alert("Unauthorized Access."); 
-            window.location.href = "index.html"; 
-        }
+        // Security Password
+        const access = prompt("Admin Password:");
+        if (access !== "RV2026") { window.location.href = "index.html"; }
 
-        // 2. Dashboard Logic
-        function openAddModal() { document.getElementById('addModal').style.display = 'flex'; }
-        function closeAddModal() { document.getElementById('addModal').style.display = 'none'; }
-        function saveTour() {
-            const name = document.getElementById('tourName').value;
-            alert("Project '" + name + "' will be saved once Supabase is linked.");
-            closeAddModal();
-        }
+        function openModal() { document.getElementById('tourModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('tourModal').style.display = 'none'; }
     </script>
 </body>
 </html>

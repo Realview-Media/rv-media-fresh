@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
 
-Sitemap: https://rvmedia360.pages.dev/sitemap.xml
+Sitemap: https://rv-media360.vercel.app/sitemap.xml

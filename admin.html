@@ -102,7 +102,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // 1. NEW SMART LOGIN SYSTEM (Remembers you)
+        // LOGIN SYSTEM
         if (sessionStorage.getItem('rv_logged_in') !== 'true') {
             const access = prompt("Admin Password Required:");
             if (access === "RV2026") {
@@ -118,18 +118,31 @@
             window.location.reload();
         }
 
-        // 2. SUPABASE CONNECTION
+        // SUPABASE CONNECTION
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentTours = [];
+        let activeTable = 'tours'; // We will auto-detect the correct table name
 
         async function fetchTours() {
-            const { data, error } = await supabaseClient.from('Virtual Tours').select('*');
-            if (error) return console.error("Database Error:", error.message);
+            // AUTO-DETECT 1: Try finding a table named 'tours'
+            let res = await supabaseClient.from('tours').select('*');
+            
+            // AUTO-DETECT 2: If 'tours' doesn't exist, try 'Virtual Tours'
+            if (res.error && res.error.message.includes('does not exist')) {
+                activeTable = 'Virtual Tours';
+                res = await supabaseClient.from(activeTable).select('*');
+            }
 
-            currentTours = data || []; 
+            // CRITICAL ERROR CATCHER: This will pop up on your screen if Supabase blocks us!
+            if (res.error) {
+                alert("SUPABASE CONNECTION ERROR:\n\n" + res.error.message + "\n\nIf it says 'policy', you must Disable RLS in Supabase Table settings.");
+                return;
+            }
+
+            currentTours = res.data || []; 
 
             const fnbList = document.getElementById('fnb-list');
             const hospList = document.getElementById('hospitality-list');
@@ -142,38 +155,36 @@
             let hasUncat = false;
 
             if (currentTours.length === 0) {
-                fnbList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No F&B tours found.</td></tr>';
-                hospList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No Hospitality tours found.</td></tr>';
+                fnbList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
+                hospList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
                 uncatCard.style.display = 'none';
                 return;
             }
 
             currentTours.forEach(t => {
-                // Failsafe: Forces the category to be lowercase and removes accidental spaces
-                const safeCategory = (t.Category || "").toLowerCase().trim();
+                // Auto-Detect Column casing (works if it's 'Name' or 'name')
+                const tName = t.Name || t.name;
+                const tCat = t.Category || t.category;
+                const tId = t.ID || t.id;
+
+                const safeCategory = (tCat || "").toLowerCase().trim();
 
                 const rowHTML = `
                     <tr>
-                        <td style="color:white; font-weight:600; width:40%;">${t.Name}</td>
-                        <td style="width:30%;"><span style="color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:1px;">${t.Category}</span></td>
+                        <td style="color:white; font-weight:600; width:40%;">${tName}</td>
+                        <td style="width:30%;"><span style="color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:1px;">${tCat}</span></td>
                         <td style="text-align:right;">
                             <div class="action-btns">
-                                <button class="btn-edit" onclick="openEditModal('${t.ID}')">Edit</button>
-                                <button class="btn-delete" onclick="deleteTour('${t.ID}')">Remove</button>
+                                <button class="btn-edit" onclick="openEditModal('${tId}')">Edit</button>
+                                <button class="btn-delete" onclick="deleteTour('${tId}')">Remove</button>
                             </div>
                         </td>
                     </tr>
                 `;
 
-                if (safeCategory === 'fnb') {
-                    fnbList.innerHTML += rowHTML;
-                } else if (safeCategory === 'hospitality') {
-                    hospList.innerHTML += rowHTML;
-                } else {
-                    // If a category was misspelled in Supabase, it will show up here so it's not "lost"
-                    uncatList.innerHTML += rowHTML;
-                    hasUncat = true;
-                }
+                if (safeCategory === 'fnb') { fnbList.innerHTML += rowHTML; } 
+                else if (safeCategory === 'hospitality') { hospList.innerHTML += rowHTML; } 
+                else { uncatList.innerHTML += rowHTML; hasUncat = true; }
             });
 
             uncatCard.style.display = hasUncat ? 'block' : 'none';
@@ -186,7 +197,7 @@
 
             if (!Name || !Category || !Link) { alert("Please fill all fields."); return; }
 
-            const { error } = await supabaseClient.from('Virtual Tours').insert([{ Name, Category, Link }]);
+            const { error } = await supabaseClient.from(activeTable).insert([{ Name, Category, Link }]);
             
             if (error) alert("Upload failed: " + error.message);
             else {
@@ -198,17 +209,16 @@
         }
 
         function openEditModal(id) {
-            const tourToEdit = currentTours.find(t => String(t.ID) === String(id));
+            const tourToEdit = currentTours.find(t => String(t.ID || t.id) === String(id));
             if (!tourToEdit) return;
 
-            document.getElementById('editId').value = tourToEdit.ID;
-            document.getElementById('editName').value = tourToEdit.Name;
+            document.getElementById('editId').value = tourToEdit.ID || tourToEdit.id;
+            document.getElementById('editName').value = tourToEdit.Name || tourToEdit.name;
             
-            // Forces the dropdown to match existing category even if there was a typo previously
-            const safeCat = (tourToEdit.Category || "").toLowerCase().trim();
+            const safeCat = (tourToEdit.Category || tourToEdit.category || "").toLowerCase().trim();
             document.getElementById('editCat').value = (safeCat === 'fnb' || safeCat === 'hospitality') ? safeCat : 'fnb';
             
-            document.getElementById('editLink').value = tourToEdit.Link;
+            document.getElementById('editLink').value = tourToEdit.Link || tourToEdit.link;
             document.getElementById('editModal').style.display = 'flex';
         }
 
@@ -218,19 +228,30 @@
             const Category = document.getElementById('editCat').value;
             const Link = document.getElementById('editLink').value;
 
-            const { error } = await supabaseClient.from('Virtual Tours')
+            const { error } = await supabaseClient.from(activeTable)
                 .update({ Name, Category, Link })
                 .eq('ID', id);
 
-            if (error) alert("Update failed: " + error.message);
-            else { closeEditModal(); fetchTours(); }
+            if (error) {
+                // Try lowercase 'id' if 'ID' fails
+                const retry = await supabaseClient.from(activeTable).update({ Name, Category, Link }).eq('id', id);
+                if (retry.error) alert("Update failed: " + retry.error.message);
+                else { closeEditModal(); fetchTours(); }
+            } else {
+                closeEditModal(); fetchTours();
+            }
         }
 
         async function deleteTour(id) {
             if (confirm("Permanently remove this tour from the website?")) {
-                const { error } = await supabaseClient.from('Virtual Tours').delete().eq('ID', String(id));
-                if (error) alert("Action failed: " + error.message);
-                else fetchTours();
+                const { error } = await supabaseClient.from(activeTable).delete().eq('ID', String(id));
+                if (error) {
+                    const retry = await supabaseClient.from(activeTable).delete().eq('id', String(id));
+                    if (retry.error) alert("Delete failed: " + retry.error.message);
+                    else fetchTours();
+                } else {
+                    fetchTours();
+                }
             }
         }
 

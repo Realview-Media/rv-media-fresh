@@ -46,7 +46,7 @@
             <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">F&B & Commercial Spaces</h3>
             <table>
                 <thead>
-                    <tr><th style="width:40%">Project Name</th><th style="width:30%">Category</th><th style="text-align:right;">Management</th></tr>
+                    <tr><th style="width:30%">Project Name</th><th style="width:30%">Description</th><th style="width:20%">Category</th><th style="text-align:right;">Management</th></tr>
                 </thead>
                 <tbody id="fnb-list"></tbody>
             </table>
@@ -56,7 +56,7 @@
             <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">Hotels & Residences</h3>
             <table>
                 <thead>
-                    <tr><th style="width:40%">Project Name</th><th style="width:30%">Category</th><th style="text-align:right;">Management</th></tr>
+                    <tr><th style="width:30%">Project Name</th><th style="width:30%">Description</th><th style="width:20%">Category</th><th style="text-align:right;">Management</th></tr>
                 </thead>
                 <tbody id="hospitality-list"></tbody>
             </table>
@@ -74,6 +74,7 @@
         <div class="modal-content">
             <h2>New Virtual Tour</h2>
             <input type="text" id="addName" placeholder="Project Name (e.g. La Villa)">
+            <input type="text" id="addDesc" placeholder="Short Description (e.g. Elegant outdoor dining)">
             <select id="addCat">
                 <option value="" disabled selected>Target Section</option>
                 <option value="fnb">F&B & Commercial</option>
@@ -90,6 +91,7 @@
             <h2>Edit Virtual Tour</h2>
             <input type="hidden" id="editId">
             <input type="text" id="editName" placeholder="Project Name">
+            <input type="text" id="editDesc" placeholder="Short Description">
             <select id="editCat">
                 <option value="fnb">F&B & Commercial</option>
                 <option value="hospitality">Hotels & Residences</option>
@@ -102,7 +104,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // LOGIN SYSTEM
         if (sessionStorage.getItem('rv_logged_in') !== 'true') {
             const access = prompt("Admin Password Required:");
             if (access === "RV2026") {
@@ -118,27 +119,23 @@
             window.location.reload();
         }
 
-        // SUPABASE CONNECTION
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentTours = [];
-        let activeTable = 'tours'; // We will auto-detect the correct table name
+        let activeTable = 'tours'; 
 
         async function fetchTours() {
-            // AUTO-DETECT 1: Try finding a table named 'tours'
-            let res = await supabaseClient.from('tours').select('*');
+            let res = await supabaseClient.from('tours').select('*').order('id', { ascending: true });
             
-            // AUTO-DETECT 2: If 'tours' doesn't exist, try 'Virtual Tours'
             if (res.error && res.error.message.includes('does not exist')) {
                 activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*');
+                res = await supabaseClient.from(activeTable).select('*').order('id', { ascending: true });
             }
 
-            // CRITICAL ERROR CATCHER: This will pop up on your screen if Supabase blocks us!
             if (res.error) {
-                alert("SUPABASE CONNECTION ERROR:\n\n" + res.error.message + "\n\nIf it says 'policy', you must Disable RLS in Supabase Table settings.");
+                alert("SUPABASE ERROR:\n\n" + res.error.message);
                 return;
             }
 
@@ -155,15 +152,15 @@
             let hasUncat = false;
 
             if (currentTours.length === 0) {
-                fnbList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
-                hospList.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
+                fnbList.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
+                hospList.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; opacity:0.3;">No tours found. Try adding one!</td></tr>';
                 uncatCard.style.display = 'none';
                 return;
             }
 
             currentTours.forEach(t => {
-                // Auto-Detect Column casing (works if it's 'Name' or 'name')
                 const tName = t.Name || t.name;
+                const tDesc = t.Description || t.description || "<i style='opacity:0.5'>None</i>";
                 const tCat = t.Category || t.category;
                 const tId = t.ID || t.id;
 
@@ -171,8 +168,9 @@
 
                 const rowHTML = `
                     <tr>
-                        <td style="color:white; font-weight:600; width:40%;">${tName}</td>
-                        <td style="width:30%;"><span style="color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:1px;">${tCat}</span></td>
+                        <td style="color:white; font-weight:600;">${tName}</td>
+                        <td style="color:#888; font-size:12px;">${tDesc}</td>
+                        <td><span style="color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:1px;">${tCat}</span></td>
                         <td style="text-align:right;">
                             <div class="action-btns">
                                 <button class="btn-edit" onclick="openEditModal('${tId}')">Edit</button>
@@ -192,16 +190,18 @@
 
         async function saveNewTour() {
             const Name = document.getElementById('addName').value;
+            const Description = document.getElementById('addDesc').value;
             const Category = document.getElementById('addCat').value;
             const Link = document.getElementById('addLink').value;
 
-            if (!Name || !Category || !Link) { alert("Please fill all fields."); return; }
+            if (!Name || !Category || !Link) { alert("Please fill Name, Category, and Link."); return; }
 
-            const { error } = await supabaseClient.from(activeTable).insert([{ Name, Category, Link }]);
+            const { error } = await supabaseClient.from(activeTable).insert([{ Name, Description, Category, Link }]);
             
             if (error) alert("Upload failed: " + error.message);
             else {
                 document.getElementById('addName').value = '';
+                document.getElementById('addDesc').value = '';
                 document.getElementById('addLink').value = '';
                 closeAddModal();
                 fetchTours();
@@ -214,6 +214,7 @@
 
             document.getElementById('editId').value = tourToEdit.ID || tourToEdit.id;
             document.getElementById('editName').value = tourToEdit.Name || tourToEdit.name;
+            document.getElementById('editDesc').value = tourToEdit.Description || tourToEdit.description || '';
             
             const safeCat = (tourToEdit.Category || tourToEdit.category || "").toLowerCase().trim();
             document.getElementById('editCat').value = (safeCat === 'fnb' || safeCat === 'hospitality') ? safeCat : 'fnb';
@@ -225,16 +226,16 @@
         async function updateTour() {
             const id = document.getElementById('editId').value;
             const Name = document.getElementById('editName').value;
+            const Description = document.getElementById('editDesc').value;
             const Category = document.getElementById('editCat').value;
             const Link = document.getElementById('editLink').value;
 
             const { error } = await supabaseClient.from(activeTable)
-                .update({ Name, Category, Link })
+                .update({ Name, Description, Category, Link })
                 .eq('ID', id);
 
             if (error) {
-                // Try lowercase 'id' if 'ID' fails
-                const retry = await supabaseClient.from(activeTable).update({ Name, Category, Link }).eq('id', id);
+                const retry = await supabaseClient.from(activeTable).update({ Name, Description, Category, Link }).eq('id', id);
                 if (retry.error) alert("Update failed: " + retry.error.message);
                 else { closeEditModal(); fetchTours(); }
             } else {

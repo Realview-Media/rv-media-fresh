@@ -356,6 +356,10 @@
                 const tName = tour.Name || tour.name;
                 const tLink = tour.Link || tour.link;
                 const tCat = tour.Category || tour.category;
+                
+                // Pulls your custom description. If you leave it blank, it falls back to "Virtual Tour"
+                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
+                
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
                 const cardHTML = `
@@ -363,7 +367,7 @@
                         <iframe src="${tLink}" title="${tName}" loading="lazy"></iframe>
                         <div class="card-body">
                             <h3>${tName}</h3>
-                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">Tour Thực Tế Ảo</p>
+                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
                         </div>
                     </div>`;
                 

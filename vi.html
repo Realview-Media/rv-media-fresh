@@ -357,8 +357,8 @@
                 const tLink = tour.Link || tour.link;
                 const tCat = tour.Category || tour.category;
                 
-                // Pulls your custom description. If you leave it blank, it falls back to "Virtual Tour"
-                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
+                // Pulls the Vietnamese description. If blank, it falls back to the English one, then to "Tour Thực Tế Ảo"
+                const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Tour Thực Tế Ảo"; 
                 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 

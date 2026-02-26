@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Media | Admin Dashboard</title>
+    <title>RV Media | Admin Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; --border: rgba(255, 255, 255, 0.08); }
@@ -18,7 +18,7 @@
         td { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal-content { background: #0f0f0f; border: 1px solid var(--gold); padding: 45px; width: 450px; border-radius: 4px; text-align: center; }
-        .modal-content input, .modal-content select { width: 100%; padding: 14px; margin-bottom: 18px; background: #050505; border: 1px solid #222; color: white; }
+        .modal-content input, .modal-content select { width: 100%; padding: 14px; margin-bottom: 18px; background: #050505; border: 1px solid #222; color: white; border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -38,7 +38,8 @@
                 <thead>
                     <tr><th>Project Name</th><th>Category</th><th>Actions</th></tr>
                 </thead>
-                <tbody id="tour-list"></tbody>
+                <tbody id="tour-list">
+                    </tbody>
             </table>
         </div>
     </main>
@@ -64,20 +65,21 @@
         const access = prompt("Admin Password:");
         if (access !== "RV2026") { window.location.href = "index.html"; }
 
-        // YOUR LIVE SUPABASE KEYS
+        // LIVE SUPABASE KEYS
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // Fetch using exact column names
         async function fetchTours() {
-            const { data, error } = await supabaseClient.from('tours').select('*');
+            const { data: tours, error } = await supabaseClient.from('tours').select('*');
             if (error) return console.error(error);
             const list = document.getElementById('tour-list');
             list.innerHTML = data.map(t => `
                 <tr>
                     <td style="color:white; font-weight:600;">${t.Name}</td>
-                    <td><span style="color:var(--gold)">${t.Category}</span></td>
-                    <td><button onclick="deleteTour(${t.ID})" style="background:transparent; border:1px solid #333; color:#ff5f5f; padding:5px 10px; cursor:pointer;">Delete</button></td>
+                    <td><span style="color:var(--gold); text-transform:uppercase; font-size:11px;">${t.Category}</span></td>
+                    <td><button onclick="deleteTour(${t.ID})" style="background:transparent; border:1px solid #333; color:#ff5f5f; padding:5px 10px; cursor:pointer; border-radius:2px;">Delete</button></td>
                 </tr>
             `).join('');
         }
@@ -86,15 +88,19 @@
             const Name = document.getElementById('tName').value;
             const Category = document.getElementById('tCat').value;
             const Link = document.getElementById('tLink').value;
+            
+            // Insert into exact column names
             const { error } = await supabaseClient.from('tours').insert([{ Name, Category, Link }]);
-            if (error) alert(error.message);
+            
+            if (error) alert("Save failed: " + error.message);
             else { closeModal(); fetchTours(); }
         }
 
         async function deleteTour(id) {
-            if (confirm("Remove this tour?")) {
-                await supabaseClient.from('tours').delete().eq('ID', id);
-                fetchTours();
+            if (confirm("Remove this tour permanently?")) {
+                const { error } = await supabaseClient.from('tours').delete().eq('ID', id);
+                if (error) alert("Delete failed: " + error.message);
+                else fetchTours();
             }
         }
 

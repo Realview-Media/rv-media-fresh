@@ -168,14 +168,20 @@
 
     <section id="tours-fnb" class="section">
         <div class="section-title reveal"><h2>F&B & Thương Mại</h2><p>Thể hiện đẳng cấp không gian.</p></div>
-        <div class="grid-container reveal" id="fnb-container">
-            </div>
+        <div class="grid-container reveal">
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770264589328!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJRGJ0cXk4Umc.!2m2!1d10.80392931471131!2d106.7330403859467!3f252.12272525551387!4f-3.997045657838143!5f0.4000000000000002" title="La Villa" loading="lazy"></iframe><div class="card-body"><h3>La Villa French Restaurant</h3><p>Ẩm thực ngoài trời sang trọng.</p></div></div>
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770264751363!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzNsc1M2RlE.!2m2!1d10.76827922724603!2d106.6965455166198!3f306.51942800581855!4f-0.6371639468833195!5f0.4000000000000002" title="Aqua Clinic" loading="lazy"></iframe><div class="card-body"><h3>Aqua Clinic</h3><p>Cơ sở y tế hiện đại.</p></div></div>
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770265020394!6m8!1m7!1sCAoSLEFGMVFpcE15WElLQ3FpYkU0Yi1ndVJlNThwamhqTkY5ZExuSGRpTlFPcDY5!2m2!1d10.79564985337983!2d106.6772050381407!3f28.32!4f0.0799999999999983!5f0.4000000000000002" title="AEX Bar" loading="lazy"></iframe><div class="card-body"><h3>AEX Cocktail Bar</h3><p>Thiết kế nội thất xa hoa.</p></div></div>
+        </div>
     </section>
 
     <section id="tours-hospitality" class="section">
         <div class="section-title reveal"><h2>Khách Sạn & Căn Hộ</h2><p>Trải nghiệm sống động cho ngành dịch vụ.</p></div>
-        <div class="grid-container reveal" id="hospitality-container">
-            </div>
+        <div class="grid-container reveal">
+            <div class="card"><iframe src="https://mai-house-website.pages.dev/" title="Mai House" loading="lazy"></iframe><div class="card-body"><h3>Mai House Saigon</h3><p>Sang trọng và tinh tế.</p></div></div>
+            <div class="card"><iframe src="https://oakwood-richlane-residence.pages.dev/" title="Oakwood" loading="lazy"></iframe><div class="card-body"><h3>Oakwood Richlane</h3><p>Căn hộ dịch vụ hiện đại.</p></div></div>
+            <div class="card"><iframe src="https://honghome.pages.dev/" title="Hong Home" loading="lazy"></iframe><div class="card-body"><h3>Hong Home</h3><p>Thiết kế boutique độc đáo.</p></div></div>
+        </div>
     </section>
 
     <section id="about" class="section">
@@ -326,60 +332,6 @@
             document.getElementById('zalo-link').href = isMobile ? "https://zalo.me/0966888782" : "zalo://conversation?phone=0966888782";
         }
         updateZaloLinks();
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        async function loadWebsiteTours() {
-            let activeTable = 'tours';
-            let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            
-            if (res.error && res.error.message.includes('does not exist')) {
-                activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            }
-
-            if (res.error) return console.error("Database Error:", res.error.message);
-
-            const data = res.data || [];
-            const fnbContainer = document.getElementById('fnb-container');
-            const hospitalityContainer = document.getElementById('hospitality-container');
-
-            fnbContainer.innerHTML = '';
-            hospitalityContainer.innerHTML = '';
-
-            data.forEach(tour => {
-                const tName = tour.Name || tour.name;
-                const tLink = tour.Link || tour.link;
-                const tCat = tour.Category || tour.category;
-                
-                // Pulls the Vietnamese description. If blank, it falls back to the English one, then to "Tour Thực Tế Ảo"
-                const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Tour Thực Tế Ảo"; 
-                
-                const safeCategory = (tCat || "").toLowerCase().trim();
-
-                const cardHTML = `
-                    <div class="card">
-                        <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="xr-spatial-tracking; fullscreen"></iframe>
-                        <div class="card-body">
-                            <h3>${tName}</h3>
-                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
-                        </div>
-                    </div>`;
-                
-                if (safeCategory === 'fnb') {
-                    fnbContainer.innerHTML += cardHTML;
-                } else if (safeCategory === 'hospitality') {
-                    hospitalityContainer.innerHTML += cardHTML;
-                }
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', loadWebsiteTours);
     </script>
 </body>
 </html>

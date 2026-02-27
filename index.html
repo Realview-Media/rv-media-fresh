@@ -100,6 +100,7 @@
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: #111; padding: 40px; width: 90%; max-width: 600px; border: 1px solid var(--gold); border-radius: 4px; position: relative; text-align: center; }
         
+        /* INCREASED WIDTH TO PREVENT 4-LINE CLUTTER */
         .modal-description { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; max-width: 540px; margin: 0 auto 30px auto; text-align: center; }
         
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #666; cursor: pointer; }
@@ -160,22 +161,135 @@
     <section class="section">
         <div class="section-title reveal"><h2>Why Choose 360° Tours?</h2><p>More than just images. A powerful marketing tool for your business.</p></div>
         <div class="grid-container reveal">
-            <div class="benefit-card"><h3>Boost Google Visibility</h3><p>Upload directly to Google Maps. Virtual tours generate 2x more interest.</p></div>
-            <div class="benefit-card"><h3>Increase Trust</h3><p>Customers book with confidence when they can see exactly what the space looks like.</p></div>
-            <div class="benefit-card"><h3>24/7 Open House</h3><p>Your doors are always open. Let clients explore anytime, from anywhere.</p></div>
-        </div>
+<div class="benefit-card">
+   <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+    
+    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+            
+            <style>
+                @keyframes radar-pulse {
+                    0% { transform: scale(0.5); opacity: 0.8; stroke-width: 2px; }
+                    100% { transform: scale(2.2); opacity: 0; stroke-width: 0.5px; }
+                }
+                .pulse-ring {
+                    transform-origin: 12px 20.5px;
+                    animation: radar-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+                }
+                .pulse-delayed {
+                    animation-delay: 1.25s;
+                }
+            </style>
+
+            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring"></ellipse>
+            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring pulse-delayed"></ellipse>
+            
+            <ellipse cx="12" cy="20.5" rx="2.5" ry="0.8" fill="var(--gold)" stroke="none" opacity="0.7"></ellipse>
+
+            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));" transform="translate(0, -1.5)">
+                <path d="M12 21c-4.5-5-7-8.5-7-12a7 7 0 1 1 14 0c0 3.5-2.5 7-7 12z"></path>
+                <circle cx="12" cy="9" r="2.5"></circle>
+            </g>
+            
+        </svg>
+    </div>
+</div>
+    <h3>Boost Google Visibility</h3>
+    <p>Upload directly to Google Maps. Virtual tours generate 2x more interest.</p>
+</div>            <div class="benefit-card">
+   <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+    
+    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+            
+            <style>
+                @keyframes forcefield-pulse {
+                    0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; }
+                    100% { transform: scale(1.6); opacity: 0; stroke-width: 0.5px; }
+                }
+                .shield-pulse {
+                    transform-origin: 12px 12px;
+                    animation: forcefield-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+                }
+                .shield-pulse-delayed {
+                    animation-delay: 1.25s;
+                }
+            </style>
+
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse"></path>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse shield-pulse-delayed"></path>
+
+            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </g>
+            
+        </svg>
+    </div>
+</div>
+    <h3>Increase Trust</h3>
+    <p>Customers book with confidence when they can see exactly what the space looks like.</p>
+</div>
+<div class="benefit-card">
+    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+    
+    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+            
+            <style>
+                @keyframes house-pulse-anim {
+                    0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; }
+                    100% { transform: scale(1.7); opacity: 0; stroke-width: 0.5px; }
+                }
+                .house-pulse {
+                    transform-origin: 12px 12px; /* Centers the pulse mathematically on the house */
+                    animation: house-pulse-anim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+                }
+                .house-pulse-delayed {
+                    animation-delay: 1.25s;
+                }
+            </style>
+
+            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse"></path>
+            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse house-pulse-delayed"></path>
+
+            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
+                <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"></path>
+                <path d="M10 21 V16 A1 1 0 0 1 11 15 H13 A1 1 0 0 1 14 16 V21"></path>
+                <circle cx="12" cy="9.5" r="3.2"></circle>
+                <polyline points="12 7 12 9.5 13.5 11"></polyline>
+            </g>
+            
+        </svg>
+    </div>
+</div>
+    <h3>24/7 Open House</h3>
+    <p>Your doors are always open. Let clients explore anytime, from anywhere.</p>
+</div>        </div>
     </section>
 
     <section id="tours-fnb" class="section">
         <div class="section-title reveal"><h2>F&B & Commercial Spaces</h2><p>Atmosphere for premium dining & business locations.</p></div>
-        <div class="grid-container reveal" id="fnb-container">
-            </div>
+        <div class="grid-container reveal">
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770264589328!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJRGJ0cXk4Umc.!2m2!1d10.80392931471131!2d106.7330403859467!3f252.12272525551387!4f-3.997045657838143!5f0.4000000000000002" title="La Villa" loading="lazy"></iframe><div class="card-body"><h3>La Villa French Restaurant</h3><p>Elegant outdoor dining.</p></div></div>
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770264751363!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzNsc1M2RlE.!2m2!1d10.76827922724603!2d106.6965455166198!3f306.51942800581855!4f-0.6371639468833195!5f0.4000000000000002" title="Aqua Clinic" loading="lazy"></iframe><div class="card-body"><h3>Aqua Clinic</h3><p>Professional medical facilities.</p></div></div>
+            <div class="card"><iframe src="https://www.google.com/maps/embed?pb=!4v1770265020394!6m8!1m7!1sCAoSLEFGMVFpcE15WElLQ3FpYkU0Yi1ndVJlNThwamhqTkY5ZExuSGRpTlFPcDY5!2m2!1d10.79564985337983!2d106.6772050381407!3f28.32!4f0.0799999999999983!5f0.4000000000000002" title="AEX Bar" loading="lazy"></iframe><div class="card-body"><h3>AEX Cocktail Bar</h3><p>Luxury interior design.</p></div></div>
+        </div>
     </section>
 
     <section id="tours-hospitality" class="section">
         <div class="section-title reveal"><h2>Hotels & Residences</h2><p>Immersive experiences for high-end hospitality.</p></div>
-        <div class="grid-container reveal" id="hospitality-container">
-            </div>
+        <div class="grid-container reveal">
+            <div class="card"><iframe src="https://mai-house-website.pages.dev/" title="Mai House" loading="lazy"></iframe><div class="card-body"><h3>Mai House Saigon</h3><p>Sophisticated luxury.</p></div></div>
+            <div class="card"><iframe src="https://oakwood-richlane-residence.pages.dev/" title="Oakwood" loading="lazy"></iframe><div class="card-body"><h3>Oakwood Richlane</h3><p>Modern serviced apartments.</p></div></div>
+            <div class="card"><iframe src="https://honghome.pages.dev/" title="Hong Home" loading="lazy"></iframe><div class="card-body"><h3>Hong Home</h3><p>Boutique residential design.</p></div></div>
+        </div>
     </section>
 
     <section id="about" class="section">
@@ -324,64 +438,6 @@
             document.getElementById('zalo-link').href = isMobile ? "https://zalo.me/0966888782" : "zalo://conversation?phone=0966888782";
         }
         updateZaloLinks();
-    </script>
-
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        async function loadWebsiteTours() {
-            // Auto-detect table name just like the Admin page
-            let activeTable = 'tours';
-            let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            
-            if (res.error && res.error.message.includes('does not exist')) {
-                activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            }
-
-            if (res.error) {
-                console.error("Database Error:", res.error.message);
-                return;
-            }
-
-            const data = res.data || [];
-            const fnbContainer = document.getElementById('fnb-container');
-            const hospitalityContainer = document.getElementById('hospitality-container');
-
-            fnbContainer.innerHTML = '';
-            hospitalityContainer.innerHTML = '';
-
-            data.forEach(tour => {
-                const tName = tour.Name || tour.name;
-                const tLink = tour.Link || tour.link;
-                const tCat = tour.Category || tour.category;
-                
-                // Pulls your custom description. If you leave it blank, it falls back to "Virtual Tour"
-                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
-                
-                const safeCategory = (tCat || "").toLowerCase().trim();
-
-                const cardHTML = `
-                    <div class="card">
-                        <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="xr-spatial-tracking; fullscreen"></iframe>
-                        <div class="card-body">
-                            <h3>${tName}</h3>
-                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
-                        </div>
-                    </div>`;
-                
-                if (safeCategory === 'fnb') {
-                    fnbContainer.innerHTML += cardHTML;
-                } else if (safeCategory === 'hospitality') {
-                    hospitalityContainer.innerHTML += cardHTML;
-                }
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', loadWebsiteTours);
     </script>
 </body>
 </html>

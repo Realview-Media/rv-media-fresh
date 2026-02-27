@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Permissions-Policy",
-          "value": "fullscreen=(self \"https://kuula.co\" \"https://cloudpano.com\" \"https://storage.googleapis.com\"), gyroscope=(self \"https://kuula.co\" \"https://cloudpano.com\"), accelerometer=(self \"https://kuula.co\" \"https://cloudpano.com\")"
+          "value": "fullscreen=*, gyroscope=(self \"https://kuula.co\" \"https://cloudpano.com\"), accelerometer=(self \"https://kuula.co\" \"https://cloudpano.com\")"
         }
       ]
     }

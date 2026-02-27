@@ -480,15 +480,14 @@
             src="${tLink}" 
             title="${tName}" 
             loading="lazy" 
-            scrolling="no"
-            style="border:0; width:100%; height:100%;"
             allowfullscreen="true" 
             webkitallowfullscreen="true" 
             mozallowfullscreen="true" 
-            allow="gyroscope; accelerometer; xr-spatial-tracking; fullscreen; picture-in-picture;"
-            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-presentation">
+            allow="gyroscope; accelerometer; xr-spatial-tracking; fullscreen; picture-in-picture; orientation-lock"
+            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-presentation"
+            style="border:0; width:100%; height:100%; position:absolute; top:0; left:0;">
         </iframe>
-        <div class="card-body">
+        <div class="card-body" style="margin-top: auto;">
             <h3>${tName}</h3>
             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
         </div>

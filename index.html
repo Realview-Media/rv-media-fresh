@@ -104,7 +104,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.1);
         }
 
-        /* CONTENT FRAME FOR ABOUT & CONTACT (STATIC, NO HOVER) */
+        /* NEW CONTENT FRAME FOR ABOUT & CONTACT */
         .content-frame {
             background: rgba(15, 15, 15, 0.6); 
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -371,7 +371,7 @@
     </section>
 
     <section id="about" class="section" style="padding-bottom: 40px;">
-        <div class="reveal content-frame">
+        <div class="reveal content-frame" style="border: none; background: transparent; box-shadow: none;">
             <div style="text-align: center; margin-bottom: 40px;">
                 <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;">Our Story</span>
                 <h2 style="margin: 15px 0;">Bridging Physical & Digital Worlds</h2>
@@ -380,9 +380,9 @@
                 </p>
             </div>
 
-            <div class="grid-container" style="gap: 20px;">
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+            <div class="grid-container" style="gap: 40px;">
+                <div style="flex: 1; min-width: 250px; text-align: center;">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             <circle cx="12" cy="11" r="3"></circle>
@@ -392,8 +392,8 @@
                     <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Our journey began in Vietnam, identifying a need for accessible, high-quality 360° virtual services.</p>
                 </div>
 
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05);">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                <div style="flex: 1; min-width: 250px; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05);">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -404,8 +404,8 @@
                     <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">We leverage Google's "See Inside" tech to redefine engagement for high-end hospitality and commerce.</p>
                 </div>
 
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                <div style="flex: 1; min-width: 250px; text-align: center;">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -419,39 +419,39 @@
         </div>
     </section>
 
-    <section id="contact" class="section" style="padding-top: 20px;">
-        <div class="reveal content-frame" style="text-align: center;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px;">
+    <section id="contact" class="section" style="padding-top: 20px; border-bottom: none;">
+        <div class="reveal content-frame" style="background: transparent; border: none; box-shadow: none; text-align: center;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; margin-bottom: 40px; position: relative; z-index: 2;">
                 
                 <a href="mailto:contact@rvmedia.vn" class="contact-item">
-                    <div class="contact-icon-circle">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
                         <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
                     </div>
                     <div style="text-align: left;">
-                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">EMAIL US</span>
-                        <span class="contact-value">contact@rvmedia.vn</span>
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">EMAIL US</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">contact@rvmedia.vn</span>
                     </div>
                 </a>
-
+                
                 <a href="tel:0966888782" class="contact-item">
-                    <div class="contact-icon-circle">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
                         <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
                             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                         </svg>
                     </div>
                     <div style="text-align: left;">
-                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">CALL / ZALO</span>
-                        <span class="contact-value">0966 888 782</span>
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">CALL / ZALO</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">0966 888 782</span>
                     </div>
                 </a>
 
             </div>
             
-            <button onclick="openModal()" class="btn-survey-solid">BOOK A FREE SURVEY</button>
+            <button onclick="openModal()" class="btn-survey-solid" style="position: relative; z-index: 1;">BOOK A FREE SURVEY</button>
             
-            <div style="margin-top: 50px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;">
+            <div style="margin-top: 40px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1;">
                 &copy; 2024-2026 RV Media. All Rights Reserved.
             </div>
         </div>
@@ -612,7 +612,7 @@
                 const tLink = tour.Link || tour.link;
                 const tCat = tour.Category || tour.category;
                 
-                const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Virtual Tour"; 
+                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
                 const cardHTML = `

@@ -436,13 +436,21 @@
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
                 const cardHTML = `
-                    <div class="card">
-                        <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="xr-spatial-tracking; fullscreen"></iframe>
-                        <div class="card-body">
-                            <h3>${tName}</h3>
-                            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
-                        </div>
-                    </div>`;
+    <div class="card">
+        <iframe 
+            src="${tLink}" 
+            title="${tName}" 
+            loading="lazy" 
+            allowfullscreen="true" 
+            webkitallowfullscreen="true" 
+            mozallowfullscreen="true" 
+            allow="xr-spatial-tracking; fullscreen; autoplay">
+        </iframe>
+        <div class="card-body">
+            <h3>${tName}</h3>
+            <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
+        </div>
+    </div>`;
                 
                 if (safeCategory === 'fnb') {
                     fnbContainer.innerHTML += cardHTML;

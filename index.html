@@ -38,7 +38,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Be Vietnam Pro', sans-serif; background-color: var(--bg-base); color: var(--text-main); line-height: 1.7; overflow-x: hidden; background-image: radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px); background-size: 30px 30px; background-attachment: fixed; }
-        h1, h2, h3 { font-family: 'Merriweather', serif; color: var(--text-white); font-weight: 700; letter-spacing: -0.5px; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--text-white); font-weight: 700; letter-spacing: -0.5px; }
         
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -73,7 +73,7 @@
         .btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 25px rgba(197, 160, 89, 0.4); }
         .btn-filled { background: var(--gold); color: #000; font-weight: bold; border: none; }
 
-        .section { padding: 80px 8%; border-bottom: 1px solid rgba(255,255,255,0.03); } 
+        .section { padding: 60px 8%; border-bottom: 1px solid rgba(255,255,255,0.03); } 
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.2rem; margin-bottom: 15px; position: relative; display: inline-block; background: #050505; padding: 5px 25px; border-radius: 4px; }
         .section-title h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--gold-gradient); margin: 20px auto 0; }
@@ -86,20 +86,99 @@
         
         .benefit-card { padding: 40px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-        .unified-contact-card { display: flex; flex-wrap: wrap; background: var(--bg-panel); border: 1px solid var(--border-light); border-radius: 8px; max-width: 1100px; margin: 0 auto; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .contact-col-left { flex: 1; min-width: 320px; padding: 60px 50px; background: linear-gradient(145deg, #0e0e0e, #050505); border-right: 1px solid var(--border-light); display: flex; flex-direction: column; justify-content: center; }
-        .contact-col-right { flex: 1; min-width: 320px; padding: 60px 50px; background: #111; display: flex; flex-direction: column; justify-content: center; }
-        .contact-row { display: flex; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .contact-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .contact-icon-box { width: 50px; height: 50px; background: rgba(197, 160, 89, 0.1); border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0; }
-        .contact-icon-box svg { width: 24px; height: 24px; fill: var(--gold); }
-        .contact-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 5px; display: block; }
-        .contact-value { font-size: 1.1rem; color: var(--text-white); font-weight: 500; text-decoration: none; transition: 0.3s; }
-        .contact-value:hover { color: var(--gold); }
+        /* DATA DRIVEN STAT CARDS */
+        .stat-card {
+            flex: 1;
+            min-width: 280px;
+            padding: 40px 30px;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.5), rgba(10, 10, 10, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(197, 160, 89, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.1);
+        }
+
+        /* CONTENT FRAME FOR ABOUT & CONTACT (STATIC, NO HOVER) */
+        .content-frame {
+            background: rgba(15, 15, 15, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 50px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            backdrop-filter: blur(8px);
+        }
+
+        /* CONTACT SPECIFIC HOVERS */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-2px);
+        }
+        .contact-icon-circle {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            transition: var(--transition);
+        }
+        .contact-item:hover .contact-icon-circle {
+            background: rgba(197, 160, 89, 0.15);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+        .contact-item span.contact-value {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Merriweather', serif;
+            transition: var(--transition);
+        }
+        .contact-item:hover span.contact-value {
+            color: var(--gold);
+        }
+
+        /* SOLID GOLD BUTTON FOR SURVEY */
+        .btn-survey-solid {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-survey-solid:hover {
+            background: #1a1a1a;
+            color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 160, 89, 0.2);
+            transform: translateY(-2px);
+        }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: #111; padding: 40px; width: 90%; max-width: 600px; border: 1px solid var(--gold); border-radius: 4px; position: relative; text-align: center; }
-        
         .modal-description { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; max-width: 540px; margin: 0 auto 30px auto; text-align: center; }
         
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #666; cursor: pointer; }
@@ -119,8 +198,6 @@
             .mobile-menu-btn { display: flex; }
             .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: #050505; flex-direction: column; align-items: center; padding: 40px 0; height: 100vh; }
             .nav-links.active { display: flex; }
-            .unified-contact-card { flex-direction: column; }
-            .contact-col-left, .contact-col-right { border-right: none; border-bottom: 1px solid var(--border-light); padding: 40px 30px; }
         }
     </style>
 </head>
@@ -140,9 +217,9 @@
         </div>
         <div class="nav-right">
             <div class="nav-links" id="navLinks">
-                <a href="#tours-fnb" onclick="toggleMenu()">Commercial</a>
-                <a href="#tours-hospitality" onclick="toggleMenu()">Hospitality</a>
-                <a href="#about" onclick="toggleMenu()">Contact</a>
+                <a href="#services" onclick="toggleMenu()">Services</a>
+                <a href="#about" onclick="toggleMenu()">About Us</a>
+                <a href="#contact" onclick="toggleMenu()">Contact</a>
             </div>
             <div class="mobile-menu-btn" onclick="toggleMobileMenu()">MENU</div>
         </div>
@@ -158,153 +235,224 @@
     </header>
 
     <section class="section">
-        <div class="section-title reveal"><h2>Why Choose 360° Tours?</h2><p>More than just images. A powerful marketing tool for your business.</p></div>
-        <div class="grid-container reveal">
-<div class="benefit-card">
-    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-        
-        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                
-                <style>
-                    @keyframes radar-pulse {
-                        0% { transform: scale(0.5); opacity: 0.8; stroke-width: 2px; }
-                        100% { transform: scale(2.2); opacity: 0; stroke-width: 0.5px; }
-                    }
-                    .pulse-ring {
-                        transform-origin: 12px 20.5px;
-                        animation: radar-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-                    }
-                    .pulse-delayed {
-                        animation-delay: 1.25s;
-                    }
-                </style>
-
-                <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring"></ellipse>
-                <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring pulse-delayed"></ellipse>
-                
-                <ellipse cx="12" cy="20.5" rx="2.5" ry="0.8" fill="var(--gold)" stroke="none" opacity="0.7"></ellipse>
-
-                <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));" transform="translate(0, -1.5)">
-                    <path d="M12 21c-4.5-5-7-8.5-7-12a7 7 0 1 1 14 0c0 3.5-2.5 7-7 12z"></path>
-                    <circle cx="12" cy="9" r="2.5"></circle>
-                </g>
-                
-            </svg>
+        <div class="section-title reveal">
+            <h2>The Power of 360° Perspective</h2>
+            <p>More than just images. A high-conversion marketing engine for your business.</p>
         </div>
-    </div>
-    
-    <h3>Boost Google Visibility</h3>
-    <p>Upload directly to Google Maps. Virtual tours generate 2x more interest.</p>
-</div>            <div class="benefit-card">
-    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-        
-        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                
-                <style>
-                    @keyframes forcefield-pulse {
-                        0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; }
-                        100% { transform: scale(1.6); opacity: 0; stroke-width: 0.5px; }
-                    }
-                    .shield-pulse {
-                        transform-origin: 12px 12px;
-                        animation: forcefield-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-                    }
-                    .shield-pulse-delayed {
-                        animation-delay: 1.25s;
-                    }
-                </style>
 
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse"></path>
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse shield-pulse-delayed"></path>
-
-                <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    <path d="M9 12l2 2 4-4"></path>
-                </g>
-                
-            </svg>
-        </div>
-    </div>
-    
-    <h3>Increase Trust</h3>
-    <p>Customers book with confidence when they can see exactly what the space looks like.</p>
-</div>
-<div class="benefit-card">
-    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-        
-        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                
-                <style>
-                    @keyframes house-pulse-anim {
-                        0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; }
-                        100% { transform: scale(1.7); opacity: 0; stroke-width: 0.5px; }
-                    }
-                    .house-pulse {
-                        transform-origin: 12px 12px;
-                        animation: house-pulse-anim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-                    }
-                    .house-pulse-delayed {
-                        animation-delay: 1.25s;
-                    }
-                </style>
-
-                <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse"></path>
-                <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse house-pulse-delayed"></path>
-
-                <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
-                    <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"></path>
-                    <path d="M10 21 V16 A1 1 0 0 1 11 15 H13 A1 1 0 0 1 14 16 V21"></path>
-                    <circle cx="12" cy="9.5" r="3.2"></circle>
-                    <polyline points="12 7 12 9.5 13.5 11"></polyline>
-                </g>
-                
-            </svg>
-        </div>
-    </div>
-    
-    <h3>24/7 Open House</h3>
-    <p>Your doors are always open. Let clients explore anytime, from anywhere.</p>
-</div>        </div>
-    </section>
-
-    <section id="tours-fnb" class="section">
-        <div class="section-title reveal"><h2>F&B & Commercial Spaces</h2><p>Atmosphere for premium dining & business locations.</p></div>
-        <div class="grid-container reveal" id="fnb-container">
-            </div>
-    </section>
-
-    <section id="tours-hospitality" class="section">
-        <div class="section-title reveal"><h2>Hotels & Residences</h2><p>Immersive experiences for high-end hospitality.</p></div>
-        <div class="grid-container reveal" id="hospitality-container">
-            </div>
-    </section>
-
-    <section id="about" class="section">
-        <div class="unified-contact-card reveal">
-            <div class="contact-col-left">
-                <h2>The Realview Media Story</h2>
-                <p style="font-size: 0.95rem; color: #ccc; line-height: 1.8; margin-bottom: 20px;">Based in Ho Chi Minh City, we bridge the gap between physical locations and digital discovery. We provide 24/7 open houses for Real Estate and build immediate trust for Hospitality businesses.</p>
-                <p style="color: var(--gold); font-weight: bold;">Immersive Spatial Media & 360° Digital Solutions.</p>
-            </div>
-            <div class="contact-col-right">
-                <div class="contact-row">
-                    <div class="contact-icon-box"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-                    <div><span class="contact-label">Email Us</span><a href="mailto:contact@rvmedia.vn" class="contact-value">contact@rvmedia.vn</a></div>
+        <div class="grid-container reveal" style="margin-bottom: 80px;">
+            <div class="benefit-card">
+                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+                            <style>
+                                @keyframes radar-pulse { 0% { transform: scale(0.5); opacity: 0.8; stroke-width: 2px; } 100% { transform: scale(2.2); opacity: 0; stroke-width: 0.5px; } }
+                                .pulse-ring { transform-origin: 12px 20.5px; animation: radar-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+                                .pulse-delayed { animation-delay: 1.25s; }
+                            </style>
+                            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring"></ellipse>
+                            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring pulse-delayed"></ellipse>
+                            <ellipse cx="12" cy="20.5" rx="2.5" ry="0.8" fill="var(--gold)" stroke="none" opacity="0.7"></ellipse>
+                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));" transform="translate(0, -1.5)">
+                                <path d="M12 21c-4.5-5-7-8.5-7-12a7 7 0 1 1 14 0c0 3.5-2.5 7-7 12z"></path>
+                                <circle cx="12" cy="9" r="2.5"></circle>
+                            </g>
+                        </svg>
+                    </div>
                 </div>
-                <div class="contact-row">
-                    <div class="contact-icon-box"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-                    <div><span class="contact-label">Call / Zalo</span><a href="tel:0966888782" class="contact-value">0966 888 782</a></div>
+                <h3>Boost Visibility</h3>
+                <p>Upload directly to Google Maps to generate 2x more interest from potential customers.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+                            <style>
+                                @keyframes forcefield-pulse { 0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; } 100% { transform: scale(1.6); opacity: 0; stroke-width: 0.5px; } }
+                                .shield-pulse { transform-origin: 12px 12px; animation: forcefield-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+                                .shield-pulse-delayed { animation-delay: 1.25s; }
+                            </style>
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse"></path>
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse shield-pulse-delayed"></path>
+                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="M9 12l2 2 4-4"></path>
+                            </g>
+                        </svg>
+                    </div>
                 </div>
-                <button onclick="openModal()" class="btn btn-filled" style="width: 100%; margin-top: 15px;">BOOK A FREE SURVEY</button>
+                <h3>Increase Trust</h3>
+                <p>Build confidence by letting clients explore every detail of your space before they visit.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
+                            <style>
+                                @keyframes house-pulse-anim { 0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; } 100% { transform: scale(1.7); opacity: 0; stroke-width: 0.5px; } }
+                                .house-pulse { transform-origin: 12px 12px; animation: house-pulse-anim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+                                .house-pulse-delayed { animation-delay: 1.25s; }
+                            </style>
+                            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse"></path>
+                            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse house-pulse-delayed"></path>
+                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
+                                <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"></path>
+                                <path d="M10 21 V16 A1 1 0 0 1 11 15 H13 A1 1 0 0 1 14 16 V21"></path>
+                                <circle cx="12" cy="9.5" r="3.2"></circle>
+                                <polyline points="12 7 12 9.5 13.5 11"></polyline>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <h3>24/7 Open House</h3>
+                <p>Allow global clients to explore your property anytime, from anywhere in the world.</p>
+            </div>
+        </div>
+
+        <div class="reveal" style="max-width: 1100px; margin: 0 auto; margin-top: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 style="color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Market-Leading Results</h3>
+                <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Data-Driven Impact</h2>
+            </div>
+            <div class="grid-container stats-container" style="gap: 30px;">
+                <div class="stat-card">
+                    <div style="color: var(--gold); margin-bottom: 20px;">
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
+                        <span class="counter" data-target="62">0</span>%
+                    </div>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Visual Expectation:</strong> 62% of digital consumers demand high-quality interior previews before committing to a visit.</p>
+                </div>
+                <div class="stat-card">
+                    <div style="color: var(--gold); margin-bottom: 20px;">
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    </div>
+                    <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
+                        <span class="counter" data-target="2">0</span>X
+                    </div>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">The Trust Multiplier:</strong> Immersive 360° environments double user engagement and brand trust compared to flat imagery.</p>
+                </div>
+                <div class="stat-card">
+                    <div style="color: var(--gold); margin-bottom: 20px;">
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
+                        <span class="counter" data-target="29">0</span>%
+                    </div>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Accelerated ROI:</strong> Interactive spatial tours drive a 29% increase in direct bookings and qualified buyer inquiries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="section-title reveal">
+            <h2>Our Work & Services</h2>
+            <p>Premium 360° digital twins for Vietnam's leading commercial and hospitality brands.</p>
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">F&B & Commercial</h3>
+            <div class="grid-container reveal" id="fnb-container"></div>
+        </div>
+
+        <div style="width: 100px; height: 1px; background: var(--border-light); margin: 30px auto;"></div>
+
+        <div>
+            <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">Hotels & Residences</h3>
+            <div class="grid-container reveal" id="hospitality-container"></div>
+        </div>
+    </section>
+
+    <section id="about" class="section" style="padding-bottom: 40px;">
+        <div class="reveal content-frame">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;">Our Story</span>
+                <h2 style="margin: 15px 0;">Bridging Physical & Digital Worlds</h2>
+                <p style="font-size: 1rem; color: #ccc; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    Born from a vision to revolutionize how businesses showcase their spaces, <strong>RV Media</strong> specializes in creating immersive spatial twins for premium properties in Vietnam.
+                </p>
+            </div>
+
+            <div class="grid-container" style="gap: 20px;">
+                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
+                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                        <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <circle cx="12" cy="11" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Visionary Genesis</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Our journey began in Vietnam, identifying a need for accessible, high-quality 360° virtual services.</p>
+                </div>
+
+                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05);">
+                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                        <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Technical Mastery</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">We leverage Google's "See Inside" tech to redefine engagement for high-end hospitality and commerce.</p>
+                </div>
+
+                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
+                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                        <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Global Promise</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Empowering businesses to foster deeper connections through innovation and immersive narratives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section" style="padding-top: 20px;">
+        <div class="reveal content-frame" style="text-align: center;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px;">
+                
+                <a href="mailto:contact@rvmedia.vn" class="contact-item">
+                    <div class="contact-icon-circle">
+                        <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </div>
+                    <div style="text-align: left;">
+                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">EMAIL US</span>
+                        <span class="contact-value">contact@rvmedia.vn</span>
+                    </div>
+                </a>
+
+                <a href="tel:0966888782" class="contact-item">
+                    <div class="contact-icon-circle">
+                        <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                    </div>
+                    <div style="text-align: left;">
+                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">CALL / ZALO</span>
+                        <span class="contact-value">0966 888 782</span>
+                    </div>
+                </a>
+
+            </div>
+            
+            <button onclick="openModal()" class="btn-survey-solid">BOOK A FREE SURVEY</button>
+            
+            <div style="margin-top: 50px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;">
+                &copy; 2024-2026 RV Media. All Rights Reserved.
             </div>
         </div>
     </section>
@@ -371,6 +519,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
         (function(){ emailjs.init("6a4Zpqa8h2StG76ys"); })();
@@ -429,21 +578,18 @@
             scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
             document.querySelectorAll('.reveal').forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active'); });
         });
+
         function updateZaloLinks() {
             const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             document.getElementById('zalo-link').href = isMobile ? "https://zalo.me/0966888782" : "zalo://conversation?phone=0966888782";
         }
         updateZaloLinks();
-    </script>
 
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function loadWebsiteTours() {
-            // Auto-detect table name just like the Admin page
             let activeTable = 'tours';
             let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             
@@ -452,10 +598,7 @@
                 res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             }
 
-            if (res.error) {
-                console.error("Database Error:", res.error.message);
-                return;
-            }
+            if (res.error) return console.error("Database Error:", res.error.message);
 
             const data = res.data || [];
             const fnbContainer = document.getElementById('fnb-container');
@@ -469,9 +612,7 @@
                 const tLink = tour.Link || tour.link;
                 const tCat = tour.Category || tour.category;
                 
-                // Pulls your custom description. If you leave it blank, it falls back to "Virtual Tour"
-                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
-                
+                const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Virtual Tour"; 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
                 const cardHTML = `
@@ -492,6 +633,34 @@
         }
 
         window.addEventListener('DOMContentLoaded', loadWebsiteTours);
+
+        // Counter Animation JS
+        const counterSection = document.querySelector('.stats-container');
+        if(counterSection) {
+            const counterObserver = new IntersectionObserver((entries, obs) => {
+                if (entries[0].isIntersecting) {
+                    const counters = document.querySelectorAll('.counter');
+                    const speed = 40; 
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const updateCount = () => {
+                            const inc = target / speed;
+                            if (count < target) {
+                                count += inc;
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(updateCount, 30);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                    obs.unobserve(counterSection);
+                }
+            }, { threshold: 0.5 });
+            counterObserver.observe(counterSection);
+        }
     </script>
 </body>
 </html>

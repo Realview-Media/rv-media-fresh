@@ -338,7 +338,7 @@
         <div class="reveal" style="max-width: 1100px; margin: 0 auto; margin-top: 40px;">
             <div style="text-align: center; margin-bottom: 40px;">
                 <h3 style="color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Kết Quả Dẫn Đầu Thị Trường</h3>
-                <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Sức Mạnh Từ Dữ Liệu</h2>
+                <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Kết Quả Trên Google</h2>
             </div>
             <div class="grid-container stats-container" style="gap: 30px;">
                 <div class="stat-card">
@@ -348,16 +348,59 @@
                     <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
                         <span class="counter" data-target="62">0</span>%
                     </div>
-                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Kỳ Vọng Trực Quan:</strong> 62% khách hàng trực tuyến yêu cầu xem trước hình ảnh không gian trước khi quyết định ghé thăm.</p>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Khách Hàng Quyết Định Trước Khi Ghé Thăm:</strong> 62% người tiêu dùng xem hình ảnh và không gian nội thất trên Google trước khi quyết định lựa chọn địa điểm.</p>
+                    <p class="card-source">Nguồn: Google Consumer Insights</p>
+
+<style>
+    .card-source {
+        display: block;        /* Ensures the margin applies correctly */
+        margin-top: 25px;      /* Adjust this value (e.g., 15px, 20px, 30px) to get the exact gap you want */
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+</style>
                 </div>
-                <div class="stat-card">
+                 <div class="stat-card">
                     <div style="color: var(--gold); margin-bottom: 20px;">
                         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                     </div>
-                    <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
-                        <span class="counter" data-target="2">0</span>X
+                    
+                    <div style="display: flex; justify-content: center; align-items: baseline; gap: 8px; margin-bottom: 15px;">
+                        <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 3.5rem; font-weight: 700; line-height: 1;">
+                            <span class="counter" data-target="7000">0</span>+
+                        </div>
+                        <div style="font-size: 1.3rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 500; color: var(--gold);">Lượt xem</div>
                     </div>
-                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Nhân Đôi Niềm Tin:</strong> Môi trường 360° tương tác giúp tăng gấp đôi lượng tương tác và độ tin cậy của thương hiệu so với hình ảnh thông thường.</p>
+                    
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                        <strong style="color: var(--text-white);">Hiệu Suất Trên Google Business — La Villa French Restaurant:</strong> 
+                        Hình ảnh 360° chất lượng cao giúp tăng mức độ hiển thị, khả năng được tìm thấy và xây dựng niềm tin với khách hàng.
+                    </p>
+
+                    <div style="display: flex; justify-content: center; margin-top: 10px; position: relative; height: 60px;">
+                        <style>
+                            .card-thumb {
+                                width: auto;
+                                height: 60px;
+                                max-width: 100%;
+                                object-fit: contain;
+                                border-radius: 4px;
+                                border: 1px solid var(--gold);
+                                transition: transform 0.4s ease, z-index 0s;
+                                cursor: pointer;
+                                position: absolute;
+                                z-index: 1;
+                                background-color: var(--bg-surface);
+                            }
+                            .card-thumb:hover {
+                                transform: scale(8.5);
+                                z-index: 100;
+                                box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+                            }
+                        </style>
+                        <img src="images/card2.png" alt="La Villa Restaurant" class="card-thumb">
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div style="color: var(--gold); margin-bottom: 20px;">
@@ -366,8 +409,12 @@
                     <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
                         <span class="counter" data-target="29">0</span>%
                     </div>
-                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Tăng Tốc Chuyển Đổi:</strong> Trải nghiệm không gian ảo thúc đẩy tăng 29% động lực ra quyết định mua hàng hoặc đặt dịch vụ.</p>
-                </div>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+    <strong style="color: var(--text-white);">Tăng Trưởng Chuyển Đổi Thực Tế:</strong> 
+    Số cuộc gọi, lượt chỉ đường và đặt chỗ tăng lên rõ rệt trên Google Maps sau khi triển khai tour 360°.
+</p>
+<p class="card-source" style="margin-top: 22px;">Nguồn: Google Business Insights — Thảo Điền</p>
+                
             </div>
         </div>
     </section>

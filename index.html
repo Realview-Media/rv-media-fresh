@@ -195,10 +195,73 @@
         .scroll-top { position: fixed; bottom: 35px; right: 100px; width: 45px; height: 45px; background: #111; border: 1px solid rgba(255,255,255,0.1); color: var(--gold); display: none; justify-content: center; align-items: center; border-radius: 50%; cursor: pointer; z-index: 1900; }
 
         @media (max-width: 768px) {
-            .mobile-menu-btn { display: flex; }
-            .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: #050505; flex-direction: column; align-items: center; padding: 40px 0; height: 100vh; }
-            .nav-links.active { display: flex; }
-        }
+    /* 1. Fix Navigation Overlaps */
+    .mobile-menu-btn { 
+        display: flex; 
+    }
+    .nav-links { 
+        display: none; 
+        position: absolute; 
+        top: 80px; 
+        left: 0; 
+        right: 0; 
+        background: rgba(5, 5, 5, 0.98); 
+        flex-direction: column; 
+        align-items: center; 
+        padding: 40px 0; 
+        height: 100vh; 
+    }
+    .nav-links.active { 
+        display: flex; 
+    }
+    .lang-switch {
+        /* Prevents overlapping with the logo on small screens */
+        position: relative;
+        left: 0;
+        transform: none;
+        margin-right: 15px;
+    }
+    .logo img {
+        height: 45px; /* Scale down logo to save space */
+    }
+    nav {
+        padding: 0 15px; /* Tighter padding on sides */
+    }
+
+    /* 2. Fix Card Widths (Prevents horizontal scrolling) */
+    .card, .benefit-card {
+        width: 100%;       /* Allow cards to shrink */
+        max-width: 350px;  /* But never grow past original size */
+    }
+    
+    .stat-card {
+        min-width: 100%;   /* Make stat cards stack vertically */
+        margin-bottom: 15px;
+    }
+
+    /* 3. Adjust Layout Spacing & Paddings */
+    .section {
+        padding: 50px 5%;
+    }
+    .content-frame {
+        padding: 30px 20px; /* Reduce massive inner padding for forms/contact */
+    }
+    
+    .hero {
+        min-height: 400px; /* Make header smaller on mobile */
+    }
+
+    /* 4. Fix Floating Action Buttons */
+    .floating-chat {
+        bottom: 15px;
+        right: 15px;
+        transform: scale(0.85); /* Shrink chat icons slightly */
+    }
+    .scroll-top {
+        right: 80px;
+        bottom: 20px;
+    }
+}
     </style>
 </head>
 <body>

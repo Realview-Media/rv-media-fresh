@@ -24,313 +24,7 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     
-    <style>
-        :root {
-            --bg-base: #050505;       
-            --bg-surface: #111;       
-            --bg-panel: #0a0a0a;
-            --text-main: #b0b3b8;     
-            --text-white: #ffffff;    
-            --gold: #c5a059;          
-            --gold-gradient: linear-gradient(135deg, #e0b462 0%, #c5a059 100%);
-            --border-light: rgba(255, 255, 255, 0.08);
-            --transition: all 0.3s ease;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Be Vietnam Pro', sans-serif; background-color: var(--bg-base); color: var(--text-main); line-height: 1.7; overflow-x: hidden; background-image: radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px); background-size: 30px 30px; background-attachment: fixed; }
-        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--text-white); font-weight: 700; letter-spacing: -0.5px; }
-        
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5, 5, 5, 0.95); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-light); backdrop-filter: blur(10px); height: 80px; }
-        .logo img { height: 68px; width: auto; vertical-align: middle; }
-        .lang-switch { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 15px; }
-        .lang-option { display: flex; align-items: center; gap: 6px; cursor: pointer; opacity: 0.5; transition: var(--transition); text-decoration: none; }
-        .lang-text { font-size: 0.85rem; font-weight: 600; color: var(--text-main); line-height: 1; }
-        .lang-flag { width: 22px; height: auto; filter: grayscale(100%); transition: var(--transition); }
-        .lang-option:hover, .lang-option.active { opacity: 1; }
-        .lang-option.active .lang-text { color: var(--text-white); }
-        .lang-option.active .lang-flag { filter: grayscale(0%); transform: scale(1.1); }
-        .lang-divider { color: #444; font-size: 0.9rem; }
-        .nav-right { display: flex; align-items: center; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); font-weight: 500; }
-        .nav-links a:hover { color: var(--gold); }
-        .mobile-menu-btn { display: none; align-items: center; gap: 8px; color: var(--gold); cursor: pointer; border: 1px solid rgba(197, 160, 89, 0.4); padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
-
-        .hero { height: 75vh; min-height: 500px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%); mask-image: linear-gradient(to bottom, black 85%, transparent 100%); border-bottom: 1px solid var(--border-light); }
-        #panorama { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; border: none; background-color: #050505; }
-        .hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0) 35%, rgba(0,0,0,0.6) 100%); z-index: 1; pointer-events: none; }
-        
-        .hero-content { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
-        .hero-content button, .hero-content a { pointer-events: auto; }
-
-        .hero h1 { font-size: clamp(2.2rem, 5vw, 4.5rem); margin-bottom: 1.5rem; line-height: 1.3; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,0.9); }
-        .hero p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 2.5rem auto; color: #fff; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
-
-        .btn { background: rgba(0,0,0,0.7); color: var(--gold); padding: 14px 35px; border: 1px solid var(--gold); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 600; transition: var(--transition); cursor: pointer; backdrop-filter: blur(4px); }
-        .btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 25px rgba(197, 160, 89, 0.4); }
-        .btn-filled { background: var(--gold); color: #000; font-weight: bold; border: none; }
-
-        .btn-survey {
-            width: 100%;
-            max-width: 400px;
-            height: 60px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-        .btn-survey:hover {
-            background: #1a1a1a; 
-            color: var(--gold);
-            border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 160, 89, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .section { padding: 80px 8%; border-bottom: 1px solid rgba(255,255,255,0.03); } 
-        .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.2rem; margin-bottom: 15px; position: relative; display: inline-block; background: #050505; padding: 5px 25px; border-radius: 4px; }
-        .section-title h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--gold-gradient); margin: 20px auto 0; }
-        
-        .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        
-        .stat-card {
-            flex: 1;
-            min-width: 280px;
-            padding: 40px 30px;
-            background: linear-gradient(145deg, rgba(30, 30, 30, 0.5), rgba(10, 10, 10, 0.8));
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            text-align: center;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-        .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(197, 160, 89, 0.4);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.1);
-        }
-
-        .content-frame {
-            background: rgba(15, 15, 15, 0.6); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 50px 40px;
-            max-width: 900px;
-            margin: 0 auto;
-            backdrop-filter: blur(8px);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            transform: translateY(-2px);
-        }
-        .contact-icon-circle {
-            width: 50px;
-            height: 50px;
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            transition: var(--transition);
-        }
-        .contact-item:hover .contact-icon-circle {
-            background: rgba(197, 160, 89, 0.15);
-            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
-        }
-        .contact-item span.contact-value {
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: bold;
-            font-family: 'Merriweather', serif;
-            transition: var(--transition);
-        }
-        .contact-item:hover span.contact-value {
-            color: var(--gold);
-        }
-
-        .btn-survey-solid {
-            background: var(--gold);
-            color: #000;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 18px 50px;
-            border: 1px solid var(--gold);
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn-survey-solid:hover {
-            background: #1a1a1a;
-            color: var(--gold);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 160, 89, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: #111; padding: 40px; width: 90%; max-width: 600px; border: 1px solid var(--gold); border-radius: 4px; position: relative; text-align: center; }
-        .modal-description { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; max-width: 540px; margin: 0 auto 30px auto; text-align: center; }
-        
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #666; cursor: pointer; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--gold); text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; background-color: #050505; border: 1px solid #333; color: white; border-radius: 2px; }
-
-        .floating-chat { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; gap: 15px; }
-        .chat-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; cursor: pointer; animation: pulse-heavy 1.5s infinite; }
-        @keyframes pulse-heavy { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.9); } 70% { box-shadow: 0 0 0 20px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
-        .chat-icon.zalo { background: #fff; }
-        .chat-icon.messenger { background: transparent; }
-        
-        .scroll-top { position: fixed; bottom: 35px; right: 100px; width: 45px; height: 45px; background: #111; border: 1px solid rgba(255,255,255,0.1); color: var(--gold); display: none; justify-content: center; align-items: center; border-radius: 50%; cursor: pointer; z-index: 1900; }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn { display: flex; }
-            .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: rgba(5, 5, 5, 0.98); flex-direction: column; align-items: center; padding: 40px 0; height: 100vh; }
-            .nav-links.active { display: flex; }
-            .lang-switch { position: relative; left: 0; transform: none; margin-right: 15px; }
-            .logo img { height: 45px; }
-            nav { padding: 0 15px; }
-
-            .card, .benefit-card { width: 100%; max-width: 350px; }
-            .stat-card { min-width: 100%; margin-bottom: 15px; }
-
-            .section { padding: 50px 5%; }
-            .content-frame { padding: 30px 20px; }
-            .hero { min-height: 400px; }
-
-            .floating-chat { bottom: 15px; right: 15px; transform: scale(0.85); }
-            .scroll-top { right: 80px; bottom: 20px; }
-        }
-
-        /* --- BULLETPROOF CARD LOGIC --- */
-        .card, .benefit-card { 
-            background: var(--bg-surface); 
-            width: 350px; 
-            border: 1px solid var(--border-light); 
-            transition: var(--transition); 
-            border-radius: 4px; 
-            overflow: visible !important; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
-            position: relative; 
-            z-index: 1;         
-        }
-        .card:hover, .benefit-card:hover { 
-            transform: translateY(-8px); 
-            border-color: var(--gold); 
-            background: #1a1a1a; 
-            z-index: 999;       
-        }
-        
-        .card iframe { width: 100%; height: 250px; border: none; border-top-left-radius: 4px; border-top-right-radius: 4px; position: relative; z-index: 1; }
-        
-        /* The Card Body serves as our anchor point (position: relative) */
-        .card-body { position: relative; z-index: 10; padding: 25px; text-align: center; overflow: visible !important; }
-        
-        .benefit-card { padding: 40px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        
-        /* Removed position: relative from titles to ensure images anchor to .card-body */
-        .card-title-wrapper { display: flex; justify-content: center; align-items: center; gap: 12px; overflow: visible !important; }
-        .card-title-wrapper h3 { margin: 0; }
-        
-        /* --- F&B CENTERED THUMBNAIL LOGIC --- */
-        
-        .tour-thumb-wrapper {
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            height: 45px; 
-            width: 65px;  
-            cursor: pointer;
-        }
-
-        /* Static Small Thumbnail Next to Title */
-        .tour-thumb-small {
-            width: auto; 
-            height: auto; 
-            max-width: 65px;
-            max-height: 45px;
-            border-radius: 4px;
-            border: 1px solid var(--gold);
-            background-color: var(--bg-surface);
-            transition: var(--transition);
-        }
-
-        /* Hidden Large Thumbnail (Always dead-center over iframe) */
-        .tour-thumb-large {
-            position: absolute;
-            top: -125px; /* Pulls the image up EXACTLY to the center line of the 250px iframe */
-            left: 50%;   /* Centers the image perfectly relative to the card width */
-            transform: translate(-50%, -50%) scale(0.85);
-            
-            width: 290px;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid var(--gold);
-            background-color: var(--bg-surface);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
-            
-            opacity: 0;
-            pointer-events: none; /* Ignore invisible clicks */
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            z-index: 99999;
-        }
-
-        /* Hovering the wrapper makes the large image fade in and scale perfectly */
-        .tour-thumb-wrapper:hover .tour-thumb-large {
-            opacity: 1;
-            pointer-events: auto; /* Keeps the hover alive! */
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        /* --- GOOGLE STAT CARD THUMBNAIL (UNCHANGED) --- */
-        .card-thumb-proven {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); 
-            width: auto; 
-            height: auto; 
-            max-width: 90px;
-            max-height: 60px;
-            border-radius: 4px;
-            border: 1px solid var(--gold);
-            background-color: var(--bg-surface);
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .card-thumb-proven:hover {
-            width: 290px;
-            max-width: 290px;
-            max-height: none;
-            transform: translate(-50%, -50%); 
-            z-index: 99999 !important;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
-            border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="scroll-top" id="scrollTopBtn">↑</div>
@@ -348,7 +42,7 @@
         </div>
         <div class="nav-right">
             <div class="nav-links" id="navLinks">
-                <a href="#services" onclick="toggleMenu()">Dịch Vụ</a>
+                <a href="#services" onclick="toggleMenu()">Dự Án</a>
                 <a href="#about" onclick="toggleMenu()">Về Chúng Tôi</a>
                 <a href="#contact" onclick="toggleMenu()">Liên Hệ</a>
             </div>
@@ -361,7 +55,7 @@
         <div class="hero-content">
             <h1>Trải Nghiệm Không Gian <br> Trước Khi Bạn Đến.</h1>
             <p>Nâng tầm đẳng cấp thương hiệu với dịch vụ chụp ảnh 360°.</p>
-            <button onclick="openModal()" class="btn">Đặt Lịch Khảo Sát Miễn Phí</button>
+            <button onclick="openModal()" class="btn-survey-solid">Đặt Lịch Khảo Sát Miễn Phí</button>
         </div>
     </header>
 
@@ -447,63 +141,54 @@
 
         <div class="reveal" style="max-width: 1100px; margin: 0 auto; margin-top: 40px;">
             <div style="text-align: center; margin-bottom: 40px;">
-                <h3 style="color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Kết Quả Dẫn Đầu Thị Trường</h3>
-                <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Kết Quả Trên Google</h2>
+                <h3 style="color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Kết Quả Thực Tế</h3>
+                <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Hiệu Quả Thực Tế Từ Trải Nghiệm 360°</h2>
             </div>
+            
             <div class="grid-container stats-container" style="gap: 30px;">
                 <div class="stat-card">
                     <div style="color: var(--gold); margin-bottom: 20px;">
                         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </div>
                     <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
-                        <span class="counter" data-target="62">0</span>%
+                        <span class="counter" data-target="94">0</span>%
                     </div>
-                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;"><strong style="color: var(--text-white);">Khách Hàng Quyết Định Trước Khi Ghé Thăm:</strong> 62% người tiêu dùng xem hình ảnh và không gian nội thất trên Google trước khi quyết định lựa chọn địa điểm.</p>
-                    
-                    <style>
-                        .card-source {
-                            display: block;        
-                            margin-top: 25px;      
-                            font-size: 0.75rem;
-                            color: rgba(255, 255, 255, 0.4);
-                            font-style: italic;
-                        }
-                    </style>
-                    <p class="card-source">Nguồn: Google Consumer Insights</p>
-                </div>
-                 <div class="stat-card">
-                    <div style="color: var(--gold); margin-bottom: 20px;">
-                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; align-items: baseline; gap: 8px; margin-bottom: 15px;">
-                        <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 3.5rem; font-weight: 700; line-height: 1;">
-                            <span class="counter" data-target="7000">0</span>+
-                        </div>
-                        <div style="font-size: 1.3rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 500; color: var(--gold);">Lượt xem</div>
-                    </div>
-                    
-                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6; margin-bottom: 20px;">
-                        <strong style="color: var(--text-white);">Hiệu Suất Trên Google Business — La Villa French Restaurant:</strong> 
-                        Hình ảnh 360° chất lượng cao giúp tăng mức độ hiển thị, khả năng được tìm thấy và xây dựng niềm tin với khách hàng.
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <strong style="color: var(--text-white);">Tạo Ấn Tượng Chuyên Nghiệp:</strong> 
+                        Địa điểm có tour 360° thu hút và tạo niềm tin với khách hàng cao hơn 94%.
                     </p>
-
-                    <div style="display: flex; justify-content: center; margin-top: 10px; position: relative; height: 60px;">
-                        <img src="images/card1.png" alt="La Villa Restaurant" class="card-thumb-proven">
-                    </div>
+                    <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Nguồn: Google Maps Study</p>
                 </div>
+
                 <div class="stat-card">
                     <div style="color: var(--gold); margin-bottom: 20px;">
-                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
+                        <span class="counter" data-target="5">0</span>x
+                    </div>
+                    <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <strong style="color: var(--text-white);">Tương Tác Cao Hơn:</strong> 
+                        Tour 360° giúp khách hàng ở lại trang doanh nghiệp lâu hơn gấp 5 lần so với hình ảnh thông thường.
+                    </p>
+                    <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Nguồn: Digital Marketing Insights</p>
+                </div>
+
+                <div class="stat-card">
+                    <div style="color: var(--gold); margin-bottom: 20px;">
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
                     </div>
                     <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
                         <span class="counter" data-target="29">0</span>%
                     </div>
                     <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
-                        <strong style="color: var(--text-white);">Tăng Trưởng Chuyển Đổi Thực Tế:</strong> 
-                        Số cuộc gọi, lượt chỉ đường và đặt chỗ tăng lên rõ rệt trên Google Maps sau khi triển khai tour 360°.
+                        <strong style="color: var(--text-white);">Tăng Tỷ Lệ Chuyển Đổi:</strong> 
+                        Doanh nghiệp nhận được nhiều hơn 29% cuộc gọi và yêu cầu chỉ đường từ Google Maps.
                     </p>
-                    <p class="card-source" style="margin-top: 22px;">Nguồn: Google Business Insights — Thảo Điền</p>
+                    <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Nguồn: Google Business Insights</p>
                 </div>
             </div>
         </div>
@@ -514,14 +199,11 @@
             <h2>Dự Án Của Chúng Tôi</h2>
             <p>Bản sao không gian kỹ thuật số chất lượng cao dành cho các thương hiệu hàng đầu Việt Nam.</p>
         </div>
-
         <div style="margin-bottom: 40px;">
             <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">F&B & Thương Mại</h3>
             <div class="grid-container reveal" id="fnb-container"></div>
         </div>
-
         <div style="width: 100px; height: 1px; background: var(--border-light); margin: 30px auto;"></div>
-
         <div>
             <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">Khách Sạn & Căn Hộ</h3>
             <div class="grid-container reveal" id="hospitality-container"></div>
@@ -532,85 +214,78 @@
         <div class="reveal content-frame">
             <div style="text-align: center; margin-bottom: 40px;">
                 <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;">Câu Chuyện Của Chúng Tôi</span>
-                <h2 style="margin: 15px 0;">Kết Nối Không Gian Thực & Thế Giới Số</h2>
+                <h2 style="margin: 15px 0;">Kết Nối Không Gian Thực Với Trải Nghiệm Số</h2>
                 <p style="font-size: 1rem; color: #ccc; max-width: 800px; margin: 0 auto; line-height: 1.8;">
-                    Khởi nguồn từ tầm nhìn cách mạng hóa cách doanh nghiệp giới thiệu không gian, <strong>RV Media</strong> chuyên kiến tạo các bản sao không gian số chân thực cho những bất động sản cao cấp tại Việt Nam.
+                    RV Media được thành lập với mục tiêu giúp doanh nghiệp giới thiệu không gian của mình một cách sống động, chân thực và dễ tiếp cận hơn trên môi trường số.
+Chúng tôi tạo ra các trải nghiệm 360° Virtual Tour giúp khách hàng khám phá địa điểm trực tuyến như đang có mặt trực tiếp.
                 </p>
             </div>
-
-            <div class="grid-container" style="gap: 20px;">
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+            <div class="grid-container" style="display: flex; flex-wrap: nowrap; gap: 20px; align-items: flex-start;">
+                <div style="flex: 1; text-align: center;">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             <circle cx="12" cy="11" r="3"></circle>
                         </svg>
                     </div>
-                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Khởi Nguồn Tầm Nhìn</h4>
-                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Hành trình của chúng tôi bắt đầu tại Việt Nam, nhận thấy nhu cầu về các dịch vụ thực tế ảo 360° chất lượng cao và dễ tiếp cận.</p>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Khởi Đầu Tại Việt Nam</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">RV Media bắt đầu tại Việt Nam với sứ mệnh mang công nghệ 360° Virtual Tour chuyên nghiệp đến gần hơn với doanh nghiệp địa phương.</p>
                 </div>
-
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05);">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                <div style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); padding: 0 15px;">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
                         </svg>
                     </div>
-                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Làm Chủ Công Nghệ</h4>
-                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Tận dụng công nghệ "See Inside" của Google để định nghĩa lại sự tương tác cho ngành dịch vụ nhà hàng, khách sạn và thương mại cao cấp.</p>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Ứng Dụng Công Nghệ</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Chúng tôi sử dụng công nghệ Google Street View | See Inside để tạo ra những trải nghiệm tham quan trực tuyến mượt mà và chân thực.</p>
                 </div>
-
-                <div style="flex: 1; min-width: 200px; text-align: center; padding: 0 10px;">
-                    <div style="color: var(--gold); margin-bottom: 20px; display: flex; justify-content: center;">
+                <div style="flex: 1; text-align: center;">
+                    <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="2" y1="12" x2="22" y2="12"></line>
                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                         </svg>
                     </div>
-                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Cam Kết Toàn Cầu</h4>
-                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Trao quyền cho các doanh nghiệp xây dựng kết nối sâu sắc và thúc đẩy thành công thông qua trải nghiệm không gian sống động.</p>
+                    <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Đồng Hành Cùng Doanh Nghiệp</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Giúp doanh nghiệp tăng độ tin cậy, thu hút khách hàng và nổi bật trên Google Maps thông qua trải nghiệm không gian 360°.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section" style="padding-top: 20px;">
+    <section id="contact" class="section" style="padding-top: 20px; border-bottom: none;">
         <div class="reveal content-frame" style="text-align: center;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px;">
-                
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; margin-bottom: 40px; position: relative; z-index: 2;">
                 <a href="mailto:contact@rvmedia.vn" class="contact-item">
-                    <div class="contact-icon-circle">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
                         <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
                     </div>
                     <div style="text-align: left;">
-                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">GỬI EMAIL</span>
-                        <span class="contact-value">contact@rvmedia.vn</span>
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">GỬI EMAIL</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">contact@rvmedia.vn</span>
                     </div>
                 </a>
-
                 <a href="tel:0966888782" class="contact-item">
-                    <div class="contact-icon-circle">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
                         <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
                             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                         </svg>
                     </div>
                     <div style="text-align: left;">
-                        <span style="color: #666; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 3px;">GỌI / ZALO</span>
-                        <span class="contact-value">0966 888 782</span>
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">GỌI ĐIỆN / ZALO</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">0966 888 782</span>
                     </div>
                 </a>
-
             </div>
-            
-            <button onclick="openModal()" class="btn-survey-solid">ĐẶT LỊCH KHẢO SÁT MIỄN PHÍ</button>
-            
-            <div style="margin-top: 50px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;">
-                &copy; 2024-2026 RV Media. Bảo Lưu Mọi Quyền.
+            <button onclick="openModal()" class="btn-survey-solid" style="position: relative; z-index: 1;">ĐẶT LỊCH KHẢO SÁT MIỄN PHÍ</button>
+            <div style="margin-top: 40px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1;">
+                &copy; 2024-2026 RV Media. Bảo lưu mọi quyền.
             </div>
         </div>
     </section>
@@ -620,8 +295,8 @@
             <span class="close-btn" onclick="closeModal()">×</span>
             <h2>Đặt Lịch Khảo Sát</h2>
             <p class="modal-description">
-                Để nhận báo giá chính xác nhất, chúng tôi cần khảo sát thực tế không gian của bạn. <br>
-                Vui lòng để lại thông vị, chúng tôi sẽ liên hệ lại ngay.
+                Để nhận báo giá chính xác, chúng tôi cần khảo sát thực tế không gian của bạn. <br>
+                Vui lòng để lại thông tin, chúng tôi sẽ liên hệ lại ngay.
             </p>
             <form id="contact-form">
                 <div class="form-group">
@@ -681,16 +356,7 @@
     
     <script>
         (function(){ emailjs.init("6a4Zpqa8h2StG76ys"); })();
-        let viewer, rotationTimer;
-
-        window.addEventListener('load', function() {
-            viewer = pannellum.viewer('panorama', { "type": "equirectangular", "panorama": "images/header.jpg", "autoLoad": true, "autoRotate": -2, "showControls": false, "mouseZoom": false, "hfov": 120 });
-            const restart = () => { viewer.startAutoRotate(-2); };
-            const pano = document.getElementById('panorama');
-            pano.addEventListener('mouseup', () => { clearTimeout(rotationTimer); rotationTimer = setTimeout(restart, 4000); });
-            pano.addEventListener('touchend', () => { clearTimeout(rotationTimer); rotationTimer = setTimeout(restart, 4000); });
-        });
-
+        
         function sendMail(e) {
             if(e) e.preventDefault();
             const submitBtn = document.getElementById("submitBtn");
@@ -699,7 +365,7 @@
             const service = document.getElementById("service_type").value;
 
             if (!name || !phone || !service) { 
-                alert("Vui lòng điền đầy đủ Tên, Số điện thoại và chọn Dịch vụ."); 
+                alert("Vui lòng điền đầy đủ Họ tên, Số điện thoại và chọn Dịch vụ."); 
                 return; 
             }
             
@@ -724,25 +390,6 @@
             });
         }
 
-        function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-        function toggleMenu() { document.getElementById('navLinks').classList.remove('active'); }
-        function openModal() { document.getElementById('quoteModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('quoteModal').style.display = 'none'; }
-        function openSuccessModal() { document.getElementById('successModal').style.display = 'flex'; }
-        function closeSuccessModal() { document.getElementById('successModal').style.display = 'none'; }
-        
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.getElementById("scrollTopBtn");
-            scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
-            document.querySelectorAll('.reveal').forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active'); });
-        });
-
-        function updateZaloLinks() {
-            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            document.getElementById('zalo-link').href = isMobile ? "https://zalo.me/0966888782" : "zalo://conversation?phone=0966888782";
-        }
-        updateZaloLinks();
-
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -750,12 +397,10 @@
         async function loadWebsiteTours() {
             let activeTable = 'tours';
             let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            
             if (res.error && res.error.message.includes('does not exist')) {
                 activeTable = 'Virtual Tours';
                 res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             }
-
             if (res.error) return console.error("Database Error:", res.error.message);
 
             const data = res.data || [];
@@ -764,80 +409,83 @@
 
             fnbContainer.innerHTML = '';
             hospitalityContainer.innerHTML = '';
-
+            
             let fnbCount = 0;
+            let hospitalityCount = 0;
 
             data.forEach(tour => {
                 const tName = tour.Name || tour.name;
                 const tLink = tour.Link || tour.link;
                 const tCat = tour.Category || tour.category;
-                
                 const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Tour Thực Tế Ảo"; 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
                 let titleHtml = `<h3>${tName}</h3>`;
-
+                
                 if (safeCategory === 'fnb') {
                     fnbCount++;
                     if (fnbCount <= 4) {
+                        let thumbSrc = `images/card${fnbCount}.png`;
                         titleHtml = `
                             <div class="card-title-wrapper">
                                 <h3>${tName}</h3>
                                 <div class="tour-thumb-wrapper">
-                                    <img src="images/card${fnbCount}.png" alt="${tName}" class="tour-thumb-small">
-                                    <img src="images/card${fnbCount}.png" alt="${tName} Expanded" class="tour-thumb-large">
+                                    <img src="${thumbSrc}" alt="${tName}" class="tour-thumb-small">
+                                    <img src="${thumbSrc}" alt="${tName} Expanded" class="tour-thumb-large">
                                 </div>
                             </div>
                         `;
                     }
+                } else if (safeCategory === 'hospitality') {
+                    hospitalityCount++;
+                }
+
+                let coverImg = tour.Image_URL || tour.image_url;
+                if (!coverImg) {
+                    if (safeCategory === 'fnb') {
+                        if (fnbCount === 1) coverImg = 'images/lavilla.jpg';
+                        else if (fnbCount === 2) coverImg = 'images/aqua.jpg';
+                        else if (fnbCount === 3) coverImg = 'images/art.jpg';
+                        else if (fnbCount === 4) coverImg = 'images/lambo.jpg';
+                        else coverImg = 'images/lavilla.jpg';
+                    } else if (safeCategory === 'hospitality') {
+                        if (hospitalityCount === 1) coverImg = 'images/oakwood.png';
+                        else if (hospitalityCount === 2) coverImg = 'images/richlane.png';
+                        else if (hospitalityCount === 3) coverImg = 'images/maihouse.png';
+                        else if (hospitalityCount === 4) coverImg = 'images/honghome.png';
+                        else coverImg = 'images/oakwood.png'; 
+                    } else {
+                        coverImg = 'images/lavilla.jpg'; 
+                    }
+                }
+
+                let buttonText = "Xem Tour 360°"; // Default text
+
+                if (safeCategory === 'fnb') {
+                    buttonText = "Xem Tour 360° Trên Google Maps";
+                } else if (safeCategory === 'hospitality') {
+                    buttonText = "Khám Phá Tour 360°";
                 }
 
                 const cardHTML = `
                     <div class="card">
-                        <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="xr-spatial-tracking; fullscreen"></iframe>
+                        <img src="${coverImg}" alt="${tName}" class="card-image" onerror="this.src='images/lavilla.jpg'">
                         <div class="card-body">
                             ${titleHtml}
                             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
+                            <a href="${tLink}" target="_blank" class="btn btn-filled card-btn" style="margin-top: 15px;">
+                                ${buttonText}
+                            </a>
                         </div>
                     </div>`;
-                
-                if (safeCategory === 'fnb') {
-                    fnbContainer.innerHTML += cardHTML;
-                } else if (safeCategory === 'hospitality') {
-                    hospitalityContainer.innerHTML += cardHTML;
-                }
+
+                if (safeCategory === 'fnb') fnbContainer.innerHTML += cardHTML;
+                else if (safeCategory === 'hospitality') hospitalityContainer.innerHTML += cardHTML;
             });
         }
-
         window.addEventListener('DOMContentLoaded', loadWebsiteTours);
-
-        // Counter Animation JS
-        const counterSection = document.querySelector('.stats-container');
-        if(counterSection) {
-            const counterObserver = new IntersectionObserver((entries, obs) => {
-                if (entries[0].isIntersecting) {
-                    const counters = document.querySelectorAll('.counter');
-                    const speed = 40; 
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        let count = 0;
-                        const updateCount = () => {
-                            const inc = target / speed;
-                            if (count < target) {
-                                count += inc;
-                                counter.innerText = Math.ceil(count);
-                                setTimeout(updateCount, 30);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-                        updateCount();
-                    });
-                    obs.unobserve(counterSection);
-                }
-            }, { threshold: 0.5 });
-            counterObserver.observe(counterSection);
-        }
     </script>
+
+    <script src="main.js"></script>
 </body>
 </html>

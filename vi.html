@@ -100,13 +100,7 @@
         .section-title h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--gold-gradient); margin: 20px auto 0; }
         
         .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .card, .benefit-card { background: var(--bg-surface); width: 350px; border: 1px solid var(--border-light); transition: var(--transition); border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .card:hover, .benefit-card:hover { transform: translateY(-8px); border-color: var(--gold); background: #1a1a1a; }
-        .card iframe { width: 100%; height: 250px; border: none; }
-        .card-body { padding: 25px; text-align: center; }
         
-        .benefit-card { padding: 40px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-
         /* DATA DRIVEN STAT CARDS */
         .stat-card {
             flex: 1;
@@ -217,8 +211,111 @@
 
         @media (max-width: 768px) {
             .mobile-menu-btn { display: flex; }
-            .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: #050505; flex-direction: column; align-items: center; padding: 40px 0; height: 100vh; }
+            .nav-links { display: none; position: absolute; top: 80px; left: 0; right: 0; background: rgba(5, 5, 5, 0.98); flex-direction: column; align-items: center; padding: 40px 0; height: 100vh; }
             .nav-links.active { display: flex; }
+            .lang-switch { position: relative; left: 0; transform: none; margin-right: 15px; }
+            .logo img { height: 45px; }
+            nav { padding: 0 15px; }
+
+            .card, .benefit-card { width: 100%; max-width: 350px; }
+            .stat-card { min-width: 100%; margin-bottom: 15px; }
+
+            .section { padding: 50px 5%; }
+            .content-frame { padding: 30px 20px; }
+            .hero { min-height: 400px; }
+
+            .floating-chat { bottom: 15px; right: 15px; transform: scale(0.85); }
+            .scroll-top { right: 80px; bottom: 20px; }
+        }
+
+        /* --- BULLETPROOF F&B CARD LOGIC --- */
+        .card, .benefit-card { 
+            background: var(--bg-surface); 
+            width: 350px; 
+            border: 1px solid var(--border-light); 
+            transition: var(--transition); 
+            border-radius: 4px; 
+            overflow: visible !important; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            position: relative; 
+            z-index: 1;         
+        }
+        .card:hover, .benefit-card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--gold); 
+            background: #1a1a1a; 
+            z-index: 999;       
+        }
+        
+        .card iframe { width: 100%; height: 250px; border: none; border-top-left-radius: 4px; border-top-right-radius: 4px; position: relative; z-index: 1; }
+        .card-body { position: relative; z-index: 10; padding: 25px; text-align: center; overflow: visible !important; }
+        
+        .benefit-card { padding: 40px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        
+        .card-title-wrapper { display: flex; justify-content: center; align-items: center; gap: 12px; position: relative; overflow: visible !important; }
+        .card-title-wrapper h3 { margin: 0; }
+        
+        /* --- UNIFIED HIGH-RES THUMBNAIL LOGIC (F&B and GOOGLE) --- */
+        
+        /* F&B text wrapper base size */
+        .tour-thumb-wrapper {
+            position: relative; 
+            height: 45px; 
+            width: 65px;  
+            display: block;
+        }
+
+        /* The Shrink-Wrap Fix: width and height set to auto, controlled by max constraints */
+        .tour-thumb, .card-thumb-proven {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            
+            width: auto; 
+            height: auto; 
+            
+            border-radius: 4px;
+            border: 1px solid var(--gold);
+            background-color: var(--bg-surface);
+            
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Slightly smaller F&B base so it fits beautifully next to the title */
+        .tour-thumb {
+            max-width: 65px;
+            max-height: 45px;
+        }
+
+        /* Base constraint for the Google Card */
+        .card-thumb-proven {
+            max-width: 90px;
+            max-height: 60px;
+        }
+
+        /* F&B Card Hover Expansion */
+        .tour-thumb:hover {
+            width: 290px;
+            max-width: 290px;
+            max-height: none; /* Allows natural scaling */
+            transform: translate(-65%, -90%); /* Centered perfectly over the F&B card */
+            z-index: 99999 !important; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            border-radius: 8px;
+        }
+
+        /* Google Card Hover Expansion */
+        .card-thumb-proven:hover {
+            width: 290px;
+            max-width: 290px;
+            max-height: none;
+            transform: translate(-50%, -50%); /* Centered perfectly over the Google card */
+            z-index: 99999 !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -379,27 +476,7 @@
                     </p>
 
                     <div style="display: flex; justify-content: center; margin-top: 10px; position: relative; height: 60px;">
-                        <style>
-                            .card-thumb {
-                                width: auto;
-                                height: 60px;
-                                max-width: 100%;
-                                object-fit: contain;
-                                border-radius: 4px;
-                                border: 1px solid var(--gold);
-                                transition: transform 0.4s ease, z-index 0s;
-                                cursor: pointer;
-                                position: absolute;
-                                z-index: 1;
-                                background-color: var(--bg-surface);
-                            }
-                            .card-thumb:hover {
-                                transform: scale(8.5);
-                                z-index: 100;
-                                box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-                            }
-                        </style>
-                        <img src="images/card2.png" alt="La Villa Restaurant" class="card-thumb">
+                        <img src="images/card1.png" alt="La Villa Restaurant" class="card-thumb-proven">
                     </div>
                 </div>
                 <div class="stat-card">
@@ -675,6 +752,8 @@
             fnbContainer.innerHTML = '';
             hospitalityContainer.innerHTML = '';
 
+            let fnbCount = 0;
+
             data.forEach(tour => {
                 const tName = tour.Name || tour.name;
                 const tLink = tour.Link || tour.link;
@@ -683,11 +762,27 @@
                 const tDesc = tour.Description_VI || tour.description_vi || tour.Description || tour.description || "Tour Thực Tế Ảo"; 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
+                let titleHtml = `<h3>${tName}</h3>`;
+
+                if (safeCategory === 'fnb') {
+                    fnbCount++;
+                    if (fnbCount <= 4) {
+                        titleHtml = `
+                            <div class="card-title-wrapper">
+                                <h3>${tName}</h3>
+                                <div class="tour-thumb-wrapper">
+                                    <img src="images/card${fnbCount}.png" alt="${tName}" class="tour-thumb">
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
                 const cardHTML = `
                     <div class="card">
                         <iframe src="${tLink}" title="${tName}" loading="lazy" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="xr-spatial-tracking; fullscreen"></iframe>
                         <div class="card-body">
-                            <h3>${tName}</h3>
+                            ${titleHtml}
                             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
                         </div>
                     </div>`;

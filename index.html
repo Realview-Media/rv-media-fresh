@@ -418,59 +418,48 @@
                 const tDesc = tour.Description || tour.description || "Virtual Tour"; 
                 const safeCategory = (tCat || "").toLowerCase().trim();
 
+                // Counters and specific UI logic
+                if (safeCategory === 'fnb') fnbCount++;
+                else if (safeCategory === 'hospitality') hospitalityCount++;
+
                 let titleHtml = `<h3>${tName}</h3>`;
-                
-                if (safeCategory === 'fnb') {
-                    fnbCount++;
-                    if (fnbCount <= 4) {
-                        let thumbSrc = `images/card${fnbCount}.png`;
-                        titleHtml = `
-                            <div class="card-title-wrapper">
-                                <h3>${tName}</h3>
-                                <div class="tour-thumb-wrapper">
-                                    <img src="${thumbSrc}" alt="${tName}" class="tour-thumb-small">
-                                    <img src="${thumbSrc}" alt="${tName} Expanded" class="tour-thumb-large">
-                                </div>
+                if (safeCategory === 'fnb' && fnbCount <= 4) {
+                    let thumbSrc = `images/card${fnbCount}.png`;
+                    titleHtml = `
+                        <div class="card-title-wrapper">
+                            <h3>${tName}</h3>
+                            <div class="tour-thumb-wrapper">
+                                <img src="${thumbSrc}" alt="${tName}" class="tour-thumb-small">
+                                <img src="${thumbSrc}" alt="${tName} Expanded" class="tour-thumb-large">
                             </div>
-                        `;
-                    }
-                } else if (safeCategory === 'hospitality') {
-                    hospitalityCount++;
+                        </div>`;
                 }
                 
+                // --- IMAGE LOGIC FIX ---
                 let coverImg = tour.Image_URL || tour.image_url;
                 if (!coverImg) {
                     if (safeCategory === 'fnb') {
-                        if (fnbCount === 1) coverImg = 'images/lavilla.jpg';
-                        else if (fnbCount === 2) coverImg = 'images/aqua.jpg';
-                        else if (fnbCount === 3) coverImg = 'images/art.jpg';
-                        else if (fnbCount === 4) coverImg = 'images/lambo.jpg';
-                        else coverImg = 'images/lavilla.jpg';
+                        const fnbMap = { 1: 'lavilla.jpg', 2: 'aqua.jpg', 3: 'art.jpg', 4: 'lambo.jpg' };
+                        coverImg = `images/${fnbMap[fnbCount] || 'lavilla.jpg'}`;
                     } else if (safeCategory === 'hospitality') {
-                        // Your exact requested images mapping for hotels & residences
-                        if (hospitalityCount === 1) coverImg = 'images/oakwood.png';
-                        else if (hospitalityCount === 2) coverImg = 'images/richlane.png';
-                        else if (hospitalityCount === 3) coverImg = 'images/maihouse.png';
-                        else if (hospitalityCount === 4) coverImg = 'images/honghome.png';
-                        else coverImg = 'images/oakwood.png'; // fallback
+                        const hospMap = { 1: 'oakwood.png', 2: 'Richlane.png', 3: 'maihouse.png', 4: 'honghome.png' };
+                        coverImg = `images/${hospMap[hospitalityCount] || 'oakwood.png'}`;
                     } else {
-                        coverImg = 'images/lavilla.jpg'; 
+                        coverImg = 'images/honghome.png'; 
                     }
                 }
 
-                // 1. Create a variable for the button text based on the category
-                let buttonText = "View 360° Tour"; // Default text
-
+                let buttonText = "View 360° Tour";
                 if (safeCategory === 'fnb') {
                     buttonText = "View 360° Tour on Google Maps";
                 } else if (safeCategory === 'hospitality') {
-                    buttonText = "Explore 360° Tour"; /* <-- CHANGE THIS TEXT TO WHATEVER YOU WANT */
+                    buttonText = "Explore 360° Tour";
                 }
 
-                // 2. Insert the ${buttonText} variable inside the HTML
+                // Removed hardcoded 'onerror' that resets everything to lavilla
                 const cardHTML = `
                     <div class="card">
-                        <img src="${coverImg}" alt="${tName}" class="card-image" onerror="this.src='images/lavilla.jpg'">
+                        <img src="${coverImg}" alt="${tName}" class="card-image">
                         <div class="card-body">
                             ${titleHtml}
                             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>

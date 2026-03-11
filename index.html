@@ -3,37 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Media | Premium 360° Virtual Tours</title>
     
-    <meta name="description" content="Transform your Ho Chi Minh City property with ultra-high DSLR 360° tours. Trusted by top hotels and real estate firms to build buyer trust and increase bookings 24/7.">
-    <meta name="keywords" content="360 virtual tour, virtual tour Vietnam, 360 photography Ho Chi Minh, real estate virtual tour, hotel 360 tour, VR tours Saigon, RV Media">
+    <title>Premium 360° Virtual Tours in Vietnam | RV Media</title>
+    
+    <meta name="description" content="Elevate your real estate or hotel in Vietnam with ultra-clear DSLR 360° virtual tours. Build trust, drive engagement, and increase bookings 24/7 with RV Media.">
+    
+    <meta name="keywords" content="360 virtual tour Vietnam, virtual tour Ho Chi Minh, VR photography Saigon, real estate 360 tour, hotel virtual tour, 360 panorama Vietnam, RV Media">
     <meta name="author" content="RV Media">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
 
-    <link rel="canonical" href="https://rvmedia360.pages.dev/">
-    <link rel="alternate" hreflang="en" href="https://rvmedia360.pages.dev/" />
-    <link rel="alternate" hreflang="vi" href="https://rvmedia360.pages.dev/vi.html" />
-    <link rel="alternate" hreflang="x-default" href="https://rvmedia360.pages.dev/" />
+    <meta name="geo.region" content="VN-SG">
+    <meta name="geo.placename" content="Ho Chi Minh City">
+    <meta name="geo.position" content="10.8231;106.6297">
+    <meta name="ICBM" content="10.8231, 106.6297">
 
-    <link rel="icon" href="images/Logo3.png" type="image/png">
+    <meta name="theme-color" content="#050505">
+
+    <link rel="canonical" href="https://rvmedia.vn/">
+    <link rel="alternate" hreflang="en" href="https://rvmedia.vn/" />
+    <link rel="alternate" hreflang="vi" href="https://rvmedia.vn/vi.html" />
+    <link rel="alternate" hreflang="x-default" href="https://rvmedia.vn/" />
+
+    <meta property="og:site_name" content="RV Media">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rvmedia.vn/">
+    <meta property="og:title" content="Premium 360° Virtual Tours in Vietnam | RV Media">
+    <meta property="og:description" content="Elevate your real estate or hotel with ultra-clear DSLR 360° virtual tours. Build buyer trust and increase bookings.">
+    <meta property="og:image" content="https://rvmedia.vn/images/header.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium 360° Virtual Tours in Vietnam | RV Media">
+    <meta name="twitter:description" content="Elevate your real estate or hotel with ultra-clear DSLR 360° virtual tours. Build buyer trust and increase bookings.">
+    <meta name="twitter:image" content="https://rvmedia.vn/images/header.jpg">
+
+    <link rel="icon" href="images/logofavicon.png" type="image/png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
-    
     <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "RV Media",
+      "url": "https://rvmedia.vn/",
+      "logo": "https://rvmedia.vn/images/logofavicon.png",
+      "image": "https://rvmedia.vn/images/header.jpg",
+      "description": "Expert 360° virtual tours and VR photography for real estate and hospitality clients in Vietnam.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ho Chi Minh City",
+        "addressCountry": "VN"
+      },
+      "areaServed": "Vietnam",
+      "priceRange": "$$",
+      "telephone": "+84966888782",
+      "sameAs": [
+        "https://zalo.me/0966888782",
+        "https://m.me/RealviewMediaVN"
+      ]
+    }
+    </script>
+
+    <style>
+        :root { --gold: #c5a059; --black: #000000; }
+        .font-serif { font-family: 'Merriweather', serif; }
+
+        /* Shutter & Scanner Animations */
+        .shutter-iris { position: absolute; inset: 0; background: black; z-index: 50; opacity: 0; pointer-events: none; }
+        .shutter-active { animation: irisFlash 0.25s ease-in-out; }
+        @keyframes irisFlash { 0% { opacity: 0; transform: scale(1.2); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.8); } }
+
+        .scanner-line { width: 2px; height: 100%; background: var(--gold); box-shadow: 0 0 20px var(--gold); position: absolute; left: 0; top: 0; z-index: 40; opacity: 0; }
+        .scanner-active { animation: scanHorizontal 1.2s cubic-bezier(0.45, 0, 0.55, 1); }
+        @keyframes scanHorizontal { 0% { left: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+        #hdr-display { clip-path: inset(0 100% 0 0); transition: clip-path 0.4s ease-out; }
+        .stat-big { font-family: 'Merriweather', serif; color: var(--gold); font-size: 3.5rem; line-height: 1; font-weight: 700; }
+
+        /* --- BULLETPROOF 4-COLUMN OVERRIDE --- */
+        #fnb-container, #hospitality-container {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 20px !important;
+            width: 100% !important;
+        }
+
+        #fnb-container .card, #hospitality-container .card {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: none !important;
+            margin: 0 !important;
+        }
+
+        /* --- FEATURED PROJECTS STATIC THUMBNAILS --- */
+        .featured-static-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+        .featured-card:hover .featured-static-bg {
+            opacity: 0;
+        }
+
+        /* --- PREMIUM LOGO MARQUEE CSS --- */
+        .logo-carousel-box {
+            display: flex;
+            align-items: center;
+            padding: 30px 0;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 20px;
+            background: linear-gradient(145deg, #0a0a0a, #050505);
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            overflow: hidden; 
+        }
+        
+        /* Smooth fade effect on the left and right edges */
+        .logo-carousel-box::before, .logo-carousel-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 120px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .logo-carousel-box::before { left: 0; background: linear-gradient(to right, #0a0a0a 0%, transparent 100%); border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+        .logo-carousel-box::after { right: 0; background: linear-gradient(to left, #050505 0%, transparent 100%); border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: scrollLogos 25s linear infinite;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-slide {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-slide img {
+            max-height: 60px;
+            max-width: 160px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 8px; 
+        }
+        
+        .logo-slide img:hover {
+            transform: scale(1.08);
+        }
+
+        @keyframes scrollLogos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 1024px) {
+            #fnb-container, #hospitality-container { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+
+        @media (max-width: 768px) {
+            .merged-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .stat-big { font-size: 2.5rem; }
+            #fnb-container, #hospitality-container { grid-template-columns: 1fr !important; }
+            
+            /* Mobile Carousel Adjustments */
+            .logo-carousel-box::before, .logo-carousel-box::after { width: 60px; }
+            .logo-slide { width: 180px; }
+            .logo-slide img { max-height: 45px; }
+
+            /* --- NEW MOBILE LAYOUT OPTIMIZATIONS --- */
+            /* Fix large paddings and margins on mobile frames */
+            .content-frame[style*="padding: 60px 40px"] { 
+                padding: 40px 20px !important; 
+                margin-bottom: 40px !important; 
+                border-radius: 25px !important; 
+            }
+            .merged-grid[style*="margin-bottom: 80px"] { margin-bottom: 40px !important; }
+            .merged-grid[style*="margin-top: 80px"] { margin-top: 40px !important; }
+            
+            /* Scale down large inline font sizes */
+            h2[style*="font-size: 3rem"] { 
+                font-size: 2.2rem !important; 
+                line-height: 1.3 !important; 
+            }
+            
+            /* Fix the about section flex row overflowing on mobile */
+            .grid-container[style*="flex-wrap: nowrap"] { 
+                flex-wrap: wrap !important; 
+                flex-direction: column !important; 
+                align-items: center !important; 
+                gap: 30px !important; 
+                text-align: center; 
+            }
+            
+            /* Adjust contact section gap for mobile */
+            div[style*="gap: 60px"] { 
+                gap: 30px !important; 
+                flex-direction: column !important; 
+            }
+        }
+    </style>
 </head>
 <body>
     <div onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="scroll-top" id="scrollTopBtn">↑</div>
+    
     <div class="floating-chat">
         <a href="#" id="zalo-link" target="_blank" class="chat-icon zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" style="width:100%; padding:8px;" alt="Zalo"></a>
         <a href="https://m.me/RealviewMediaVN" target="_blank" class="chat-icon messenger"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" style="width:100%;" alt="Messenger"></a>
     </div>
 
     <nav>
-        <a href="/" class="logo"><img src="images/Logo.png" alt="RV Media Logo"></a>
+        <a href="/" class="logo"><img src="images/rvmlogo1.webp" alt="RV Media Logo"></a>
         <div class="lang-switch">
             <a href="/" class="lang-option active"><span class="lang-text">EN</span><img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" style="width:22px;" alt="EN"></a>
             <div class="lang-divider">|</div>
@@ -41,8 +247,9 @@
         </div>
         <div class="nav-right">
             <div class="nav-links" id="navLinks">
-                <a href="#Our Work" onclick="toggleMenu()">Our Work</a>
-                <a href="about-us.html">About Us</a>
+                <a href="#tech-trigger" onclick="toggleMenu()">How It Works</a>
+                <a href="#featured-projects" onclick="toggleMenu()">Featured Projects</a>
+                <a href="#about" onclick="toggleMenu()">About Us</a>
                 <a href="#contact" onclick="toggleMenu()">Contact</a>
             </div>
             <div class="mobile-menu-btn" onclick="toggleMobileMenu()">MENU</div>
@@ -52,287 +259,398 @@
     <header class="hero">
         <div id="panorama"></div>
         <div class="hero-content">
-            <h1>Experience Spaces <br> Before You Arrive.</h1>
-            <p>Expert 360° Virtual Tours for Real Estate & Hospitality in Vietnam.</p>
-            <button onclick="openModal()" class="btn-survey-solid">Get Your 360° Tour</button>
+            <h1>Let Customers Experience Your Spaces <br> Before They Arrive.</h1>
+            <p>Step inside Vietnam's most exclusive properties with ultra-clear 360° tours.</p>
+            <a href="https://oakwood-richlane-residence.pages.dev/" target="_blank" class="btn-survey-solid" style="text-decoration: none; display: inline-block;">
+                Explore the 360° Tour
+            </a>
         </div>
     </header>
 
     <section class="section">
-        <div class="section-title reveal">
-            <h2>The Power of 360° Perspective</h2>
-            <p>More than just images. A high-conversion marketing engine for your business.</p>
+        <div class="reveal content-frame" style="max-width: 1400px; margin: 0 auto 80px auto; background: #050505; border: 1px solid rgba(255,255,255,0.05); padding: 60px 40px; border-radius: 40px;">
+            <div class="section-title">
+                <h2>The Power of 360° Perspective</h2>
+                <p>More than photos — a marketing tool designed to bring you more customers.</p>
+            </div>
+
+            <div class="grid-container" style="margin-bottom: 0;">
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 21c-4.5-5-7-8.5-7-12a7 7 0 1 1 14 0c0 3.5-2.5 7-7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+                        </div>
+                    </div>
+                    <h3>Boost Visibility</h3>
+                    <p>Appear more professional and attract more customers on Google Maps.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                        </div>
+                    </div>
+                    <h3>Increase Trust</h3>
+                    <p>Let customers explore your space before visiting.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"></path><path d="M10 21 V16 A1 1 0 0 1 11 15 H13 A1 1 0 0 1 14 16 V21"></path></svg>
+                        </div>
+                    </div>
+                    <h3>24/7 Open Business</h3>
+                    <p>Your location stays open online even when your doors are closed.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="grid-container reveal" style="margin-bottom: 80px;">
-            <div class="benefit-card">
-                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                            <style>
-                                @keyframes radar-pulse { 0% { transform: scale(0.5); opacity: 0.8; stroke-width: 2px; } 100% { transform: scale(2.2); opacity: 0; stroke-width: 0.5px; } }
-                                .pulse-ring { transform-origin: 12px 20.5px; animation: radar-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-                                .pulse-delayed { animation-delay: 1.25s; }
-                            </style>
-                            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring"></ellipse>
-                            <ellipse cx="12" cy="20.5" rx="8" ry="2.8" fill="none" stroke="var(--gold)" class="pulse-ring pulse-delayed"></ellipse>
-                            <ellipse cx="12" cy="20.5" rx="2.5" ry="0.8" fill="var(--gold)" stroke="none" opacity="0.7"></ellipse>
-                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));" transform="translate(0, -1.5)">
-                                <path d="M12 21c-4.5-5-7-8.5-7-12a7 7 0 1 1 14 0c0 3.5-2.5 7-7 12z"></path>
-                                <circle cx="12" cy="9" r="2.5"></circle>
-                            </g>
-                        </svg>
+        <div id="tech-trigger" class="reveal content-frame" style="max-width: 1400px; margin: 0 auto; background: #050505; border: 1px solid rgba(255,255,255,0.05); padding: 60px 40px; border-radius: 40px;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h3 style="color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px;">HOW IT WORKS: 8K VR PHOTOGRAPHY</h3>
+                <h2 class="font-serif" style="font-size: 3rem; color: white; line-height: 1.2;">"From your real location to <span style="color: var(--gold); font-style: italic;"><br>an online experience customers can explore."</span></h2>
+                <p style="color: #888; max-width: 650px; margin: 20px auto 0 auto; font-size: 0.95rem; line-height: 1.6;">Our state-of-the-art <strong>8K HDR capture technology</strong> is tailored specifically for real estate, hospitality, and commercial spaces in Vietnam, ensuring every detail of your property is captured with flawless clarity.</p>
+            </div>
+            <div class="merged-grid" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: center; margin-bottom: 80px;">
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div style="border-left: 2px solid var(--gold); padding-left: 25px;">
+                        <h4 class="font-serif italic" style="color: white; font-size: 1.3rem; margin-bottom: 6px;">01. Site Planning</h4>
+                        <p style="color: #666; font-size: 0.9rem;">Mapping optimal angles for a seamless walkthrough.</p>
+                    </div>
+                    <div style="border-left: 2px solid var(--gold); padding-left: 25px;">
+                        <h4 class="font-serif italic" style="color: white; font-size: 1.3rem; margin-bottom: 6px;">02. 8K HDR Capture</h4>
+                        <p style="color: #666; font-size: 0.9rem;">The shoot is quiet and non-disruptive, so your business can keep running.</p>
+                    </div>
+                    <div style="border-left: 2px solid var(--gold); padding-left: 25px;">
+                        <h4 class="font-serif italic" style="color: white; font-size: 1.3rem; margin-bottom: 6px;">03. Build the Virtual Tour</h4>
+                        <p style="color: #666; font-size: 0.9rem;">Embedding hotspots, floor plans, and navigation.</p>
+                    </div>
+                    <div style="border-left: 2px solid var(--gold); padding-left: 25px;">
+                        <h4 class="font-serif italic" style="color: white; font-size: 1.3rem; margin-bottom: 6px;">04. Publish to Google & Your Website</h4>
+                        <p style="color: #666; font-size: 0.9rem;">Your tour goes live on Google Maps and your website, so customers can explore your business anytime.</p>
                     </div>
                 </div>
-                <h3>Boost Visibility</h3>
-                <p>Appear more professional and attract more customers on Google Maps.</p>
-            </div>
-
-            <div class="benefit-card">
-                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                            <style>
-                                @keyframes forcefield-pulse { 0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; } 100% { transform: scale(1.6); opacity: 0; stroke-width: 0.5px; } }
-                                .shield-pulse { transform-origin: 12px 12px; animation: forcefield-pulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-                                .shield-pulse-delayed { animation-delay: 1.25s; }
-                            </style>
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse"></path>
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" class="shield-pulse shield-pulse-delayed"></path>
-                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                <path d="M9 12l2 2 4-4"></path>
-                            </g>
-                        </svg>
+                <div style="position: relative; aspect-ratio: 16/9; background:#000; border: 1px solid rgba(197,160,89,0.2); padding: 5px; border-radius: 15px; overflow: hidden;">
+                    <div style="position:relative; width:100%; height:100%; overflow:hidden; border-radius: 10px;">
+                        <div id="shutter-iris" class="shutter-iris"></div>
+                        <img id="hdr-display" src="images/proven.jpg" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                        <div id="hdr-scanner" class="scanner-line"></div>
+                        <div style="position:absolute; bottom:12px; left:12px; display:flex; align-items:center; gap:8px; z-index:30;">
+                            <div style="width:6px; height:6px; background:red; border-radius:50%; animation: pulse 1s infinite;"></div>
+                            <span style="font-size:8px; color:#fff; font-weight:bold; letter-spacing:2px;">8K_SCANNER_ACTIVE</span>
+                        </div>
                     </div>
                 </div>
-                <h3>Increase Trust</h3>
-                <p>Let customers explore your space before visiting.</p>
             </div>
 
-            <div class="benefit-card">
-                <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
-                    <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
-                    <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(255,255,255,0.08), 0 12px 25px rgba(0,0,0,0.7);">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible;">
-                            <style>
-                                @keyframes house-pulse-anim { 0% { transform: scale(1); opacity: 0.6; stroke-width: 2px; } 100% { transform: scale(1.7); opacity: 0; stroke-width: 0.5px; } }
-                                .house-pulse { transform-origin: 12px 12px; animation: house-pulse-anim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-                                .house-pulse-delayed { animation-delay: 1.25s; }
-                            </style>
-                            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse"></path>
-                            <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z" class="house-pulse house-pulse-delayed"></path>
-                            <g style="filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.5));">
-                                <path d="M4 11 L12 3 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"></path>
-                                <path d="M10 21 V16 A1 1 0 0 1 11 15 H13 A1 1 0 0 1 14 16 V21"></path>
-                                <circle cx="12" cy="9.5" r="3.2"></circle>
-                                <polyline points="12 7 12 9.5 13.5 11"></polyline>
-                            </g>
-                        </svg>
+            <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.05); margin-bottom: 80px;"></div>
+
+            <div class="merged-grid" style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 80px; align-items: center;">
+                <div style="aspect-ratio: 16/9; width: 100%; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; overflow: hidden; background: #0a0a0a;">
+                    <div id="interactive-viewer" style="width:100%; height:100%;"></div>
+                </div>
+                
+                <div>
+                    <h3 class="font-serif italic" style="color: white; font-size: 2rem; margin-bottom: 15px;">The Final Asset</h3>
+                    <p style="color: #888; font-size: 0.95rem; line-height: 1.6; margin-bottom: 35px;">A premium, interactive <strong>360 virtual tour</strong> ready to be deployed across all your digital channels, maximizing user dwell time and driving higher booking conversions.</p>
+                    <div style="display: flex; flex-direction: column; gap: 30px;">
+                        
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">•</span>
+                            <div>
+                                <strong style="color: white; display: block; font-size: 1.1rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Google Visibility</strong>
+                                <p style="color: #888; font-size: 0.95rem; line-height: 1.5;">Appear directly on Google Search and Maps.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">•</span>
+                            <div>
+                                <strong style="color: white; display: block; font-size: 1.1rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Website Experience</strong>
+                                <p style="color: #888; font-size: 0.95rem; line-height: 1.5;">Let visitors explore your space before they visit.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">•</span>
+                            <div>
+                                <strong style="color: white; display: block; font-size: 1.1rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Easy to Share</strong>
+                                <p style="color: #888; font-size: 0.95rem; line-height: 1.5;">Send the tour through links, messages, or social media.</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <h3>24/7 Open Business</h3>
-                <p>Your location stays open online even when your doors are closed.</p>
-            </div>
-        </div>
-
-        <div class="reveal" style="max-width: 1100px; margin: 0 auto; margin-top: 40px;">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h3 style="color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Proven Results</h3>
-            <h2 style="font-size: 2.2rem; font-family: 'Merriweather', serif; color: var(--text-white);">Real Business Impact from 360° Experiences</h2>
-        </div>
-        
-        <div class="grid-container stats-container" style="gap: 30px;">
-            <div class="stat-card">
-                <div style="color: var(--gold); margin-bottom: 20px;">
-                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                </div>
-                <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
-                    <span class="counter" data-target="94">0</span>%
-                </div>
-                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
-                    <strong style="color: var(--text-white);">Immediate Authority:</strong> 
-                    Listings with virtual tours are 94% more likely to gain customer trust and interest.
-                </p>
-                <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Source: Google Maps Study</p>
             </div>
 
-            <div class="stat-card">
-                <div style="color: var(--gold); margin-bottom: 20px;">
-                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <div class="merged-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 80px;">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/><path d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+                    </div>
+                    <h5 class="font-serif italic">Stand Out on Google</h5>
+                    <p>Show a 360° virtual tour directly on your Google Search and Maps listing.</p>
                 </div>
-                <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
-                    <span class="counter" data-target="5">0</span>x
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+                    </div>
+                    <h5 class="font-serif italic">5X Longer Engagement</h5>
+                    <p>Visitors spend much more time exploring virtual tours than looking at photos.</p>
                 </div>
-                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
-                    <strong style="color: var(--text-white);">Deep Engagement:</strong> 
-                    Interactive virtual tours keep customers on your listing 5× longer than standard photos.
-                </p>
-                <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Source: Digital Marketing Insights</p>
-            </div>
-
-            <div class="stat-card">
-                <div style="color: var(--gold); margin-bottom: 20px;">
-                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-    <polyline points="17 6 23 6 23 12"></polyline>
-</svg>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h5 class="font-serif italic">Build Customer Confidence</h5>
+                    <p>Customers can see your space before visiting, making them more likely to come in.</p>
                 </div>
-                <div style="font-family: 'Merriweather', serif; color: var(--gold); font-size: 4rem; font-weight: 700; margin-bottom: 15px; line-height: 1;">
-                    <span class="counter" data-target="29">0</span>%
-                </div>
-                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.6;">
-                    <strong style="color: var(--text-white);">Higher Conversions:</strong> 
-                    Businesses see up to 29% more calls and direction requests from Google Maps.
-                </p>
-                <p class="card-source" style="display: block; margin-top: 25px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); font-style: italic;">Source: Google Business Insights</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="section" id="featured-projects">
+        <div class="reveal content-frame" style="max-width: 1400px; margin: 0 auto; background: #050505; border: 1px solid rgba(255,255,255,0.05); padding: 60px 40px; border-radius: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 3rem; font-family: 'Merriweather', serif; color: white; text-transform: uppercase; letter-spacing: -0.05em; font-weight: bold;">Featured <span style="font-style: italic; color: var(--gold);">Projects</span></h2>
+            </div>
+            
+            <div class="featured-projects-grid">
+                <div class="featured-card" onmouseenter="initMiniPano('pano-cs-1', 'images/mai.jpg')" onclick="window.open('https://mai-house-website.pages.dev/', '_blank')">
+                    <div class="featured-thumb-container">
+                        <img src="images/mai.jpg" alt="Mai House" class="featured-static-bg" loading="lazy">
+                        <div id="pano-cs-1" class="featured-pano-layer" style="z-index: 2;"></div>
+                        <div class="featured-logo-layer" style="z-index: 3;">
+                            <img src="images/maihouselogo.jpg" alt="Mai House" loading="lazy">
+                        </div>
+                        <div class="featured-thumb-border" style="z-index: 4;"></div>
+                    </div>
+                    <div class="featured-divider"></div>
+                    <div class="featured-content">
+                        <p class="fp-tag">FLAGSHIP HOSPITALITY</p>
+                        <h4>MAI HOUSE SAIGON HOTEL</h4>
+                        <p>8K DSLR clarity solving dynamic light challenges for perfect international-standard walkthroughs.</p>
+                    </div>
+                </div>
+
+                <div class="featured-card" onmouseenter="initMiniPano('pano-cs-2', 'images/header3.jpg')" onclick="window.open('https://oakwood-richlane-residence.pages.dev/', '_blank')">
+                    <div class="featured-thumb-container">
+                        <img src="images/header3.jpg" alt="Oakwood" class="featured-static-bg" loading="lazy">
+                        <div id="pano-cs-2" class="featured-pano-layer" style="z-index: 2;"></div>
+                        <div class="featured-logo-layer" style="z-index: 3;">
+                            <img src="images/oakwoodlogo.jpg" alt="Oakwood" loading="lazy">
+                        </div>
+                        <div class="featured-thumb-border" style="z-index: 4;"></div>
+                    </div>
+                    <div class="featured-divider"></div>
+                    <div class="featured-content">
+                        <p class="fp-tag">PREMIUM RESIDENTIAL</p>
+                        <h4>OAKWOOD RESIDENCE</h4>
+                        <p>High-end residential mapping providing immersive leasing experiences for luxury tenants.</p>
+                    </div>
+                </div>
+
+                <div class="featured-card" onmouseenter="initMiniPano('pano-cs-3', 'images/rich.jpg')" onclick="window.open('https://richlane-web.pages.dev/', '_blank')">
+                    <div class="featured-thumb-container">
+                        <img src="images/rich.jpg" alt="Richlane" class="featured-static-bg" loading="lazy">
+                        <div id="pano-cs-3" class="featured-pano-layer" style="z-index: 2;"></div>
+                        <div class="featured-logo-layer" style="z-index: 3;">
+                            <img src="images/richlanelogo.jpg" alt="Richlane Residence" loading="lazy">
+                        </div>
+                        <div class="featured-thumb-border" style="z-index: 4;"></div>
+                    </div>
+                    <div class="featured-divider"></div>
+                    <div class="featured-content">
+                        <p class="fp-tag">LUXURY RESIDENCES</p>
+                        <h4>RICHLANE RESIDENCE</h4>
+                        <p>Interactive hotspots highlighting luxury amenities and interior finishes.</p>
+                    </div>
+                </div>
+
+                <div class="featured-card" onmouseenter="initMiniPano('pano-cs-4', 'images/hong.jpg')" onclick="window.open('https://honghome.pages.dev/', '_blank')">
+                    <div class="featured-thumb-container">
+                        <img src="images/hong.jpg" alt="Hong Home" class="featured-static-bg" loading="lazy">
+                        <div id="pano-cs-4" class="featured-pano-layer" style="z-index: 2;"></div>
+                        <div class="featured-logo-layer" style="z-index: 3;">
+                            <img src="images/honghomelogo.png" alt="Hong Home" style="background: rgba(255,255,255,0.05);" loading="lazy">
+                        </div>
+                        <div class="featured-thumb-border" style="z-index: 4;"></div>
+                    </div>
+                    <div class="featured-divider"></div>
+                    <div class="featured-content">
+                        <p class="fp-tag">DESIGN SHOWCASE</p>
+                        <h4>HONG HOME</h4>
+                        <p>A precise virtual tour capturing the home's architectural design with perfect visual alignment.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="reveal content-frame" style="margin-top: 80px; text-align: center; background: none; border-radius: 40px; padding: 40px 20px;">
+                <span style="color: var(--gold); font-weight: 600; letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 25px; display: block;">Trusted by Leading Hospitality & Commercial Brands</span>
+                <div class="logo-carousel-box">
+                    <div class="logo-track">
+                        <div class="logo-slide"><img src="images/maihouselogo.jpg" alt="Mai House" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/oakwoodlogo.jpg" alt="Oakwood" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/richlanelogo.jpg" alt="Richlane" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/honghomelogo.png" alt="Hong Home" loading="lazy"></div>
+                        
+                        <div class="logo-slide"><img src="images/maihouselogo.jpg" alt="Mai House" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/oakwoodlogo.jpg" alt="Oakwood" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/richlanelogo.jpg" alt="Richlane" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/honghomelogo.png" alt="Hong Home" loading="lazy"></div>
+
+                        <div class="logo-slide"><img src="images/maihouselogo.jpg" alt="Mai House" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/oakwoodlogo.jpg" alt="Oakwood" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/richlanelogo.jpg" alt="Richlane" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/honghomelogo.png" alt="Hong Home" loading="lazy"></div>
+
+                        <div class="logo-slide"><img src="images/maihouselogo.jpg" alt="Mai House" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/oakwoodlogo.jpg" alt="Oakwood" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/richlanelogo.jpg" alt="Richlane" loading="lazy"></div>
+                        <div class="logo-slide"><img src="images/honghomelogo.png" alt="Hong Home" loading="lazy"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </section>
 
     <section id="Our Work" class="section">
-        <div class="section-title reveal">
-            <h2>360° Virtual Tours Driving Real Business Results</h2>
-            <p>Premium 360° digital twins for Vietnam's leading commercial and hospitality brands.</p>
-        </div>
-        <div style="margin-bottom: 40px;">
-            <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">F&B & Commercial</h3>
-            <div class="grid-container reveal" id="fnb-container"></div>
-        </div>
-        <div style="width: 100px; height: 1px; background: var(--border-light); margin: 30px auto;"></div>
-        <div>
-            <h3 style="text-align: center; color: var(--gold); margin-bottom: 30px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">Hotels & Residences</h3>
-            <div class="grid-container reveal" id="hospitality-container"></div>
+        <div class="reveal content-frame" style="max-width: 1400px; margin: 0 auto; background: #050505; border: 1px solid rgba(255,255,255,0.05); padding: 60px 40px; border-radius: 40px;">
+            <div class="section-title" style="margin-bottom: 50px;">
+                <h2>Explore Our 360° Virtual Tours</h2>
+                <p>Real virtual tours created for restaurants, hotels, and businesses.</p>
+            </div>
+            
+            <div id="fnb-container"></div>
+            
+            <div id="expanded-portfolio" style="display: none; margin-top: 24px;">
+                <div id="hospitality-container"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <button id="portfolioBtn" onclick="togglePortfolio()" 
+                        onmouseover="this.style.backgroundColor='rgba(197,160,89,0.1)'" 
+                        onmouseout="this.style.backgroundColor='transparent'" 
+                        style="background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px 30px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+                    <span id="portfolioBtnText">View Full Portfolio</span>
+                    <svg id="portfolioBtnIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9"></polyline> </svg>
+                </button>
+            </div>
         </div>
     </section>
 
     <section id="about" class="section" style="padding-bottom: 40px;">
-    <div class="reveal content-frame">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;">Our Story</span>
-            <h2 style="margin: 15px 0;">Bridging Physical & Digital Worlds</h2>
-            <p style="font-size: 1rem; color: #ccc; max-width: 800px; margin: 0 auto; line-height: 1.8;">
-                We create premium 360° digital experiences that help businesses stand out on Google Maps, attract more visitors, and turn online discovery into real-world customers.
-            </p>
-        </div>
-        <div class="grid-container" style="display: flex; flex-wrap: nowrap; gap: 20px; align-items: flex-start;">
-            <div style="flex: 1; text-align: center;">
-                <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
-                    <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        <circle cx="12" cy="11" r="3"></circle>
-                    </svg>
-                </div>
-                <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Vision</h4>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">RealViewMedia was founded in Vietnam with a mission to make immersive digital experiences accessible to modern businesses.</p>
+        <div class="reveal content-frame" style="max-width: 1400px; margin: 0 auto; background: #050505; border: 1px solid rgba(255,255,255,0.05); padding: 60px 40px; border-radius: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;">About RealView Media</span>
+                <h2 style="margin: 15px 0;">Helping Businesses Stand Out on Google</h2>
+                <p style="font-size: 1rem; color: #ccc; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    We create professional 360° virtual tours that showcase real business spaces online.
+                    Our tours help restaurants, hotels, and businesses attract more visitors through Google Maps, websites, and social media.
+                </p>
             </div>
-            <div style="flex: 1; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); padding: 0 15px;">
-                <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
-                    <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
+            <div class="grid-container" style="display: flex; flex-wrap: nowrap; gap: 20px; align-items: flex-start;">
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 style="color: #fff; margin-bottom: 10px; font-family: 'Merriweather', serif;">Trusted by Real Businesses</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Restaurants, hotels, and commercial spaces across Saigon.</p>
                 </div>
-                <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Technology</h4>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Using advanced 360° capture and Google's Street View ecosystem, we bring physical spaces into the digital world.</p>
-            </div>
-            <div style="flex: 1; text-align: center;">
-                <div style="margin: 0 auto 20px auto; display: flex; justify-content: center;">
-                    <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 style="color: #fff; margin-bottom: 10px; font-family: 'Merriweather', serif;">Google Maps Specialists</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Virtual tours optimized for Google Search and Maps visibility.</p>
                 </div>
-                <h4 style="color: var(--text-white); margin-bottom: 10px; font-family: 'Merriweather', serif;">Impact</h4>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">Helping restaurants, hotels, and retail brands attract attention and drive engagement online.</p>
+                <div class="benefit-card">
+                    <div style="width: 76px; height: 76px; margin: 0 auto 25px auto; position: relative; display: flex; justify-content: center; align-items: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; background: var(--gold); filter: blur(20px); opacity: 0.3; border-radius: 50%;"></div>
+                        <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(145deg, rgba(35,35,35,0.9), rgba(10,10,10,0.9)); border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 18px; display: flex; justify-content: center; align-items: center;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 style="color: #fff; margin-bottom: 10px; font-family: 'Merriweather', serif;">Professional 360° Capture</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">High-quality photography designed for business spaces.</p>
+                </div>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="about-us.html" class="btn-survey-solid" style="text-decoration: none; padding: 12px 30px; font-size: 0.9rem; display: inline-block;">
-                DISCOVER REALVIEW MEDIA
-            </a>
-        </div>
-    </div>
     </section>
 
     <section id="contact" class="section" style="padding-top: 20px; border-bottom: none;">
-    <div class="reveal content-frame" style="text-align: center;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; margin-bottom: 40px; position: relative; z-index: 2;">
-            <a href="mailto:contact@rvmedia.vn" class="contact-item">
-                <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
-                    <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                </div>
-                <div style="text-align: left;">
-                    <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">EMAIL US</span>
-                    <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">contact@rvmedia.vn</span>
-                </div>
-            </a>
-            <a href="tel:0966888782" class="contact-item">
-                <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515; transition: var(--transition);">
-                    <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                    </svg>
-                </div>
-                <div style="text-align: left;">
-                    <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">CALL / ZALO</span>
-                    <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; transition: var(--transition);">0966 888 782</span>
-                </div>
-            </a>
+        <div class="reveal content-frame" style="text-align: center;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; margin-bottom: 40px; position: relative; z-index: 2;">
+                <a href="mailto:contact@rvmedia.vn" class="contact-item">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515;">
+                        <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div style="text-align: left;">
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">EMAIL US</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; font-family: 'Be Vietnam Pro', sans-serif;">contact@rvmedia.vn</span>
+                    </div>
+                </a>
+                <a href="tel:0966888782" class="contact-item">
+                    <div class="contact-icon-circle" style="width: 56px; height: 56px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #151515;">
+                        <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; fill: var(--gold);"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div style="text-align: left;">
+                        <span style="color: #888; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: block;">CALL / ZALO</span>
+                        <span class="contact-value" style="color: #fff; font-size: 1.1rem; font-weight: 700; font-family: 'Be Vietnam Pro', sans-serif;">0966 888 782</span>
+                    </div>
+                </a>
+            </div>
+            <button onclick="openModal()" class="btn-survey-solid" style="position: relative; z-index: 1;">Get Your 360° Tour</button>
+            <div style="margin-top: 40px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1;">&copy; 2024-2026 RV Media. All Rights Reserved.</div>
         </div>
-        <button onclick="openModal()" class="btn-survey-solid" style="position: relative; z-index: 1;">Get Your 360° Tour</button>
-        <div style="margin-top: 40px; color: #444; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1;">
-            &copy; 2024-2026 RV Media. All Rights Reserved.
-        </div>
-    </div>
     </section>
 
     <div id="quoteModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">×</span>
             <h2>Schedule a Site Visit</h2>
-            <p class="modal-description">
-                For an accurate price, we need to survey your space. <br>
-                Please leave your details below and we will contact you shortly.
-            </p>
             <form id="contact-form">
+                <div class="form-group"><label>YOUR NAME</label><input type="text" id="name" placeholder="Your Name" required></div>
+                <div class="form-group"><label>BUSINESS NAME</label><input type="text" id="business_name" placeholder="e.g. Mai House Hotel"></div>
+                <div class="form-group"><label>PHONE / ZALO</label><input type="tel" id="phone" placeholder="0909..." required></div>
                 <div class="form-group">
-                    <label>YOUR NAME</label>
-                    <input type="text" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label>BUSINESS / PROPERTY NAME</label>
-                    <input type="text" id="business_name" placeholder="e.g. Mai House Hotel">
-                </div>
-                <div class="form-group">
-                    <label>PHONE / ZALO NUMBER</label>
-                    <input type="tel" id="phone" placeholder="0909..." required>
-                </div>
-                <div class="form-group">
-                    <label>SERVICE INTERESTED IN</label>
+                    <label>SERVICE</label>
                     <select id="service_type" required>
                         <option value="" disabled selected>Select an option...</option>
-                        <option value="Apartment/Condo">Real Estate (Apartment / Condo)</option>
-                        <option value="Villa/Townhouse">Real Estate (Villa / Townhouse)</option>
                         <option value="Hotel/Resort">Hotel / Resort</option>
-                        <option value="F&B">Restaurant / Cafe / Bar (F&B)</option>
-                        <option value="Retail">Showroom / Retail Shop</option>
-                        <option value="Industrial">Factory / Industrial</option>
-                        <option value="Office">Office / Coworking Space</option>
-                        <option value="Education">School / Education</option>
-                        <option value="Medical">Medical / Clinic</option>
+                        <option value="F&B">F&B / Restaurant</option>
+                        <option value="Real Estate">Real Estate</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <button type="button" id="submitBtn" onclick="sendMail(event)" class="btn btn-filled" style="width: 100%; margin-top: 10px;">
-                    REQUEST CALLBACK
-                </button>
+                <button type="button" id="submitBtn" onclick="sendMail(event)" class="btn btn-filled" style="width: 100%; margin-top: 10px;">REQUEST CALLBACK</button>
             </form>
         </div>
     </div>
@@ -340,16 +658,12 @@
     <div id="successModal" class="modal-overlay">
         <div class="modal-content" style="border: 1px solid var(--gold); max-width: 450px;">
             <span class="close-btn" onclick="closeSuccessModal()">×</span>
-            <div style="background: #50c878; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto; box-shadow: 0 4px 15px rgba(80, 200, 120, 0.3);">
+            <div style="background: #50c878; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto;">
                 <svg style="width: 35px; height: 35px; fill: white;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
             </div>
             <h2 style="color: var(--gold); margin-bottom: 20px;">Request Received</h2>
-            <p style="color: #fff; font-size: 1rem; margin-bottom: 30px; line-height: 1.6;">
-                Thank you. We have received your details and will call you shortly to arrange the survey.
-            </p>
-            <button type="button" onclick="closeSuccessModal()" class="btn btn-filled" style="width: 100%;">
-                GREAT, THANKS!
-            </button>
+            <p style="color: #fff; font-size: 1rem; margin-bottom: 30px; line-height: 1.6;">Thank you. We have received your details and will call you shortly to arrange the survey.</p>
+            <button type="button" onclick="closeSuccessModal()" class="btn btn-filled" style="width: 100%;">GREAT, THANKS!</button>
         </div>
     </div>
 
@@ -359,98 +673,59 @@
     
     <script>
         (function(){ emailjs.init("6a4Zpqa8h2StG76ys"); })();
-        
-        function sendMail(e) {
-            if(e) e.preventDefault();
-            const submitBtn = document.getElementById("submitBtn");
-            const name = document.getElementById("name").value;
-            const phone = document.getElementById("phone").value;
-            const service = document.getElementById("service_type").value;
-
-            if (!name || !phone || !service) { 
-                alert("Please fill in your name, phone, and select a service."); 
-                return; 
-            }
-            
-            submitBtn.innerText = "SENDING...";
-            submitBtn.disabled = true;
-
-            emailjs.send("service_0pd1bdj", "template_934596a", {
-                name: name,
-                business_name: document.getElementById("business_name").value, 
-                phone: phone,
-                service_type: service
-            }).then(() => {
-                document.getElementById("contact-form").reset();
-                submitBtn.innerText = "REQUEST CALLBACK"; 
-                submitBtn.disabled = false; 
-                closeModal();
-                openSuccessModal();
-            }).catch(() => {
-                alert("Error sending request. Please contact us via Zalo.");
-                submitBtn.innerText = "REQUEST CALLBACK"; 
-                submitBtn.disabled = false;
-            });
-        }
 
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function loadWebsiteTours() {
-            let activeTable = 'tours';
-            let res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            if (res.error && res.error.message.includes('does not exist')) {
-                activeTable = 'Virtual Tours';
-                res = await supabaseClient.from(activeTable).select('*').order('Display_Order', { ascending: true, nullsFirst: false });
-            }
-            if (res.error) return console.error("Database Error:", res.error.message);
+            let res = await supabaseClient.from('tours').select('*').order('Display_Order', { ascending: true });
+            if (res.error) return;
 
             const data = res.data || [];
             const fnbContainer = document.getElementById('fnb-container');
             const hospitalityContainer = document.getElementById('hospitality-container');
-
-            fnbContainer.innerHTML = '';
-            hospitalityContainer.innerHTML = '';
+            fnbContainer.innerHTML = ''; hospitalityContainer.innerHTML = '';
             
-            let fnbCount = 0;
-            let hospitalityCount = 0;
+            let fnbCount = 0; let hospitalityCount = 0;
 
             data.forEach(tour => {
-                const tName = tour.Name || tour.name;
-                const tLink = tour.Link || tour.link;
-                const tCat = tour.Category || tour.category;
-                const tDesc = tour.Description || tour.description || "Virtual Tour"; 
-                const safeCategory = (tCat || "").toLowerCase().trim();
-
-                // Counters and specific UI logic
-                if (safeCategory === 'fnb') fnbCount++;
-                else if (safeCategory === 'hospitality') hospitalityCount++;
+                const tName = tour.Name;
+                const tLink = tour.Link;
+                const safeCategory = (tour.Category || "").toLowerCase().trim();
+                const tDesc = tour.Description || "Virtual Tour";
 
                 let titleHtml = `<h3>${tName}</h3>`;
-                if (safeCategory === 'fnb' && fnbCount <= 4) {
-                    let thumbSrc = `images/card${fnbCount}.png`;
-                    titleHtml = `
-                        <div class="card-title-wrapper">
-                            <h3>${tName}</h3>
-                            <div class="tour-thumb-wrapper">
-                                <img src="${thumbSrc}" alt="${tName}" class="tour-thumb-small">
-                                <img src="${thumbSrc}" alt="${tName} Expanded" class="tour-thumb-large">
+
+                if (safeCategory === 'fnb') {
+                    fnbCount++;
+                    if (fnbCount <= 4) {
+                        let thumbSrc = `images/card${fnbCount}.png`;
+                        titleHtml = `
+                            <div class="card-title-wrapper">
+                                <h3>${tName}</h3>
+                                <div class="tour-thumb-wrapper">
+                                    <img src="${thumbSrc}" alt="${tName}" class="tour-thumb-small" loading="lazy">
+                                    <img src="${thumbSrc}" alt="${tName} Expanded" class="tour-thumb-large" loading="lazy">
+                                </div>
                             </div>
-                        </div>`;
+                        `;
+                    }
+                } else if (safeCategory === 'hospitality') {
+                    hospitalityCount++;
+                    if (tour.Logo_URL) {
+                        titleHtml = `<div class=\"card-title-wrapper\"><img src=\"${tour.Logo_URL}\" alt=\"${tName} Logo\" class=\"tour-thumb-small\" loading=\"lazy\"><h3>${tName}</h3></div>`;
+                    }
                 }
-                
-                // --- IMAGE LOGIC FIX ---
-                let coverImg = tour.Image_URL || tour.image_url;
+
+                let coverImg = tour.Image_URL;
                 if (!coverImg) {
                     if (safeCategory === 'fnb') {
                         const fnbMap = { 1: 'lavilla.jpg', 2: 'aqua.jpg', 3: 'art.jpg', 4: 'lambo.jpg' };
                         coverImg = `images/${fnbMap[fnbCount] || 'lavilla.jpg'}`;
-                    } else if (safeCategory === 'hospitality') {
+                    } else {
                         const hospMap = { 1: 'oakwood.png', 2: 'Richlane.png', 3: 'maihouse.png', 4: 'honghome.png' };
                         coverImg = `images/${hospMap[hospitalityCount] || 'oakwood.png'}`;
-                    } else {
-                        coverImg = 'images/honghome.png'; 
                     }
                 }
 
@@ -461,10 +736,9 @@
                     buttonText = "Explore 360° Tour";
                 }
 
-                // Removed hardcoded 'onerror' that resets everything to lavilla
                 const cardHTML = `
                     <div class="card">
-                        <img src="${coverImg}" alt="${tName}" class="card-image">
+                        <img src="${coverImg}" alt="${tName}" class="card-image" loading="lazy">
                         <div class="card-body">
                             ${titleHtml}
                             <p style="color:var(--gold); font-size:0.8rem; margin-top:5px;">${tDesc}</p>
@@ -474,13 +748,107 @@
                         </div>
                     </div>`;
                 
-                if (safeCategory === 'fnb') fnbContainer.innerHTML += cardHTML;
-                else if (safeCategory === 'hospitality') hospitalityContainer.innerHTML += cardHTML;
+                if (safeCategory === 'fnb') {
+                    fnbContainer.innerHTML += cardHTML;
+                } else if (safeCategory === 'hospitality') {
+                    hospitalityContainer.innerHTML += cardHTML;
+                }
             });
         }
+
+        // --- Portfolio Expand / Collapse Toggle Logic ---
+        function togglePortfolio() {
+            const portfolioDiv = document.getElementById('expanded-portfolio');
+            const btnText = document.getElementById('portfolioBtnText');
+            const btnIcon = document.getElementById('portfolioBtnIcon');
+            
+            if (portfolioDiv.style.display === 'none' || portfolioDiv.style.display === '') {
+                // Expand
+                portfolioDiv.style.display = 'block';
+                btnText.innerText = 'Hide Portfolio';
+                // Up Arrow
+                btnIcon.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>'; 
+            } else {
+                // Collapse
+                portfolioDiv.style.display = 'none';
+                btnText.innerText = 'View Full Portfolio';
+                // Down Arrow
+                btnIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>'; 
+                // Scroll slightly back up to the portfolio section
+                document.getElementById('Our Work').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        const hdrDisplay = document.getElementById('hdr-display');
+        const hdrScanner = document.getElementById('hdr-scanner');
+        const shutter = document.getElementById('shutter-iris');
+
+        function triggerShutter() {
+            shutter.classList.add('shutter-active');
+            setTimeout(() => shutter.classList.remove('shutter-active'), 150);
+        }
+
+        async function scanStep(inset, delay) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    triggerShutter();
+                    setTimeout(() => {
+                        hdrScanner.classList.add('scanner-active');
+                        setTimeout(() => {
+                            hdrDisplay.style.clipPath = `inset(0 ${inset}% 0 0)`;
+                            hdrScanner.classList.remove('scanner-active');
+                            resolve();
+                        }, 1200);
+                    }, 150);
+                }, delay);
+            });
+        }
+
+        async function runScanLoop() {
+            while(true) {
+                hdrDisplay.style.clipPath = 'inset(0 100% 0 0)';
+                await scanStep(66, 1000); await scanStep(33, 800); await scanStep(0, 800);
+                await new Promise(r => setTimeout(r, 4000));
+            }
+        }
+
+        function initInteractivePano() {
+            if (!window.interactivePano) {
+                window.interactivePano = pannellum.viewer('interactive-viewer', {
+                    "type": "equirectangular", "panorama": "images/proven.jpg", "autoLoad": true, "showControls": false, "autoRotate": -2
+                });
+            }
+        }
+
+        // --- Mini Pano Viewer Logic for Featured Projects ---
+        const miniViewers = {};
+        function initMiniPano(id, imagePath) {
+            if (!miniViewers[id]) {
+                miniViewers[id] = pannellum.viewer(id, {
+                    "type": "equirectangular",
+                    "panorama": imagePath,
+                    "autoLoad": true,
+                    "showControls": false,
+                    "hfov": 100,
+                    "autoRotate": -3,
+                    "mouseZoom": false,
+                    "keyboardZoom": false,
+                    "compass": false
+                });
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.id === 'tech-trigger') {
+                    runScanLoop(); initInteractivePano(); observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(document.getElementById('tech-trigger'));
         window.addEventListener('DOMContentLoaded', loadWebsiteTours);
     </script>
-
     <script src="main.js"></script>
 </body>
 </html>

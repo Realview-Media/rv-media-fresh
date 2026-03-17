@@ -11,5 +11,11 @@
       "destination": "/vi/",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/richlane/:path*",
+      "destination": "https://richlane-web.pages.dev/:path*"
+    }
   ]
 }

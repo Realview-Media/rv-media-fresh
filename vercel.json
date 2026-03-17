@@ -14,7 +14,7 @@
   ],
   "rewrites": [
     {
-      "source": "/richlane/:path*",
+      "source": "/richlane-residence/:path*",
       "destination": "https://richlane-web.pages.dev/:path*"
     }
   ]

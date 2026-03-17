@@ -1,5 +1,15 @@
 {
   "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/richlane-residence/:path*",
+      "destination": "https://richlane-web.pages.dev/:path*"
+    },
+    {
+      "source": "/richlane-residence",
+      "destination": "https://richlane-web.pages.dev/"
+    }
+  ],
   "redirects": [
     {
       "source": "/en",
@@ -10,12 +20,6 @@
       "source": "/vi.html",
       "destination": "/vi/",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/richlane-residence/:path*",
-      "destination": "https://richlane-web.pages.dev/:path*"
     }
   ]
 }

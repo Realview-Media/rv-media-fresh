@@ -1,129 +1,347 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8" />
   <title>Richlane Residences</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
-  <style>@-ms-viewport { width: device-width; }</style>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <style>@-ms-viewport{width:device-width;}</style>
   <link rel="stylesheet" href="vendor/reset.min.css">
-  <link rel="stylesheet" href="style.css">
-</head>
+  
+  <style>
+    /* === GENERAL === */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #pano {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+    }
 
+    /* === TITLE BAR === */
+    #titleBar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40px;
+      background: rgba(58,68,84,0.85);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    #titleBar .sceneName {
+      flex: 1;
+      text-align: center;
+      pointer-events: auto;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 60px;
+    }
+
+    /* === BUTTONS (Floating Style) === */
+    .btn-control {
+      width: 30px;
+      height: 30px;
+      background: rgba(103, 115, 131, 0.85);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      border: none;
+      transition: background 0.2s ease;
+    }
+    .btn-control:hover { background: rgba(130,145,161,0.9); }
+
+    /* Positions */
+    #menuToggle { position: absolute; left: 10px; top: 5px; }
+    .titleControls { position: absolute; right: 10px; top: 5px; display: flex; gap: 8px; }
+
+    /* Icons (SVG) */
+    .icon { width: 18px; height: 18px; display: block; fill: white; }
+    .icon.on { display: none; }
+    .enabled .icon.on { display: block; }
+    .enabled .icon.off { display: none; }
+    
+    /* Icon Logic Toggles */
+    #autorotateToggle.enabled .icon.on { display: block; }
+    #autorotateToggle.enabled .icon.off { display: none; }
+    #fullscreenToggle.enabled .icon.on { display: block; }
+    #fullscreenToggle.enabled .icon.off { display: none; }
+
+    /* === SIDEBAR MENU === */
+    #sceneList {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 260px;
+      background: rgba(32,38,44,0.95);
+      z-index: 80;
+      padding-top: 12px;
+      border-top-right-radius: 6px;
+      transition: transform 0.3s ease;
+      max-height: calc(100% - 40px);
+      overflow-y: auto;
+      pointer-events: auto;
+      transform: translateX(-100%);
+    }
+    #sceneList.enabled { transform: translateX(0); }
+    
+    #sceneList ul.scenes { list-style: none; margin: 0; padding: 0; }
+    
+    #sceneList a.scene {
+      display: block;
+      text-decoration: none;
+      color: #e6eef6;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+    }
+    #sceneList a.scene .text { padding: 10px 16px; font-size: 14px; }
+    #sceneList a.scene:hover { background: rgba(255, 255, 255, 0.05); }
+    #sceneList a.scene.active { color: #00adee; background: rgba(255, 255, 255, 0.05); font-weight: bold; }
+
+    /* === HOTSPOTS === */
+    .link-hotspot { width: 60px; height: 60px; margin-left: -30px; margin-top: -30px; }
+    .link-hotspot-icon { width: 100%; height: 100%; cursor: pointer; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100%{ transform: scale(1); opacity: 1; } 50%{ transform: scale(1.15); opacity: 0.8; } }
+    
+    .link-hotspot-tooltip {
+      position: absolute; left: 100%; top: 14px; margin-left: 3px;
+      background: rgba(58,68,84,0.8); color: #fff; padding: 5px 8px;
+      border-radius: 4px; white-space: nowrap; pointer-events: none;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .link-hotspot:hover .link-hotspot-tooltip { opacity: 1; }
+
+    /* Hide Default Controls */
+    .viewControlButton { display: none !important; }
+  </style>
+</head>
 <body class="multiple-scenes">
+
   <div id="pano"></div>
 
-  <!-- Sidebar Menu -->
-  <div id="sceneList" class="enabled">
+  <div id="sceneList" class="hidden">
     <ul class="scenes">
-      <li><a href="#" class="scene-link" data-id="5-entrance">🏛️ Entrance</a></li>
-      <li><a href="#" class="scene-link" data-id="4-lobby">🏨 Lobby</a></li>
-      <li><a href="#" class="scene-link" data-id="1-pool">💦 Pool</a></li>
-      <li><a href="#" class="scene-link" data-id="10-studio">🏢 Studio</a></li>
-      <li><a href="#" class="scene-link" data-id="11-1-bedroom">🛏️ 1 Bedroom</a></li>
-      <li><a href="#" class="scene-link" data-id="7-2-bedroom">🏠 2 Bedroom</a></li>
+      <a href="javascript:void(0)" class="scene" data-id="5-entrance"><li class="text">🏛️ Entrance</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="4-lobby"><li class="text">🏨 Lobby</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="1-pool"><li class="text">💦 Pool</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="10-studio"><li class="text">🏢 Studio</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="11-1-bedroom"><li class="text">🛏️ 1 Bedroom</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="7-2-bedroom"><li class="text">🏠 2 Bedroom</li></a>
     </ul>
   </div>
 
-  <!-- Title Bar -->
-  <div id="titleBar"><h1 class="sceneName"></h1></div>
+  <div id="titleBar">
+    <button id="menuToggle" class="btn-control" aria-label="Toggle menu" title="Toggle menu" type="button">
+      <svg class="icon off" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      <svg class="icon on" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
 
-  <!-- Toolbar -->
-  <a href="javascript:void(0)" id="autorotateToggle">
-    <img class="icon off" src="img/play.png">
-    <img class="icon on" src="img/pause.png">
-  </a>
+    <div class="sceneName"></div>
 
-  <a href="javascript:void(0)" id="fullscreenToggle">
-    <img class="icon off" src="img/fullscreen.png">
-    <img class="icon on" src="img/windowed.png">
-  </a>
+    <div class="titleControls">
+      <div id="autorotateToggle" class="btn-control" title="Play/Pause">
+        <svg class="icon off" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon on" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </div>
+      <div id="fullscreenToggle" class="btn-control" title="Fullscreen">
+        <svg class="icon off" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        <svg class="icon on" viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+      </div>
+    </div>
+  </div>
 
-  <a href="javascript:void(0)" id="sceneListToggle">
-    <img class="icon off" src="img/expand.png">
-    <img class="icon on" src="img/collapse.png">
-  </a>
+  <a href="javascript:void(0)" id="viewUp" class="viewControlButton"></a>
+  <a href="javascript:void(0)" id="viewDown" class="viewControlButton"></a>
+  <a href="javascript:void(0)" id="viewLeft" class="viewControlButton"></a>
+  <a href="javascript:void(0)" id="viewRight" class="viewControlButton"></a>
+  <a href="javascript:void(0)" id="viewIn" class="viewControlButton"></a>
+  <a href="javascript:void(0)" id="viewOut" class="viewControlButton"></a>
 
-  <!-- Scripts -->
-  <script src="vendor/screenfull.min.js"></script>
   <script src="vendor/bowser.min.js"></script>
   <script src="vendor/marzipano.js"></script>
   <script src="data.js"></script>
-  <script src="index.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const sceneList = document.getElementById("sceneList");
-      const toggle = document.getElementById("sceneListToggle");
-      const iconOff = toggle.querySelector(".icon.off");
-      const iconOn = toggle.querySelector(".icon.on");
-      const titleBar = document.getElementById("titleBar");
-      const titleName = document.querySelector(".sceneName");
+  (function() {
+    'use strict';
 
-      // IDs that should show title bar
-      const menuSceneIds = [
-        "5-entrance",
-        "4-lobby",
-        "1-pool",
-        "10-studio",
-        "11-1-bedroom",
-        "7-2-bedroom"
-      ];
+    // --- Safety Check for Data Load ---
+    var checkInterval = setInterval(function() {
+      if (window.APP_DATA && window.Marzipano) {
+        clearInterval(checkInterval);
+        init();
+      }
+    }, 100);
 
-      // --- Sidebar toggle ---
-      toggle.addEventListener("click", () => {
-        const isVisible = sceneList.classList.toggle("enabled");
-        if (isVisible) {
-          iconOff.style.display = "none";
-          iconOn.style.display = "block";
-          sceneList.style.left = "0";
-        } else {
-          iconOff.style.display = "block";
-          iconOn.style.display = "none";
-          sceneList.style.left = "-260px";
-        }
+    setTimeout(function() {
+      if (!window.APP_DATA) {
+        clearInterval(checkInterval);
+        alert("Error: data.js not loaded.");
+      }
+    }, 5000);
+
+    function init() {
+      var Marzipano = window.Marzipano;
+      var data = window.APP_DATA;
+      var scenesById = {};
+
+      var panoElement = document.querySelector('#pano');
+      var sceneNameElement = document.querySelector('#titleBar .sceneName');
+      var autorotateToggleElement = document.querySelector('#autorotateToggle');
+      var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
+
+      var viewer = new Marzipano.Viewer(panoElement, {
+        controls: { mouseViewMode: (data.settings && data.settings.mouseViewMode) || 'drag' }
       });
 
-      // --- Scene link click ---
-      document.querySelectorAll(".scene-link").forEach(link => {
-        link.addEventListener("click", function(e) {
-          e.preventDefault();
-          const sceneId = this.getAttribute("data-id");
+      // Load Scenes
+      data.scenes.forEach(function(sdata) {
+        var source = Marzipano.ImageUrlSource.fromString(
+          "tiles/" + sdata.id + "/{z}/{f}/{y}/{x}.jpg",
+          { cubeMapPreviewUrl: "tiles/" + sdata.id + "/preview.jpg" }
+        );
+        var geometry = new Marzipano.CubeGeometry(sdata.levels);
+        
+        // --- ZOOM OUT FIX (FOV 120 DEGREES) ---
+        // 1. Limiter expanded to 140
+        var limiter = Marzipano.RectilinearView.limit.traditional(sdata.faceSize, 140 * Math.PI/180);
+        
+        // 2. Initial View zoomed out to 120
+        var viewParams = sdata.initialViewParameters;
+        viewParams.fov = 120 * Math.PI/180; 
 
-          if (window.findSceneById && window.switchScene) {
-            const scene = window.findSceneById(sceneId);
-            if (scene) window.switchScene(scene);
+        var view = new Marzipano.RectilinearView(viewParams, limiter);
+        var scene = viewer.createScene({ source: source, geometry: geometry, view: view, pinFirstLevel: true });
+
+        // Build Hotspots
+        (sdata.linkHotspots || []).forEach(function(hs) {
+          var el = document.createElement('div');
+          el.className = 'link-hotspot';
+          var icon = document.createElement('img');
+          icon.src = 'img/link.png';
+          icon.className = 'link-hotspot-icon';
+          el.appendChild(icon);
+          
+          var tooltip = document.createElement('div');
+          tooltip.className = 'link-hotspot-tooltip';
+          data.scenes.forEach(function(s){ if(s.id===hs.target) tooltip.innerHTML=s.name; });
+          el.appendChild(tooltip);
+
+          scene.hotspotContainer().createHotspot(el, { yaw: hs.yaw, pitch: hs.pitch });
+          el.addEventListener('click', function(){ 
+            if(scenesById[hs.target]) switchScene(scenesById[hs.target]); 
+          });
+        });
+
+        scenesById[sdata.id] = { data: sdata, scene: scene, view: view };
+      });
+
+      // --- FULLSCREEN WIDE ANGLE SNAP LOCK ---
+      function forceWideAngle() {
+        var scene = viewer.scene();
+        if (scene) {
+          var view = scene.view();
+          view.setParameters({ fov: 120 * Math.PI/180 });
+        }
+      }
+      document.addEventListener('fullscreenchange', function() { setTimeout(forceWideAngle, 100); });
+      document.addEventListener('webkitfullscreenchange', function() { setTimeout(forceWideAngle, 100); });
+      document.addEventListener('mozfullscreenchange', function() { setTimeout(forceWideAngle, 100); });
+      document.addEventListener('MSFullscreenChange', function() { setTimeout(forceWideAngle, 100); });
+      window.addEventListener('resize', forceWideAngle);
+
+      // --- SWITCH SCENE ---
+      function switchScene(sceneObj) {
+        sceneObj.view.setParameters(sceneObj.data.initialViewParameters);
+        sceneObj.scene.switchTo();
+        sceneNameElement.innerHTML = sceneObj.data.name;
+        
+        document.querySelectorAll('.scene').forEach(function(el) { el.classList.remove('active'); });
+        var link = document.querySelector('.scene[data-id="' + sceneObj.data.id + '"]');
+        if (link) link.classList.add('active');
+      }
+
+      // --- START SCENE: Pool ---
+      if (scenesById["1-pool"]) {
+        switchScene(scenesById["1-pool"]);
+      } else if (data.scenes.length > 0) {
+        switchScene(scenesById[data.scenes[0].id]);
+      }
+
+      // --- AUTOROTATE LOGIC ---
+      var autorotate = Marzipano.autorotate({ yawSpeed: 0.03, targetPitch: 0, targetFov: Math.PI/2 });
+      if (autorotateToggleElement) {
+        autorotateToggleElement.addEventListener('click', function(){
+          autorotateToggleElement.classList.toggle('enabled');
+          if(autorotateToggleElement.classList.contains('enabled')) {
+            viewer.startMovement(autorotate);
+            viewer.setIdleMovement(3000, autorotate);
+          } else {
+            viewer.stopMovement();
+            viewer.setIdleMovement(Infinity);
           }
+        });
+      }
 
-          document.querySelectorAll(".scene-link").forEach(l => l.classList.remove("active"));
-          this.classList.add("active");
+      // --- FULLSCREEN LOGIC ---
+      if (fullscreenToggleElement) {
+        fullscreenToggleElement.addEventListener('click', function(){
+          if(!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            fullscreenToggleElement.classList.add('enabled');
+          } else {
+            document.exitFullscreen();
+            fullscreenToggleElement.classList.remove('enabled');
+          }
+        });
+      }
+
+      // --- MENU UI ---
+      var menuToggle = document.getElementById('menuToggle');
+      var sceneList = document.getElementById('sceneList');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          sceneList.classList.toggle('enabled');
+          menuToggle.classList.toggle('enabled');
+        });
+      }
+
+      // Menu Clicks
+      document.querySelectorAll('#sceneList .scene').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault(); 
+          var id = this.getAttribute('data-id');
+          if (scenesById[id]) {
+            switchScene(scenesById[id]);
+            if (document.body.clientWidth < 600) {
+               sceneList.classList.remove('enabled');
+               menuToggle.classList.remove('enabled');
+            }
+          }
         });
       });
-
-      // --- Hook into switchScene ---
-      const originalSwitch = window.switchScene;
-      window.switchScene = function(scene) {
-        if (originalSwitch) originalSwitch(scene);
-
-        const data = APP_DATA.scenes.find(s => s.id === scene._data.id);
-        titleName.textContent = data ? data.name : "";
-
-        // ✅ Only show title bar for menu scenes
-        if (menuSceneIds.includes(scene._data.id)) {
-          titleBar.style.display = "block";
-        } else {
-          titleBar.style.display = "none";
-        }
-      };
-
-      // --- Initial setup ---
-      iconOff.style.display = "none";
-      iconOn.style.display = "block";
-      sceneList.style.left = "0";
-
-      // ✅ Start at Entrance
-      const firstScene = window.findSceneById("5-entrance");
-      if (firstScene) window.switchScene(firstScene);
-    });
+    }
+  })();
   </script>
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Richlane Residences</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+  <style>@-ms-viewport { width: device-width; }</style>
+  <link rel="stylesheet" href="vendor/reset.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="multiple-scenes">
+  <div id="pano"></div>
+
+  <!-- Sidebar Menu -->
+  <div id="sceneList" class="enabled">
+    <ul class="scenes">
+      <li><a href="#" class="scene-link" data-id="5-entrance">🏛️ Entrance</a></li>
+      <li><a href="#" class="scene-link" data-id="4-lobby">🏨 Lobby</a></li>
+      <li><a href="#" class="scene-link" data-id="1-pool">💦 Pool</a></li>
+      <li><a href="#" class="scene-link" data-id="10-studio">🏢 Studio</a></li>
+      <li><a href="#" class="scene-link" data-id="11-1-bedroom">🛏️ 1 Bedroom</a></li>
+      <li><a href="#" class="scene-link" data-id="7-2-bedroom">🏠 2 Bedroom</a></li>
+    </ul>
+  </div>
+
+  <!-- Title Bar -->
+  <div id="titleBar"><h1 class="sceneName"></h1></div>
+
+  <!-- Toolbar -->
+  <a href="javascript:void(0)" id="autorotateToggle">
+    <img class="icon off" src="img/play.png">
+    <img class="icon on" src="img/pause.png">
+  </a>
+
+  <a href="javascript:void(0)" id="fullscreenToggle">
+    <img class="icon off" src="img/fullscreen.png">
+    <img class="icon on" src="img/windowed.png">
+  </a>
+
+  <a href="javascript:void(0)" id="sceneListToggle">
+    <img class="icon off" src="img/expand.png">
+    <img class="icon on" src="img/collapse.png">
+  </a>
+
+  <!-- Scripts -->
+  <script src="vendor/screenfull.min.js"></script>
+  <script src="vendor/bowser.min.js"></script>
+  <script src="vendor/marzipano.js"></script>
+  <script src="data.js"></script>
+  <script src="index.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const sceneList = document.getElementById("sceneList");
+      const toggle = document.getElementById("sceneListToggle");
+      const iconOff = toggle.querySelector(".icon.off");
+      const iconOn = toggle.querySelector(".icon.on");
+      const titleBar = document.getElementById("titleBar");
+      const titleName = document.querySelector(".sceneName");
+
+      // IDs that should show title bar
+      const menuSceneIds = [
+        "5-entrance",
+        "4-lobby",
+        "1-pool",
+        "10-studio",
+        "11-1-bedroom",
+        "7-2-bedroom"
+      ];
+
+      // --- Sidebar toggle ---
+      toggle.addEventListener("click", () => {
+        const isVisible = sceneList.classList.toggle("enabled");
+        if (isVisible) {
+          iconOff.style.display = "none";
+          iconOn.style.display = "block";
+          sceneList.style.left = "0";
+        } else {
+          iconOff.style.display = "block";
+          iconOn.style.display = "none";
+          sceneList.style.left = "-260px";
+        }
+      });
+
+      // --- Scene link click ---
+      document.querySelectorAll(".scene-link").forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          const sceneId = this.getAttribute("data-id");
+
+          if (window.findSceneById && window.switchScene) {
+            const scene = window.findSceneById(sceneId);
+            if (scene) window.switchScene(scene);
+          }
+
+          document.querySelectorAll(".scene-link").forEach(l => l.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+
+      // --- Hook into switchScene ---
+      const originalSwitch = window.switchScene;
+      window.switchScene = function(scene) {
+        if (originalSwitch) originalSwitch(scene);
+
+        const data = APP_DATA.scenes.find(s => s.id === scene._data.id);
+        titleName.textContent = data ? data.name : "";
+
+        // ✅ Only show title bar for menu scenes
+        if (menuSceneIds.includes(scene._data.id)) {
+          titleBar.style.display = "block";
+        } else {
+          titleBar.style.display = "none";
+        }
+      };
+
+      // --- Initial setup ---
+      iconOff.style.display = "none";
+      iconOn.style.display = "block";
+      sceneList.style.left = "0";
+
+      // ✅ Start at Entrance
+      const firstScene = window.findSceneById("5-entrance");
+      if (firstScene) window.switchScene(firstScene);
+    });
+  </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 {
+  "trailingSlash": true,
   "redirects": [
     {
       "source": "/en",
@@ -6,8 +7,8 @@
       "permanent": true
     },
     {
-      "source": "/en/",
-      "destination": "/",
+      "source": "/vi.html",
+      "destination": "/vi/",
       "permanent": true
     }
   ]

@@ -2,7 +2,7 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/en",
+      "source": "/en/:path*",
       "destination": "/",
       "permanent": true
     },

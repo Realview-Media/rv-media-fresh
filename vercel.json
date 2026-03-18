@@ -7,6 +7,11 @@
       "permanent": true
     },
     {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/vi.html",
       "destination": "/vi/",
       "permanent": true

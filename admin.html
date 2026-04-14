@@ -108,6 +108,9 @@
                 <option value="hospitality">Hotels & Residences</option>
             </select>
             <input type="text" id="addLink" placeholder="Iframe / 360 URL">
+            
+            <input type="text" id="addImage" placeholder="Cover Image URL (e.g. https://...)">
+            
             <button class="btn-add" onclick="saveNewTour()" style="width:100%;">Upload to Database</button>
             <button onclick="closeAddModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer; font-size: 12px;">Cancel</button>
         </div>
@@ -126,6 +129,9 @@
                 <option value="hospitality">Hotels & Residences</option>
             </select>
             <input type="text" id="editLink" placeholder="Iframe / 360 URL">
+            
+            <input type="text" id="editImage" placeholder="Cover Image URL">
+            
             <button class="btn-add" onclick="updateTour()" style="width:100%;">Save Changes</button>
             <button onclick="closeEditModal()" style="background:transparent; color:#555; border:none; margin-top:20px; cursor:pointer; font-size: 12px;">Cancel</button>
         </div>
@@ -142,7 +148,6 @@
 
         // --- AUTHENTICATION LOGIC ---
         
-        // Check if user is already logged in on page load
         async function checkSession() {
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
@@ -158,7 +163,7 @@
             const password = document.getElementById('authPassword').value;
             const errorDiv = document.getElementById('authError');
             
-            errorDiv.style.display = 'none'; // hide previous errors
+            errorDiv.style.display = 'none'; 
 
             const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: email,
@@ -181,7 +186,7 @@
         function showDashboard() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('app-content').style.display = 'flex';
-            fetchTours(); // Only fetch data once we are sure we are logged in
+            fetchTours(); 
         }
 
         // --- DATABASE LOGIC ---
@@ -254,10 +259,13 @@
             const Description_VI = document.getElementById('addDescVI').value;
             const Category = document.getElementById('addCat').value;
             const Link = document.getElementById('addLink').value;
+            const Image_URL = document.getElementById('addImage').value; // Fetching Image URL
 
             if (!Name || !Category || !Link) { alert("Please fill Name, Category, and Link."); return; }
 
-            const { error } = await supabaseClient.from(activeTable).insert([{ Display_Order, Name, Description, Description_VI, Category, Link }]);
+            const { error } = await supabaseClient.from(activeTable).insert([{ 
+                Display_Order, Name, Description, Description_VI, Category, Link, Image_URL 
+            }]);
             
             if (error) alert("Upload failed: " + error.message);
             else {
@@ -266,6 +274,7 @@
                 document.getElementById('addDesc').value = '';
                 document.getElementById('addDescVI').value = '';
                 document.getElementById('addLink').value = '';
+                document.getElementById('addImage').value = '';
                 closeAddModal();
                 fetchTours();
             }
@@ -285,6 +294,8 @@
             document.getElementById('editCat').value = (safeCat === 'fnb' || safeCat === 'hospitality') ? safeCat : 'fnb';
             
             document.getElementById('editLink').value = tourToEdit.Link || tourToEdit.link;
+            document.getElementById('editImage').value = tourToEdit.Image_URL || tourToEdit.image_url || ''; // Populating Image URL
+
             document.getElementById('editModal').style.display = 'flex';
         }
 
@@ -296,13 +307,14 @@
             const Description_VI = document.getElementById('editDescVI').value;
             const Category = document.getElementById('editCat').value;
             const Link = document.getElementById('editLink').value;
+            const Image_URL = document.getElementById('editImage').value; // Fetching Image URL
 
-            const { error } = await supabaseClient.from(activeTable)
-                .update({ Display_Order, Name, Description, Description_VI, Category, Link })
-                .eq('ID', id);
+            const payload = { Display_Order, Name, Description, Description_VI, Category, Link, Image_URL };
+
+            const { error } = await supabaseClient.from(activeTable).update(payload).eq('ID', id);
 
             if (error) {
-                const retry = await supabaseClient.from(activeTable).update({ Display_Order, Name, Description, Description_VI, Category, Link }).eq('id', id);
+                const retry = await supabaseClient.from(activeTable).update(payload).eq('id', id);
                 if (retry.error) alert("Update failed: " + retry.error.message);
                 else { closeEditModal(); fetchTours(); }
             } else { closeEditModal(); fetchTours(); }
@@ -323,7 +335,6 @@
         function closeAddModal() { document.getElementById('addModal').style.display = 'none'; }
         function closeEditModal() { document.getElementById('editModal').style.display = 'none'; }
 
-        // Start by checking if the user is logged in
         window.onload = checkSession;
     </script>
 </body>

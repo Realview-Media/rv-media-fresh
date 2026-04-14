@@ -8,6 +8,18 @@
     <style>
         :root { --bg: #050505; --card: #0a0a0a; --gold: #c5a059; --text: #b0b3b8; --border: rgba(255, 255, 255, 0.08); }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; min-height: 100vh; }
+        
+        /* Auth Screen Styles */
+        #auth-screen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .auth-box { background: var(--card); border: 1px solid var(--border); padding: 40px; border-radius: 8px; width: 320px; text-align: center; }
+        .auth-box h2 { color: white; font-family: 'Merriweather', serif; margin-bottom: 25px; }
+        .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: #0f0f0f; border: 1px solid #222; color: white; border-radius: 4px; box-sizing: border-box; }
+        .auth-box button { background: var(--gold); color: black; width: 100%; padding: 12px; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .auth-box button:hover { background: #e0b462; }
+        .auth-error { color: #ff5f5f; font-size: 12px; margin-top: 15px; display: none; }
+
+        /* Dashboard Styles */
+        #app-content { display: none; width: 100%; display: flex; } /* Hidden until logged in */
         .sidebar { width: 260px; background: var(--card); border-right: 1px solid var(--border); padding: 50px 25px; position: fixed; height: 100vh; }
         .sidebar h1 { font-family: 'Merriweather', serif; color: white; margin: 0; font-size: 1.6rem; }
         .main { margin-left: 260px; padding: 60px; width: calc(100% - 260px); }
@@ -30,45 +42,58 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h1>RV MEDIA</h1>
-        <p style="font-size:10px; opacity:0.5; text-transform:uppercase; margin-top:10px; letter-spacing: 1px;">Admin Mission Control</p>
-        <button onclick="logout()" style="background:transparent; color:#ff5f5f; border:none; padding:0; margin-top:30px; cursor:pointer; font-size:12px; text-transform:uppercase;">Logout</button>
+
+    <div id="auth-screen">
+        <div class="auth-box">
+            <h2>RV MEDIA</h2>
+            <input type="email" id="authEmail" placeholder="Admin Email">
+            <input type="password" id="authPassword" placeholder="Password">
+            <button onclick="handleLogin()">Sign In</button>
+            <div id="authError" class="auth-error">Invalid login credentials.</div>
+        </div>
     </div>
 
-    <main class="main">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color:white; font-family:Merriweather; font-size:2rem; margin:0;">Active Portfolio</h2>
-            <button class="btn-add" onclick="openAddModal()">+ Add New Tour</button>
+    <div id="app-content" style="display: none;">
+        <div class="sidebar">
+            <h1>RV MEDIA</h1>
+            <p style="font-size:10px; opacity:0.5; text-transform:uppercase; margin-top:10px; letter-spacing: 1px;">Admin Mission Control</p>
+            <button onclick="handleLogout()" style="background:transparent; color:#ff5f5f; border:none; padding:0; margin-top:30px; cursor:pointer; font-size:12px; text-transform:uppercase;">Logout</button>
         </div>
 
-        <div class="data-card">
-            <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">F&B & Commercial Spaces</h3>
-            <table>
-                <thead>
-                    <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
-                </thead>
-                <tbody id="fnb-list"></tbody>
-            </table>
-        </div>
+        <main class="main">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="color:white; font-family:Merriweather; font-size:2rem; margin:0;">Active Portfolio</h2>
+                <button class="btn-add" onclick="openAddModal()">+ Add New Tour</button>
+            </div>
 
-        <div class="data-card">
-            <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">Hotels & Residences</h3>
-            <table>
-                <thead>
-                    <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
-                </thead>
-                <tbody id="hospitality-list"></tbody>
-            </table>
-        </div>
-        
-        <div class="data-card" id="uncategorized-card" style="display:none; border-color:#ff5f5f;">
-            <h3 style="color:#ff5f5f; margin-top:0; font-family:Merriweather;">Uncategorized (Please Edit)</h3>
-            <table>
-                <tbody id="uncategorized-list"></tbody>
-            </table>
-        </div>
-    </main>
+            <div class="data-card">
+                <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">F&B & Commercial Spaces</h3>
+                <table>
+                    <thead>
+                        <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
+                    </thead>
+                    <tbody id="fnb-list"></tbody>
+                </table>
+            </div>
+
+            <div class="data-card">
+                <h3 style="color:var(--gold); margin-top:0; font-family:Merriweather;">Hotels & Residences</h3>
+                <table>
+                    <thead>
+                        <tr><th style="width:5%">#</th><th style="width:25%">Project Name</th><th style="width:25%">Description (EN)</th><th style="width:20%">Description (VI)</th><th style="width:10%">Category</th><th style="text-align:right;">Management</th></tr>
+                    </thead>
+                    <tbody id="hospitality-list"></tbody>
+                </table>
+            </div>
+            
+            <div class="data-card" id="uncategorized-card" style="display:none; border-color:#ff5f5f;">
+                <h3 style="color:#ff5f5f; margin-top:0; font-family:Merriweather;">Uncategorized (Please Edit)</h3>
+                <table>
+                    <tbody id="uncategorized-list"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
 
     <div id="addModal" class="modal">
         <div class="modal-content">
@@ -108,18 +133,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        if (sessionStorage.getItem('rv_logged_in') !== 'true') {
-            const access = prompt("Admin Password Required:");
-            if (access === "RV2026") {
-                sessionStorage.setItem('rv_logged_in', 'true');
-            } else {
-                alert("Access Denied.");
-                window.location.href = "index.html";
-            }
-        }
-
-        function logout() { sessionStorage.removeItem('rv_logged_in'); window.location.reload(); }
-
         const SUPABASE_URL = 'https://tpogoopemznyjrgsixgc.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_AMxCk6JgosFA08otpKPypg_nU36V_6h';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -127,8 +140,53 @@
         let currentTours = [];
         let activeTable = 'tours'; 
 
+        // --- AUTHENTICATION LOGIC ---
+        
+        // Check if user is already logged in on page load
+        async function checkSession() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                showDashboard();
+            } else {
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('app-content').style.display = 'none';
+            }
+        }
+
+        async function handleLogin() {
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            const errorDiv = document.getElementById('authError');
+            
+            errorDiv.style.display = 'none'; // hide previous errors
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                errorDiv.innerText = error.message;
+                errorDiv.style.display = 'block';
+            } else {
+                showDashboard();
+            }
+        }
+
+        async function handleLogout() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+
+        function showDashboard() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('app-content').style.display = 'flex';
+            fetchTours(); // Only fetch data once we are sure we are logged in
+        }
+
+        // --- DATABASE LOGIC ---
+
         async function fetchTours() {
-            // Sort by Display_Order ascending (1, 2, 3...)
             let res = await supabaseClient.from('tours').select('*').order('Display_Order', { ascending: true, nullsFirst: false });
             
             if (res.error && res.error.message.includes('does not exist')) {
@@ -265,7 +323,8 @@
         function closeAddModal() { document.getElementById('addModal').style.display = 'none'; }
         function closeEditModal() { document.getElementById('editModal').style.display = 'none'; }
 
-        window.onload = fetchTours;
+        // Start by checking if the user is logged in
+        window.onload = checkSession;
     </script>
 </body>
 </html>
